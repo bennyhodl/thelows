@@ -1,4 +1,5 @@
 import { Draggable } from "@hello-pangea/dnd";
+import { Menu } from "lucide-react"
 
 export type LowsSong = {
   name: string,
@@ -10,13 +11,16 @@ export const Song = ({ song, index }: { song: LowsSong, index: number }) => {
     <Draggable draggableId={song.id} index={index}>
       {provided => (
         <div
-          className="flex flex-row bg-gray-500 w-3/4 py-3 my-1 rounded-xl px-2 text-white"
+          className="flex flex-row justify-between items-center bg-gray-500 my-2 pl-2 py-3 pr-3 text-xl w-3/4 rounded-xl text-white"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
-          <p className="w-6 text-center">{index + 1}.</p>
-          <p className="pl-2">{song.name}</p>
+          <div className="flex flex-row">
+            <p className="w-6 text-center">{index + 1}.</p>
+            <p className="pl-2">{song.name}</p>
+          </div>
+          <Menu />
         </div>
       )}
     </Draggable>
