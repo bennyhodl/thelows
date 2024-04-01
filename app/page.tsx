@@ -5,7 +5,7 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <div className="flex flex-col justify-between items-center h-screen bg-gray-800">
+    <div className="flex flex-col justify-between items-center h-screen bg-gray-800 md:max-w-lg m-auto">
       <div className="relative w-full h-96 overflow-hidden">
         {/* <Image src="/path/to/your/image.jpg" alt="Descriptive Alt Text" layout="fill" objectFit="cover" /> */}
         <Image src={TheLows} alt="The Lows Album Cover" />

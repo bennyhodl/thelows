@@ -26,7 +26,7 @@ export const Header = () => {
     console.log(songsToSubmit)
   }
   return (
-    <div className="h-12 bg-gray-800 fixed z-50 flex flex-row justify-between items-center w-full px-2">
+    <div className="h-12 bg-gray-800 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2">
       <Image src={TheLows} alt="The Lows Cover Art" width={35} height={35} />
       <a className="btn bg-orange-500 text-white py-1 px-3 rounded-xl" onClick={() => submitList()}>Submit</a>
     </div>
