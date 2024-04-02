@@ -12,33 +12,27 @@ async function connectToDatabase() {
     return client;
 }
 
-type DbList = {
-  name: string,
-  points: number
-}
-
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
     try {
-      const json: DbList[] = await req.json()
-      const document = json
-      let doc: any = {}
-
-      json.forEach(song => {
-        const whitespace = song.name.replaceAll(" ", "-")
-        return doc[whitespace] = song.points
-      })
-      
-      console.log("the documet", doc)
       const client = await connectToDatabase();
       const db = client.db(DATABASE_NAME);
 
       const collection = db.collection(COLLECTION_NAME);
-      const result = await collection.insertOne(doc);
-
+      const result = await collection.aggregate([{
+        $group: {
+          _id: null,
+          "blue-water": { $sum: "$blue-water"},
+          "what-i-know": { $sum: "$don't-think"},
+          "like-blood": { $sum: "$like-blood"},
+          "upside-down": { $sum: "$upside-down"}
+        }
+      }]).toArray()
       client.close();
 
-      // res.status(201).json({ message: "Document created", result });
-      return NextResponse.json({success: true}, { status: 202})
+      const total: number = Object.values(result[0]).reduce((acc, curr) => acc+curr, 0)
+      const songs = result[0]
+
+      return NextResponse.json({success: true, total, songs}, { status: 200})
     } catch (error) {
       console.log(error)
       return NextResponse.json({success: false}, {status: 500})
