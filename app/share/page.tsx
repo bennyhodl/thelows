@@ -1,16 +1,16 @@
 "use client"
 import Image from "next/image"
-import TheLows from "@/public/images/the-lows.jpeg"
+import TheLowsImg from "@/public/images/the-lows.jpeg"
 import Link from "next/link"
 import { Footer } from "@/components/Footer"
 import { Header } from "@/components/Header"
 import { useEffect, useState } from "react"
-import { LowsSong } from "@/lib/types"
+import { TheLows } from "@/lib/types"
 import { getSongList } from "@/lib/localStorage"
 import { toJpeg } from "html-to-image"
 
 export default function Share() {
-  const [songs, setSongs] = useState<LowsSong[]>([])
+  const [songs, setSongs] = useState<TheLows[]>([])
   const [imageUrl, setImageUrl] = useState<string | null>(null)
   useEffect(() => {
     const list = getSongList([]).slice(0, 5)
@@ -38,9 +38,9 @@ export default function Share() {
             {songs && songs.map((s, i) => {
               console.log(s, i)
               if (i === 0) {
-                return <div className="flex flex-row items-start pb-4 z-10"><p className="text-4xl">{s.name}</p></div>
+                return <div className="flex flex-row items-start pb-4 z-10"><p className="text-4xl">{s}</p></div>
               } else {
-                return <div className="flex flex-row items-start z-10"><p className="text-xl">{s.name}</p></div>
+                return <div className="flex flex-row items-start z-10"><p className="text-xl">{s}</p></div>
               }
             })}
           </div>

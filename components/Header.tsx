@@ -22,7 +22,7 @@ export const Header = () => {
     let availablePoints = songs.length;
     const songsToSubmit = songs.map((song) => {
       const ranking: SongScore = {
-        name: song.name,
+        name: song,
         points: availablePoints,
       };
 

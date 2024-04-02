@@ -1,6 +1,6 @@
-import { LowsSong } from "@/components/Song"
+import { TheLows } from "./types";
 
-export const getSongList = (songs: LowsSong[]): LowsSong[] => {
+export const getSongList = (songs: TheLows[]): TheLows[] => {
   const list = window.localStorage.getItem("songs");
   if (!list) {
     return songs
@@ -8,7 +8,7 @@ export const getSongList = (songs: LowsSong[]): LowsSong[] => {
   return JSON.parse(list)
 }
 
-export const saveList = (songs: LowsSong[]) => {
+export const saveList = (songs: TheLows[]) => {
   return window.localStorage.setItem("songs", JSON.stringify(songs))
 }
 

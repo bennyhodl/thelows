@@ -6,35 +6,9 @@ import { SongList } from "@/components/Song";
 import { Header } from "@/components/Header";
 import { getSongList, saveList } from "@/lib/localStorage";
 import { Footer } from "@/components/Footer";
-import { LowsSong } from "@/lib/types";
+import { TheLows, theLows } from "@/lib/types";
 
-let songs: LowsSong[] = [
-  { name: "what i know", id: "1" },
-  { name: "upside down", id: "2" },
-  { name: "life got crazy", id: "3" },
-  { name: "like blood", id: "4" },
-  { name: "2 birds", id: "5" },
-  { name: "real things", id: "6" },
-  { name: "g.o.d", id: "7" },
-  { name: "still works", id: "8" },
-  { name: "gang", id: "9" },
-  { name: "keep being you", id: "10" },
-  { name: "blue water", id: "11" },
-  { name: "bar hoppin'", id: "12" },
-  { name: "don't think", id: "13" },
-  { name: "mountains", id: "14" },
-  { name: "rodman", id: "15" },
-  { name: "right now", id: "16" },
-  { name: "ballgame", id: "17" },
-  { name: "on 10", id: "18" },
-  { name: "deja u", id: "19" },
-  { name: "you can tell", id: "20" },
-  { name: "say something", id: "21" },
-  { name: "boyfriend jeans", id: "22" },
-  { name: "days go bye", id: "23" }
-]
-
-const reorder = (list: LowsSong[], startIndex: number, endIndex: number) => {
+const reorder = (list: TheLows[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -43,10 +17,10 @@ const reorder = (list: LowsSong[], startIndex: number, endIndex: number) => {
 };
 
 export default function Album() {
-  const [songList, setSongs] = useState<LowsSong[]>([]);
+  const [songList, setSongs] = useState<TheLows[]>([]);
 
   useEffect(() => {
-    const list = getSongList(songs)
+    const list = getSongList(theLows)
     setSongs(list)
   }, [])
 
