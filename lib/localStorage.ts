@@ -11,3 +11,15 @@ export const getSongList = (songs: LowsSong[]): LowsSong[] => {
 export const saveList = (songs: LowsSong[]) => {
   return window.localStorage.setItem("songs", JSON.stringify(songs))
 }
+
+export const getId = () => {
+  const stored = window.localStorage.getItem("id")
+  if (!stored) {
+    console.log("No id for visitor")
+    const uuid = crypto.randomUUID()
+    window.localStorage.setItem("id", uuid)
+    return uuid
+  } else {
+    return stored
+  }
+}

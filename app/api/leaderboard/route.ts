@@ -1,16 +1,7 @@
 // pages/api/create.js
-import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
-
-// Replace the following with your MongoDB connection string
-const MONGO_URI = "mongodb://blockspaces:blockspaces@localhost:27017/connect?replicaSet=rs0&readPreference=primary&tls=false";
-const DATABASE_NAME = "thelows";
-const COLLECTION_NAME = "rankings";
-
-async function connectToDatabase() {
-    const client = await MongoClient.connect(MONGO_URI);
-    return client;
-}
+import { connectToDatabase, DATABASE_NAME, COLLECTION_NAME } from "@/lib/mongo";
+import { LeaderBoardResponse, LeaderboardSong } from "@/lib/types";
 
 export async function GET(req: NextRequest, res: NextResponse) {
     try {
@@ -30,7 +21,18 @@ export async function GET(req: NextRequest, res: NextResponse) {
       client.close();
 
       const total: number = Object.values(result[0]).reduce((acc, curr) => acc+curr, 0)
-      const songs = result[0]
+      const songs: LeaderboardSong[] = [
+        {name: "Blue Water", points: result[0]["blue-water"], percent: (result[0]["blue-water"] / total * 100).toFixed(2)},
+        {name: "What I Know", points: result[0]["what-i-know"], percent: (result[0]["what-i-know"] / total * 100).toFixed(2)},
+        {name: "Like Blood", points: result[0]["like-blood"], percent: (result[0]["like-blood"] / total * 100).toFixed(2)},
+        {name: "Upside Down", points: result[0]["upside-down"], percent: (result[0]["upside-down"] / total * 100).toFixed(2)},
+      ]
+
+      let response: LeaderBoardResponse & {success: boolean} = {
+        success: true,
+        total,
+        songs
+      }
 
       return NextResponse.json({success: true, total, songs}, { status: 200})
     } catch (error) {

@@ -1,9 +1,12 @@
+"use client"
 import Image from "next/image";
-import TheLows from "@/public/the-lows.jpeg"
+import TheLows from "@/public/images/the-lows.jpeg"
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { useUser } from "@/lib/useUser";
 
 export default function Home() {
+  useUser()
   return (
     <div className="flex flex-col justify-between items-center h-screen bg-gray-800 md:max-w-lg m-auto">
       <div className="relative w-full h-96 overflow-hidden">

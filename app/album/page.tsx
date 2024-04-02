@@ -2,10 +2,11 @@
 import { DragDropContext, Droppable } from "@hello-pangea/dnd";
 import { useEffect, useState } from "react";
 import React from "react";
-import { LowsSong, SongList } from "@/components/Song";
+import { SongList } from "@/components/Song";
 import { Header } from "@/components/Header";
 import { getSongList, saveList } from "@/lib/localStorage";
 import { Footer } from "@/components/Footer";
+import { LowsSong } from "@/lib/types";
 
 let songs: LowsSong[] = [
   { name: "what i know", id: "1" },

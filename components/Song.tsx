@@ -1,10 +1,6 @@
 import { Draggable } from "@hello-pangea/dnd";
+import { LowsSong } from "@/lib/types";
 import { Menu } from "lucide-react"
-
-export type LowsSong = {
-  name: string,
-  id: string
-}
 
 export const Song = ({ song, index }: { song: LowsSong, index: number }) => {
   return (

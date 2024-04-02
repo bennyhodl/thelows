@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "The Lows Ranking",
   description: "Rank your favorite songs on The Lows album.",
-  icons: "../public/icon.ico"
+  icons: { icon: "/favicon.ico" }
 };
 
 export default function RootLayout({

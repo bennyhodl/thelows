@@ -1,39 +1,34 @@
 // pages/api/create.js
-import { MongoClient } from "mongodb";
 import { NextRequest, NextResponse } from "next/server";
+import { connectToDatabase, DATABASE_NAME, COLLECTION_NAME } from "@/lib/mongo";
+import { SubmitListRequest } from "@/lib/types";
 
-// Replace the following with your MongoDB connection string
-const MONGO_URI = "mongodb://blockspaces:blockspaces@localhost:27017/connect?replicaSet=rs0&readPreference=primary&tls=false";
-const DATABASE_NAME = "thelows";
-const COLLECTION_NAME = "rankings";
-
-async function connectToDatabase() {
-    const client = await MongoClient.connect(MONGO_URI);
-    return client;
-}
-
-type DbList = {
-  name: string,
-  points: number
-}
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
-      const json: DbList[] = await req.json()
-      const document = json
+      const json: SubmitListRequest = await req.json()
       let doc: any = {}
 
-      json.forEach(song => {
+      json.songs.forEach(song => {
         const whitespace = song.name.replaceAll(" ", "-")
         return doc[whitespace] = song.points
       })
+
+      let document = {
+        id: json.id,
+        songs: doc 
+      }
       
-      console.log("the documet", doc)
       const client = await connectToDatabase();
       const db = client.db(DATABASE_NAME);
 
       const collection = db.collection(COLLECTION_NAME);
-      const result = await collection.insertOne(doc);
+      const user = await collection.findOne({"id": json.id})
+      if (!user) {
+        await collection.insertOne(document);
+      } else {
+        await collection.updateOne({"id": json.id}, {$set: {songs: doc}});
+      }
 
       client.close();
 
