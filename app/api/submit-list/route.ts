@@ -10,7 +10,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       let doc: any = {}
 
       json.songs.forEach(song => {
-        const whitespace = song.name.replaceAll(" ", "-")
+        const whitespace = song.name.replaceAll(" ", "-").replaceAll(".", "-")
         return doc[whitespace] = song.points
       })
 

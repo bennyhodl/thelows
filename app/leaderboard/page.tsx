@@ -9,8 +9,9 @@ import { LeaderBoardResponse, LeaderboardSong } from "@/lib/types";
 export default function Home() {
   const [lb, setLb] = useState<LeaderBoardResponse>({ total: 0, songs: [] })
   const getLeaderboard = async () => {
-    const leaderboard = await axios.get(`${API_URL}/api/leaderboard`)
-    setLb(leaderboard.data)
+    const leaderboard = await axios.get<LeaderBoardResponse>(`${API_URL}/api/leaderboard`)
+    const sorted = leaderboard.data.songs.sort((a, b) => Number(b.percent) - Number(a.percent))
+    setLb({ total: leaderboard.data.total, songs: sorted })
   }
   useEffect(() => {
     getLeaderboard()
@@ -18,12 +19,9 @@ export default function Home() {
   return (
     <div className="flex flex-col justify-between items-center h-screen bg-gray-800 md:max-w-lg m-auto">
       <Header />
-      <div className="relative w-full h-96 overflow-hidden">
-        <h1 className="pt-14 text-white text-3xl text-center">Leaderboard</h1>
-        {/* <Image src="/path/to/your/image.jpg" alt="Descriptive Alt Text" layout="fill" objectFit="cover" /> */}
-        {/* <Image src={TheLows} alt="The Lows Album Cover" /> */}
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-gray-800 to-transparent"></div>
-        <h1 className="text-white">Total: {lb.total}</h1>
+      <div className="w-full overflow-hidden flex justify-center flex-col items-center text-white">
+        <h1 className="pt-14 pb-6 text-3xl text-center">Leaderboard</h1>
+        {/* <h1 className="text-white">Total: {lb.total}</h1> */}
         {lb.songs && lb.songs.map(song => <SongBar song={song} />)}
       </div>
       <Footer />
@@ -32,8 +30,14 @@ export default function Home() {
 }
 
 const SongBar = ({ song }: { song: LeaderboardSong }) => {
-
+  console.log(song)
   return (
-    <p className="text-white">{song.name}: {song.points} {song.percent}</p>
+    <div className="w-full flex flex-col px-12">
+      <p className="text-start">{song.name}</p>
+      <div className="bg-gray-800 rounded-full h-6 my-1 flex flex-row justify-between">
+        <div className="bg-orange-600 h-6 rounded-full" style={{ width: song.percent + "%" }}></div>
+        <p>{song.percent}% ({song.points})</p>
+      </div>
+    </div>
   )
 }

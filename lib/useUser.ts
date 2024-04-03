@@ -1,6 +1,5 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { getId, getSongList } from "./localStorage"
-import { LowsSong } from "@/components/Song"
+import { useEffect, useState } from "react"
+import { getId } from "./localStorage"
 
 export const useUser = (): string => {
   const [id, setId] = useState<string>("")

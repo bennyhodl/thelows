@@ -44,6 +44,7 @@ export const Header = () => {
   };
 
   const isCreateList = pathname === "/album";
+  const path = pathname === "/leaderboard" ? { name: "List", path: "/album" } : { name: "Leaderboard", path: "/leaderboard" }
 
   return (
     <div className="h-12 bg-gray-800 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2">
@@ -58,9 +59,9 @@ export const Header = () => {
       ) : (
         <a
           className="btn bg-orange-500 text-white py-1 px-3 rounded-xl"
-          onClick={() => router.push("leaderboard")}
+          onClick={() => router.push(path.path)}
         >
-          Leaderboard
+          {path.name}
         </a>
       )}
     </div>
