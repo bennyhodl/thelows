@@ -3,6 +3,7 @@ import { TheLows } from "./types";
 export const getSongList = (songs: TheLows[]): TheLows[] => {
   const list = window.localStorage.getItem("songs1");
   if (!list) {
+    saveList(songs)
     return songs
   }
   return JSON.parse(list)

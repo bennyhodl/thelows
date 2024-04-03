@@ -9,9 +9,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const json: SubmitListRequest = await req.json()
       let doc: any = {}
 
+      const numSongs = json.songs.length
       json.songs.forEach(song => {
         const whitespace = song.name.replaceAll(" ", "-").replaceAll(".", "-")
-        return doc[whitespace] = song.points
+        // exponential decay scoring
+        const weighted = Number(((0.85 ** (Math.abs(song.points - numSongs))) * 100).toFixed(0))
+        console.log("Weighted",song.name, weighted, song.points, Math.abs(song.points - numSongs))
+        return doc[whitespace] = weighted
       })
 
       let document = {

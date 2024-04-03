@@ -7,7 +7,8 @@ import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { API_URL } from "@/lib/utils";
 import { useUser } from "@/lib/useUser";
-import { SongScore, SubmitListRequest } from "@/lib/types";
+import { SongScore, SubmitListRequest, theLows } from "@/lib/types";
+import Link from "next/link";
 
 export const Header = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ export const Header = () => {
   const id = useUser()
 
   const submitList = async () => {
-    const songs = getSongList([]);
+    const songs = getSongList(theLows);
     // TODO feedback
     if (songs.length === 0) return;
 
@@ -48,7 +49,9 @@ export const Header = () => {
 
   return (
     <div className="h-12 bg-gray-800 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-4">
-      <Image src={TheLows} alt="The Lows Cover Art" width={35} height={35} />
+      <Link href="/" legacyBehavior>
+        <Image src={TheLows} alt="The Lows Cover Art" width={35} height={35} />
+      </Link>
       {isCreateList ? (
         <a
           className="btn bg-orange-500 text-white py-1 px-3 rounded-xl"
