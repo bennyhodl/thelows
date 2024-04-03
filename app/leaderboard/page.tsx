@@ -17,15 +17,17 @@ export default function Home() {
     getLeaderboard()
   }, [])
   return (
-    <div className="flex flex-col justify-between items-center h-screen bg-gray-800 md:max-w-lg m-auto">
-      <Header />
-      <div className="w-full overflow-hidden flex justify-center flex-col items-center text-white">
-        <h1 className="pt-14 pb-6 text-3xl text-center">Leaderboard</h1>
-        {/* <h1 className="text-white">Total: {lb.total}</h1> */}
-        {lb.songs && lb.songs.map(song => <SongBar key={song.name} song={song} />)}
-      </div>
-      <Footer />
-    </div >
+    <>
+      <div className="flex flex-col justify-between items-center h-screen bg-gray-800 md:max-w-lg m-auto">
+        <Header />
+        <div className="w-full flex justify-center flex-col items-center text-white">
+          <h1 className="pt-14 pb-6 text-3xl text-center">Leaderboard</h1>
+          {/* <h1 className="text-white">Total: {lb.total}</h1> */}
+          {lb.songs && lb.songs.map(song => <SongBar key={song.name} song={song} />)}
+        </div>
+        <Footer />
+      </div >
+    </>
   );
 }
 
