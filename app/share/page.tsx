@@ -18,10 +18,10 @@ export default function Share() {
     setSongs(list)
   }, [])
 
-  // useEffect(() => {
-  //   if (!songs) return
-  //   makeImage()
-  // }, [songs])
+  useEffect(() => {
+    if (!songs) return
+    makeImage()
+  }, [songs])
 
   const makeImage = async () => {
     let image: HTMLElement = document.getElementById("share-rank") || HTMLElement.prototype

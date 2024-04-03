@@ -14,7 +14,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         const whitespace = song.name.replaceAll(" ", "-").replaceAll(".", "-")
         // exponential decay scoring
         const weighted = Number(((0.85 ** (Math.abs(song.points - numSongs))) * 100).toFixed(0))
-        console.log("Weighted",song.name, weighted, song.points, Math.abs(song.points - numSongs))
         return doc[whitespace] = weighted
       })
 
