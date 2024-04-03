@@ -47,7 +47,7 @@ export const Header = () => {
   const path = pathname === "/leaderboard" ? { name: "List", path: "/album" } : { name: "Leaderboard", path: "/leaderboard" }
 
   return (
-    <div className="h-12 bg-gray-800 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2">
+    <div className="h-12 bg-gray-800 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-4">
       <Image src={TheLows} alt="The Lows Cover Art" width={35} height={35} />
       {isCreateList ? (
         <a

@@ -30,7 +30,6 @@ export default function Home() {
 }
 
 const SongBar = ({ song }: { song: LeaderboardSong }) => {
-  console.log(song)
   return (
     <div className="w-full flex flex-col px-12">
       <p className="text-start">{song.name}</p>
