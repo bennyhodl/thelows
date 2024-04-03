@@ -9,19 +9,18 @@ import { toJpeg } from "html-to-image"
 import { Header } from "@/components/Header"
 import { Share as ShareIcon } from "lucide-react"
 import Link from "next/link"
-import { useToJpeg } from "@hugocxl/react-to-image"
+import { useToJpeg, useToPng } from "@hugocxl/react-to-image"
 
 export default function Share() {
   const [songs, setSongs] = useState<TheLows[]>([])
   const [imageUrl, setImageUrl] = useState<string | null>(null)
-  // const [_, convert, ref] = useToJpeg<HTMLDivElement>({
-  //   onSuccess: (data) => {
-  //     console.log("success")
-  //     let image: HTMLElement = document.getElementById("share-rank") || HTMLElement.prototype
-  //     image.remove()
-  //     setImageUrl(data)
-  //   }
-  // })
+  const [_, convert, ref] = useToPng<HTMLDivElement>({
+    onSuccess: (data) => {
+      let image: HTMLElement = document.getElementById("share-rank") || HTMLElement.prototype
+      image.remove()
+      setImageUrl(data)
+    }
+  })
   useEffect(() => {
     const list = getSongList([]).slice(0, 5)
     setSongs(list)
@@ -29,8 +28,8 @@ export default function Share() {
 
   useEffect(() => {
     if (!songs) return
-    makeImage()
-    // convert()
+    // makeImage()
+    convert()
   }, [songs])
 
   const makeImage = async () => {
@@ -45,14 +44,14 @@ export default function Share() {
         <Header />
         <div className="w-full flex flex-col justify-center items-center mt-16 px-4">
           {songs && (
-            <div className="w-full h-full flex flex-col justify-start" id="share-rank" /*ref={ref}*/>
+            <div className="w-full h-full flex flex-col justify-start" id="share-rank" ref={ref}>
               <Image className="relative" src={TheLowsImg} alt="The Lows Album Art" />
               <div className="absolute bottom-4 left-4 text-white">
                 {songs && songs.map((s, i) => {
                   if (i === 0) {
-                    return <div className="flex flex-row items-start pb-4 z-10 text-9xl"><p className="text-4xl">{s}</p></div>
+                    return <div className="flex flex-row items-start pb-4 z-10 text-9xl" key={s}><p className="text-4xl">{s}</p></div>
                   } else {
-                    return <div className="flex flex-row items-start z-10"><p className="text-xl">{s}</p></div>
+                    return <div className="flex flex-row items-start z-10" key={s}><p className="text-xl">{s}</p></div>
                   }
                 })}
               </div>

@@ -22,7 +22,7 @@ export default function Home() {
       <div className="w-full overflow-hidden flex justify-center flex-col items-center text-white">
         <h1 className="pt-14 pb-6 text-3xl text-center">Leaderboard</h1>
         {/* <h1 className="text-white">Total: {lb.total}</h1> */}
-        {lb.songs && lb.songs.map(song => <SongBar song={song} />)}
+        {lb.songs && lb.songs.map(song => <SongBar key={song.name} song={song} />)}
       </div>
       <Footer />
     </div >
