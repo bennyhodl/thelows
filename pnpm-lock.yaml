@@ -8,6 +8,9 @@ dependencies:
   '@hello-pangea/dnd':
     specifier: ^16.6.0
     version: 16.6.0(@types/react-dom@18.2.23)(@types/react@18.2.73)(react-dom@18.2.0)(react@18.2.0)
+  '@hugocxl/react-to-image':
+    specifier: ^0.0.9
+    version: 0.0.9(html-to-image@1.11.11)(react@18.2.0)
   axios:
     specifier: ^1.6.8
     version: 1.6.8
@@ -100,6 +103,16 @@ packages:
       - '@types/react'
       - '@types/react-dom'
       - react-native
+    dev: false
+
+  /@hugocxl/react-to-image@0.0.9(html-to-image@1.11.11)(react@18.2.0):
+    resolution: {integrity: sha512-UzPtjPb5k0V8oPKjmDvYnWtTNCuFh+2ysXF4+dXL0tnEaFDfu2M3iSt32pzKbJsZYoFu5X12JKKd9MKa2OsR6g==}
+    peerDependencies:
+      html-to-image: '>=1'
+      react: '>=16'
+    dependencies:
+      html-to-image: 1.11.11
+      react: 18.2.0
     dev: false
 
   /@isaacs/cliui@8.0.2:
