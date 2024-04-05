@@ -40,7 +40,7 @@ export default function Share() {
   }
   return (
     <>
-      <div className="flex flex-col justify-between items-center h-screen bg-gray-800 md:max-w-lg mx-auto">
+      <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg mx-auto">
         <Header />
         <div className="w-full flex flex-col justify-center items-center mt-16 px-4">
           {songs && (

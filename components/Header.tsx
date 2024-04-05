@@ -48,20 +48,20 @@ export const Header = () => {
   const path = pathname === "/leaderboard" ? { name: "Songs", path: "/album" } : { name: "Leaderboard", path: "/leaderboard" }
 
   return (
-    <div className="h-12 bg-gray-800 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-4">
+    <div className="h-12 bg-gray-950 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-4">
       <Link href="/" legacyBehavior>
         <Image src={TheLows} alt="The Lows Cover Art" width={35} height={35} />
       </Link>
       {isCreateList ? (
         <a
-          className="btn bg-orange-500 text-white py-1 px-3 rounded-xl"
+          className="btn bg-orange-600 text-white py-1 px-3 rounded-xl"
           onClick={async () => await submitList()}
         >
           Submit
         </a>
       ) : (
         <a
-          className="btn bg-orange-500 text-white py-1 px-3 rounded-xl"
+          className="btn bg-orange-600 text-whites py-1 px-3 rounded-xl"
           onClick={() => router.push(path.path)}
         >
           {path.name}

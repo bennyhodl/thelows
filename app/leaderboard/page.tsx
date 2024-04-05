@@ -18,7 +18,7 @@ export default function Home() {
   }, [])
   return (
     <>
-      <div className="flex flex-col justify-between items-center h-screen bg-gray-800 md:max-w-lg m-auto">
+      <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg m-auto">
         <Header />
         <div className="w-full flex justify-center flex-col items-center text-white">
           <h1 className="pt-14 pb-6 text-3xl text-center">Leaderboard</h1>
@@ -33,11 +33,11 @@ export default function Home() {
 
 const SongBar = ({ song }: { song: LeaderboardSong }) => {
   return (
-    <div className="w-full flex flex-col px-12">
+    <div className="w-full flex flex-col px-6">
       <p className="text-start">{song.name}</p>
-      <div className="bg-gray-800 rounded-full h-6 my-1 flex flex-row justify-between">
-        <div className="bg-orange-600 h-6 rounded-full" style={{ width: song.percent + "%" }}></div>
-        <p>{song.percent}% ({song.points})</p>
+      <div className="bg-gray-950 h-6 my-1 flex flex-row justify-between">
+        <div className="bg-orange-600 h-6 rounded-md" style={{ width: song.percent + "%" }}></div>
+        <p>{song.percent}%</p>
       </div>
     </div>
   )
