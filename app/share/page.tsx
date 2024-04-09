@@ -11,6 +11,7 @@ import { Share as ShareIcon } from "lucide-react"
 import Link from "next/link"
 import axios from "axios"
 import { API_URL } from "@/lib/utils"
+import { Skeleton } from "@/components/ui/skeleton"
 
 export default function Share() {
   const [songs, setSongs] = useState<TheLows[]>([])
@@ -35,6 +36,9 @@ export default function Share() {
       <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg mx-auto">
         <Header />
         <div className="w-full flex flex-col justify-center items-center mt-16 px-4">
+          {!image && <div className="">
+            <Skeleton className="w-52 h-96 rounded-md" /></div>
+          }
           {image && <img className="w-3/5" src={image} />}
           <p className="text-3xl mb-3 text-white pt-2">Share your list!</p>
           <div className="flex flex-col justify-around items-center text-white text-center h-1/2 pb-2 text-lg">

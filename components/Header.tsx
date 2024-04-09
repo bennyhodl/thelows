@@ -9,13 +9,18 @@ import { API_URL } from "@/lib/utils";
 import { useUser } from "@/lib/useUser";
 import { SongScore, SubmitListRequest, theLows } from "@/lib/types";
 import Link from "next/link";
+import { Button } from "./ui/button"
+import { ReloadIcon } from "@radix-ui/react-icons"
+import { useState } from "react";
 
 export const Header = () => {
+  const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter();
   const pathname = usePathname();
   const id = useUser()
 
   const submitList = async () => {
+    setLoading(true)
     const songs = getSongList(theLows);
     // TODO feedback
     if (songs.length === 0) return;
@@ -41,6 +46,7 @@ export const Header = () => {
       postList
     );
 
+    setLoading(false)
     router.push("share");
   };
 
@@ -48,17 +54,18 @@ export const Header = () => {
   const path = pathname === "/leaderboard" ? { name: "Songs", path: "/album" } : { name: "Leaderboard", path: "/leaderboard" }
 
   return (
-    <div className="h-12 bg-gray-950 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-4">
+    <div className="h-14 bg-gray-950 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2">
       <Link href="/" legacyBehavior>
-        <Image src={TheLows} alt="The Lows Cover Art" className="cursor-pointer" width={35} height={35} />
+        <Image src={TheLows} alt="The Lows Cover Art" className="cursor-pointer" width={40} height={40} />
       </Link>
       {isCreateList ? (
-        <a
-          className="btn bg-orange-600 text-white py-1 px-3 rounded-xl cursor-pointer"
+        <Button
+          className="btn bg-orange-600 text-white py-0 px-4 rounded-lg cursor-pointer"
           onClick={async () => await submitList()}
         >
+          {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
           Submit
-        </a>
+        </Button>
       ) : (
         <a
           className="btn bg-orange-600 text-white py-1 px-3 rounded-xl cursor-pointer"
