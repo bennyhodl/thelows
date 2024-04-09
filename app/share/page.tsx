@@ -9,55 +9,33 @@ import { toJpeg } from "html-to-image"
 import { Header } from "@/components/Header"
 import { Share as ShareIcon } from "lucide-react"
 import Link from "next/link"
-import { useToJpeg, useToPng } from "@hugocxl/react-to-image"
+import axios from "axios"
+import { API_URL } from "@/lib/utils"
 
 export default function Share() {
   const [songs, setSongs] = useState<TheLows[]>([])
-  const [imageUrl, setImageUrl] = useState<string | null>(null)
-  const [_, convert, ref] = useToPng<HTMLDivElement>({
-    onSuccess: (data) => {
-      let image: HTMLElement = document.getElementById("share-rank") || HTMLElement.prototype
-      image.remove()
-      setImageUrl(data)
-    }
-  })
+  const [image, setImage] = useState(null)
+
   useEffect(() => {
     const list = getSongList([]).slice(0, 5)
     setSongs(list)
   }, [])
 
+  const makeImage = async () => {
+    const res = await axios.post(API_URL + "/api/share", { songs })
+    setImage(res.data)
+  }
   useEffect(() => {
-    if (!songs) return
-    // makeImage()
-    convert()
+    if (songs.length === 0) return
+    makeImage()
   }, [songs])
 
-  const makeImage = async () => {
-    let image: HTMLElement = document.getElementById("share-rank") || HTMLElement.prototype
-    const save = await toJpeg(image)
-    image.remove()
-    setImageUrl(save)
-  }
   return (
     <>
       <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg mx-auto">
         <Header />
         <div className="w-full flex flex-col justify-center items-center mt-16 px-4">
-          {songs && (
-            <div className="w-full h-full flex flex-col justify-start" id="share-rank" ref={ref}>
-              <Image className="relative" src={TheLowsImg} alt="The Lows Album Art" />
-              <div className="absolute bottom-4 left-4 text-white">
-                {songs && songs.map((s, i) => {
-                  if (i === 0) {
-                    return <div className="flex flex-row items-start pb-4 z-10 text-9xl" key={s}><p className="text-4xl">{s}</p></div>
-                  } else {
-                    return <div className="flex flex-row items-start z-10" key={s}><p className="text-xl">{s}</p></div>
-                  }
-                })}
-              </div>
-            </div>
-          )}
-          {imageUrl && <img className="w-full h-full" src={imageUrl} />}
+          {image && <img className="w-3/5" src={image} />}
           <p className="text-3xl mb-3 text-white pt-2">Share your list!</p>
           <div className="flex flex-col justify-around items-center text-white text-center h-1/2 pb-2 text-lg">
             <p>1. Press & hold to save image.</p>
@@ -70,24 +48,7 @@ export default function Share() {
           </Link>
         </div >
         <Footer />
-      </div>
+      </div >
     </>
-  )
-}
-
-const SharedImage = ({ songs }: { songs: TheLows[] }) => {
-  return (
-    <div className="bg-black bg-opacity-50 relative w-full h-full flex flex-col justify-start" id="share-rank">
-      <Image className="relative" src={TheLowsImg} alt="blah" />
-      <div className="absolute bottom-4 left-4 text-white">
-        {songs && songs.map((s, i) => {
-          if (i === 0) {
-            return <div className="flex flex-row items-start pb-4 z-10 text-9xl"><p className="text-4xl">{s}</p></div>
-          } else {
-            return <div className="flex flex-row items-start z-10"><p className="text-xl">{s}</p></div>
-          }
-        })}
-      </div>
-    </div>
   )
 }

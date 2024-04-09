@@ -26,6 +26,10 @@ export type SubmitListRequest = {
   songs: SongScore[]
 }
 
+export type ShareImageRequest = {
+  songs: TheLows[]
+}
+
 export const theLows: TheLows[] = [
   "he said she said",
   "downtown",
