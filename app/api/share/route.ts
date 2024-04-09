@@ -18,23 +18,32 @@ export async function POST(req: NextRequest, res: NextResponse) {
       context.drawImage(image, 0, 0, width, height)
       
       context.textBaseline = "bottom"
-      context.fillStyle = "#FFFFFF"
+      context.fillStyle = "#C2410C"
       context.font = "bold 40pt Archivo"
       context.textAlign = "center"
-      context.fillText("TOP 5 SONGS FROM", width/2, 350)
+      context.strokeStyle = "white"
+      context.lineWidth = 5
+      context.strokeText("TOP 5 SONGS FROM", width/2, 450)
+      context.fillText("TOP 5 SONGS FROM", width/2, 450)
 
+      context.fillStyle = "#FFFFFF"
       context.font = "bold 110pt Archivo"
-      context.fillText("THE LOWS.", width/2, 495)
+      context.fillText("THE LOWS.", width/2, 600)
       
-      let shift = height - 600
-      context.font = "bold 75pt Archivo"
-      context.fillText("1. " + json.songs[0], width/2, shift, width - 50)
-      // shift += 25
-      context.font = "bold 50pt Archivo"
-      context.textAlign = "left"
+      context.textAlign = "center"
+      // let shift = height - 600
+      context.fillStyle = "#FFFFFF"
+      context.strokeStyle = "#C2410C"
+      context.lineWidth = 2
+      let shift = height - 550
+      context.font = "bold 85pt Archivo"
+      context.fillText(json.songs[0], width/2, shift, width - 50)
+      context.strokeText(json.songs[0], width/2, shift, width - 50)
+      // shift += 250
+      context.font = "bold 40pt Archivo"
       json.songs.forEach((song, i) => {
         if (i !== 0) {
-          context.fillText(i + 1 + ".  " + song, 60, shift)
+          context.fillText(i + 1 + ".  " + song, width/2, shift)
         }
         shift += 75
       })
