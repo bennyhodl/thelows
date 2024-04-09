@@ -46,8 +46,8 @@ export const Header = () => {
       postList
     );
 
-    setLoading(false)
     router.push("share");
+    setLoading(false)
   };
 
   const isCreateList = pathname === "/album";
@@ -67,12 +67,13 @@ export const Header = () => {
           Submit
         </Button>
       ) : (
-        <a
-          className="btn bg-orange-600 text-white py-1 px-3 rounded-xl cursor-pointer"
-          onClick={() => router.push(path.path)}
+        <Button
+          className="btn bg-orange-600 text-white py-0 px-4 rounded-xl cursor-pointer"
+          onClick={() => { setLoading(true); router.push(path.path) }}
         >
+          {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
           {path.name}
-        </a>
+        </Button>
       )}
     </div>
   );
