@@ -42,7 +42,7 @@ export default function Share() {
             <p>1. Press & hold to save image.</p>
             <p className="flex flex-row">2. Press the share icon (<ShareIcon width={20} height={20} className="mx-2" />).</p>
             <p>3. Share to Instagram.</p>
-            <p>3. Post to your story and tag @onlysteves & @justmike.</p>
+            <p>3. Post to your story and tag @onlysteves & @justmike</p>
           </div>
           <Link href="/leaderboard" legacyBehavior>
             <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-3 my-4 px-4 text-white text-center font-bold">The Lows Song Leaderboard</a>
