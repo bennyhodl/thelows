@@ -47,7 +47,7 @@ const SongBar = ({ song }: { song: LeaderboardSong }) => {
     <div className="w-80 flex flex-col">
       <p className="text-start">{song.name}</p>
       <div className="bg-gray-950 h-6 my-1 flex flex-row justify-between">
-        <div className="bg-orange-600 h-6 rounded-md" style={{ width: song.percent + "%" }}></div>
+        <div className="bg-[#f25201] h-6 rounded-md" style={{ width: song.percent + "%" }}></div>
         <p>{song.percent}%</p>
       </div>
     </div>

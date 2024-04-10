@@ -59,7 +59,8 @@ const config = {
         sm: "calc(var(--radius) - 4px)",
       },
       thelows: {
-        bg: "#0d1117"
+        bg: "#0d1117",
+        orange: "#f25201"
       },
       keyframes: {
         "accordion-down": {

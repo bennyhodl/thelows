@@ -1,11 +1,8 @@
 "use client"
-import TheLowsImg from "@/public/images/the-lows.jpeg"
-import Image from "next/image"
 import { Footer } from "@/components/Footer"
 import { useEffect, useState } from "react"
 import { TheLows } from "@/lib/types"
 import { getSongList } from "@/lib/localStorage"
-import { toJpeg } from "html-to-image"
 import { Header } from "@/components/Header"
 import { Share as ShareIcon } from "lucide-react"
 import Link from "next/link"
@@ -48,7 +45,7 @@ export default function Share() {
             <p>3. Post to your story and tag @onlysteves & @justmike.</p>
           </div>
           <Link href="/leaderboard" legacyBehavior>
-            <a className="btn rounded-3xl w-3/4 bg-orange-700 py-3 my-4 px-4 text-white text-center">The Lows Song Leaderboard</a>
+            <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-3 my-4 px-4 text-white text-center">The Lows Song Leaderboard</a>
           </Link>
         </div >
         <Footer />

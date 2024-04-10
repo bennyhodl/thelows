@@ -4,7 +4,7 @@ import { ShareImageRequest } from "@/lib/types";
 import { createCanvas, loadImage, registerFont } from "canvas";
 import path from "path";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
     try {
       const json: ShareImageRequest = await req.json()
 
@@ -14,38 +14,52 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const canvas =   createCanvas(width, height)
       const context = canvas.getContext("2d")
 
-      const image = await loadImage(path.join(process.cwd(), "/public/images/share-image.png"))
+      const image = await loadImage(path.join(process.cwd(), "/public/images/share-image-orange.png"))
       context.drawImage(image, 0, 0, width, height)
       
       context.textBaseline = "bottom"
-      context.fillStyle = "#C2410C"
+      context.fillStyle = "#F25201"
       context.font = "bold 40pt Archivo"
       context.textAlign = "center"
       context.strokeStyle = "white"
       context.lineWidth = 5
-      context.strokeText("TOP 5 SONGS FROM", width/2, 450)
-      context.fillText("TOP 5 SONGS FROM", width/2, 450)
+      let topSongs = 550
+      let lows = topSongs + 150
+      context.strokeText("TOP 5 SONGS FROM", width/2, topSongs)
+      context.fillText("TOP 5 SONGS FROM", width/2, topSongs)
 
       context.fillStyle = "#FFFFFF"
       context.font = "bold 110pt Archivo"
-      context.fillText("THE LOWS.", width/2, 600)
+      context.fillText("THE LOWS.", width/2, lows)
       
       context.textAlign = "center"
       // let shift = height - 600
-      context.fillStyle = "#FFFFFF"
-      context.strokeStyle = "#C2410C"
       context.lineWidth = 2
-      let shift = height - 550
-      context.font = "bold 85pt Archivo"
-      context.fillText(json.songs[0], width/2, shift, width - 50)
-      context.strokeText(json.songs[0], width/2, shift, width - 50)
+      let shift = height - 600
+      context.fillStyle = "#FFFFFF"
+      context.fillRect(width/8, shift - 120, width - width/4, 135)
+      context.fillStyle = "#F25201"
+      context.strokeStyle = "#FFFFFF"
+      context.font = "bold 60pt Archivo"
+      // context.fillText("1. ", width / 2 - 315, shift+10, width - 50)
+      // context.strokeText("1. ", width/2 - 315, shift + 10, width - 50)
+      context.fillText(json.songs[0], width/2, shift - 10, width - width / 3 + 20)
+      context.strokeText(json.songs[0], width/2, shift - 10, width - width / 3 + 20)
       // shift += 250
       context.font = "bold 40pt Archivo"
+      context.textAlign = "center"
       json.songs.forEach((song, i) => {
         if (i !== 0) {
-          context.fillText(i + 1 + ".  " + song, width/2, shift)
+          // context.fillText(i + 1 + ".  " + song, width/2, shift)
+          context.fillStyle = "#f25201"
+          context.fillRect(width/8, shift - 65, width - width/4, 75)
+          context.fillStyle = "#FFFFFF"
+          context.fillText(i+1 + ". ", width / 2 - 350, shift)
+          let textX = width / 2
+          if (song.length > 10) { textX += 15}
+          context.fillText(song, textX, shift)
         }
-        shift += 75
+        shift += 100
       })
       
       const buffer = canvas.toBuffer("image/png")

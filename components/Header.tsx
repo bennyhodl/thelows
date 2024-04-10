@@ -60,7 +60,7 @@ export const Header = () => {
       </Link>
       {isCreateList ? (
         <Button
-          className="btn bg-orange-600 text-white py-0 px-4 rounded-lg cursor-pointer"
+          className="btn bg-[#f25201] text-white py-0 px-4 rounded-lg cursor-pointer"
           onClick={async () => await submitList()}
         >
           {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
@@ -68,10 +68,9 @@ export const Header = () => {
         </Button>
       ) : (
         <Button
-          className="btn bg-orange-600 text-white py-0 px-4 rounded-xl cursor-pointer"
+          className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer"
           onClick={() => { setLoading(true); router.push(path.path) }}
         >
-          {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
           {path.name}
         </Button>
       )}

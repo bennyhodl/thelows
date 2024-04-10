@@ -22,7 +22,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col w-3/4 items-center">
           <Link href="/album" legacyBehavior>
-            <a className="btn rounded-3xl w-3/4 bg-orange-700 py-3 px-4">Create List</a>
+            <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-3 px-4">Create List</a>
           </Link>
           <Link href="/leaderboard" legacyBehavior>
             <a className="btn rounded-3xl w-3/4 underline py-3 px-4">Leaderboard</a>
