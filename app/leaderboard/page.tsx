@@ -22,12 +22,12 @@ export default function Home() {
   }, [])
   return (
     <>
-      <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg m-auto">
+      <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg m-auto font-bold">
         <Header />
         <div className="w-full flex justify-center flex-col items-center text-white">
           <h1 className="pt-14 pb-6 text-3xl text-center">Leaderboard</h1>
           {loading && (
-            theLows.map(s => (
+            theLows.map(_ => (
               <div>
                 <Skeleton className="h-5 w-80 rounded-md mb-1" />
                 <Skeleton className="h-8 w-80 rounded-md mb-2" />
