@@ -37,10 +37,10 @@ export async function POST(req: NextRequest) {
       context.lineWidth = 2
       let shift = height - 600
       context.fillStyle = "#FFFFFF"
-      context.fillRect(width/8, shift - 120, width - width/4, 135)
+      context.fillRect(width/8, shift - 115, width - width/4, 135)
       context.fillStyle = "#F25201"
       context.strokeStyle = "#FFFFFF"
-      context.font = "bold 60pt Archivo"
+      context.font = "bold 50pt Archivo"
       // context.fillText("1. ", width / 2 - 315, shift+10, width - 50)
       // context.strokeText("1. ", width/2 - 315, shift + 10, width - 50)
       context.fillText(json.songs[0], width/2, shift - 10, width - width / 3 + 20)
