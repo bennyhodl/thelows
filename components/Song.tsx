@@ -13,7 +13,7 @@ export const Song = ({ song, index, id }: { song: TheLows, id: string, index: nu
           {...provided.dragHandleProps}
         >
           <div className="flex flex-row">
-            <p className="w-6 text-center font-bold">{index + 1}.</p>
+            <p className="w-8 text-center font-bold mr-1">{index + 1}.</p>
             <p className="pl-2 font-bold">{song}</p>
           </div>
           <Menu color="#F97316" />
