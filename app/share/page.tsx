@@ -1,42 +1,23 @@
 "use client"
 import { Footer } from "@/components/Footer"
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 import { TheLows } from "@/lib/types"
-import { getSongList } from "@/lib/localStorage"
+import { getSongList, getTopFive } from "@/lib/localStorage"
 import { Header } from "@/components/Header"
 import { Share as ShareIcon } from "lucide-react"
 import Link from "next/link"
 import axios from "axios"
 import { API_URL } from "@/lib/utils"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useSearchParams } from "next/navigation"
 
 export default function Share() {
-  const [songs, setSongs] = useState<TheLows[]>([])
-  const [image, setImage] = useState(null)
-
-  useEffect(() => {
-    const list = getSongList([]).slice(0, 5)
-    setSongs(list)
-  }, [])
-
-  const makeImage = async () => {
-    const res = await axios.post(API_URL + "/api/share", { songs })
-    setImage(res.data)
-  }
-  useEffect(() => {
-    if (songs.length === 0) return
-    makeImage()
-  }, [songs])
-
   return (
-    <>
+    <Suspense>
       <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg mx-auto">
         <Header />
         <div className="w-full flex flex-col justify-center items-center mt-16 px-4">
-          {!image && <div className="">
-            <Skeleton className="w-52 h-96 rounded-md" /></div>
-          }
-          {image && <img className="w-3/5" src={image} />}
+          <ShareableImage />
           <p className="text-3xl mb-3 text-white pt-2 font-bold">Share your list!</p>
           <div className="flex flex-col justify-around items-center text-white text-center h-1/2 pb-2 text-lg font-bold">
             <p>1. Press & hold to save image.</p>
@@ -50,6 +31,47 @@ export default function Share() {
         </div >
         <Footer />
       </div >
-    </>
+    </Suspense>
+  )
+}
+
+const ShareableImage = () => {
+  const [songs, setSongs] = useState<TheLows[]>([])
+  const [image, setImage] = useState(null)
+  const [flav, setFlav] = useState<string | null>(null)
+  const router = useSearchParams()
+
+  useEffect(() => {
+    const flavor = router.get("flavor")
+    setFlav(flavor)
+  }, [])
+
+  useEffect(() => {
+    if (!flav) return
+    let list: TheLows[]
+    if (flav === "album") {
+      list = getSongList([]).slice(0, 5)
+    } else {
+      list = getTopFive([])
+    }
+    setSongs(list)
+  }, [flav])
+
+  const makeImage = async () => {
+    const res = await axios.post(API_URL + "/api/share", { songs })
+    setImage(res.data)
+  }
+  useEffect(() => {
+    if (songs.length === 0) return
+    makeImage()
+  }, [songs])
+
+  return (
+    <Suspense>
+      {!image && <div className="">
+        <Skeleton className="w-52 h-96 rounded-md" /></div>
+      }
+      {image && <img className="w-3/5" src={image} />}
+    </Suspense>
   )
 }

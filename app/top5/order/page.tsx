@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import React from "react";
 import { SongList } from "@/components/Song";
 import { Header } from "@/components/Header";
-import { getSongList, saveList } from "@/lib/localStorage";
+import { getTopFive, saveTopFive } from "@/lib/localStorage";
 import { Footer } from "@/components/Footer";
 import { TheLows, theLows } from "@/lib/types";
 
@@ -20,7 +20,7 @@ export default function Album() {
   const [songList, setSongs] = useState<TheLows[]>([]);
 
   useEffect(() => {
-    const list = getSongList(theLows)
+    const list = getTopFive(theLows)
     setSongs(list)
   }, [])
 
@@ -39,7 +39,7 @@ export default function Album() {
       result.destination.index
     );
 
-    saveList(songs)
+    saveTopFive(songs)
     setSongs(songs);
   }
 

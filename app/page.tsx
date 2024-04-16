@@ -21,8 +21,11 @@ export default function Home() {
           <p className="pb-2">Submit your favorites and see how they rank compared to the rest of mike's listeners.</p>
         </div>
         <div className="flex flex-col w-3/4 items-center">
+          <Link href="/top5" legacyBehavior>
+            <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-3 px-4 mb-3 font-bold">Pick Top 5</a>
+          </Link>
           <Link href="/album" legacyBehavior>
-            <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-3 px-4 font-bold">Create List</a>
+            <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-1 px-4 font-bold">Full Album</a>
           </Link>
           <Link href="/leaderboard" legacyBehavior>
             <a className="btn rounded-3xl w-3/4 underline py-3 px-4 font-bold">Leaderboard</a>

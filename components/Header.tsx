@@ -1,27 +1,36 @@
 "use client";
 import Image from "next/image";
-import TheLows from "@/public/images/the-lows.jpeg";
-import { getSongList } from "@/lib/localStorage";
+import TheLowsImage from "@/public/images/the-lows.jpeg";
+import { getSongList, getTopFive } from "@/lib/localStorage";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { API_URL } from "@/lib/utils";
 import { useUser } from "@/lib/useUser";
-import { SongScore, SubmitListRequest, theLows } from "@/lib/types";
+import { SongScore, SubmitListRequest, TheLows, theLows } from "@/lib/types";
 import Link from "next/link";
 import { Button } from "./ui/button"
 import { ReloadIcon } from "@radix-ui/react-icons"
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const Header = () => {
   const [loading, setLoading] = useState<boolean>(false)
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams()
   const id = useUser()
 
-  const submitList = async () => {
+  const submitList = async (flavor: string) => {
     setLoading(true)
-    const songs = getSongList(theLows);
+    let songs: TheLows[];
+    let params;
+    if (flavor === "album") {
+      songs = getSongList(theLows)
+      params = createQueryString("flavor", "album")
+    } else {
+      songs = getTopFive([])
+      params = createQueryString("flavor", "top5")
+    }
     // TODO feedback
     if (songs.length === 0) return;
 
@@ -46,34 +55,88 @@ export const Header = () => {
       postList
     );
 
-    router.push("share");
+    router.push("/share" + "?" + params);
     setLoading(false)
   };
 
-  const isCreateList = pathname === "/album";
-  const path = pathname === "/leaderboard" ? { name: "Songs", path: "/album" } : { name: "Leaderboard", path: "/leaderboard" }
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  const HeaderButton = () => {
+    switch (pathname) {
+      case "/album":
+        return (
+          <Button
+            className="btn bg-[#f25201] text-white py-0 px-4 rounded-lg cursor-pointer font-bold"
+            onClick={async () => await submitList("album")}
+          >
+            {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+            Submit
+          </Button>
+        )
+      case "/top5/order":
+        return (
+          <Button
+            className="btn bg-[#f25201] text-white py-0 px-4 rounded-lg cursor-pointer font-bold"
+            onClick={async () => await submitList("top5")}
+          >
+            {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
+            Submit
+          </Button>
+        )
+      case "/leaderboard":
+        const leaderboard = { name: "Songs", path: "/album" }
+        return (
+          <Button
+            className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer font-bold"
+            onClick={() => { setLoading(true); router.push(leaderboard.path) }}
+          >
+            {leaderboard.name}
+          </Button>
+        )
+      case "/top5":
+        const topFive = { name: "Next", path: "/top5/order" }
+        return (
+          <Button
+            className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer font-bold"
+            onClick={() => {
+              let topFiveSongs = getTopFive([])
+              if (topFiveSongs.length !== 5) {
+                return // modal
+              }
+              setLoading(true);
+              router.push(topFive.path)
+            }}
+          >
+            {topFive.name}
+          </Button>
+        )
+      default:
+        const path = { name: "Leaderboard", path: "/leaderboard" }
+        return (
+          <Button
+            className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer font-bold"
+            onClick={() => { setLoading(true); router.push(path.path) }}
+          >
+            {path.name}
+          </Button>
+        )
+    }
+  }
 
   return (
     <div className="h-14 bg-gray-950 fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2">
       <Link href="/" legacyBehavior>
-        <Image src={TheLows} alt="The Lows Cover Art" className="cursor-pointer" width={40} height={40} />
+        <Image src={TheLowsImage} alt="The Lows Cover Art" className="cursor-pointer" width={40} height={40} />
       </Link>
-      {isCreateList ? (
-        <Button
-          className="btn bg-[#f25201] text-white py-0 px-4 rounded-lg cursor-pointer font-bold"
-          onClick={async () => await submitList()}
-        >
-          {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-          Submit
-        </Button>
-      ) : (
-        <Button
-          className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer font-bold"
-          onClick={() => { setLoading(true); router.push(path.path) }}
-        >
-          {path.name}
-        </Button>
-      )}
+      <HeaderButton />
     </div>
   );
 };
