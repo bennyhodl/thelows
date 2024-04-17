@@ -1,7 +1,7 @@
 import { TheLows } from "./types";
 
 export const getSongList = (songs: TheLows[]): TheLows[] => {
-  const list = window.localStorage.getItem("songs2");
+  const list = global?.localStorage?.getItem("songs2");
   if (!list) {
     saveList(songs)
     return songs
@@ -10,7 +10,7 @@ export const getSongList = (songs: TheLows[]): TheLows[] => {
 }
 
 export const saveList = (songs: TheLows[]) => {
-  return window.localStorage.setItem("songs2", JSON.stringify(songs))
+  return global?.localStorage?.setItem("songs2", JSON.stringify(songs))
 }
 
 export const getTopFive = (songs: TheLows[]): TheLows[] => {
