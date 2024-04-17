@@ -92,7 +92,7 @@ export const Header = () => {
           </Button>
         )
       case "/leaderboard":
-        const leaderboard = { name: "Songs", path: "/album" }
+        const leaderboard = { name: "The Lows", path: "/" }
         return (
           <Button
             className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer font-bold"

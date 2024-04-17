@@ -47,7 +47,7 @@ export default function Album() {
     <Suspense>
       <div className="bg-gray-950 md:max-w-lg m-auto" >
         <Header />
-        <p className="text-white pt-16 pb-1 text-center px-4 font-bold">Drag your favorite songs in order and submit to see other steve's favorites. Song lists are saved as you update. Submit your list as many times as you want!</p>
+        <p className="text-white pt-16 pb-1 text-center px-4 font-bold">Drag your favorite songs in order and submit to see other steve's favorites.</p>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {provided => (
