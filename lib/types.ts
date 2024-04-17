@@ -30,6 +30,8 @@ export type ShareImageRequest = {
   songs: TheLows[]
 }
 
+export type Cities = "boston" | "chicago" | "cleveland" | "denver" | "irving" | "minneapolis" | "nyc" | "pittsburgh" | "tampa" | "toronto"
+
 export const theLows: TheLows[] = [
   "he said she said",
   "downtown",

@@ -1,40 +1,41 @@
 "use server"
 import { Suspense } from "react";
 import { API_URL } from "@/lib/utils";
-import { LeaderBoardResponse, LeaderboardSong, theLows } from "@/lib/types";
+import { Cities, LeaderBoardResponse, LeaderboardSong, theLows } from "@/lib/types";
 import TheLowsImage from "@/public/images/the-lows.jpeg"
 import Image from "next/image"
 import { Tag } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { TourCityImage } from "@/components/CityImage";
 
-const getLeaderboard = async (): Promise<LeaderBoardResponse> => {
+const getLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
+  console.log(city)
   const response = await fetch(`${API_URL}/api/leaderboard`)
   const leaderboard: LeaderBoardResponse = await response.json()
   leaderboard.songs.sort((a, b) => Number(b.percent) - Number(a.percent))
   return leaderboard
 }
 
-export default async function Leaderboard({ searchParams }: { searchParams: { city: string } }) {
-  console.log(searchParams)
-  const leaderboard = await getLeaderboard()
+export default async function Leaderboard({ searchParams }: { searchParams: { city: Cities } }) {
+  const leaderboard = await getLeaderboard(searchParams?.city)
 
   return (
     <Suspense>
       <div className="flex flex-col text-white items-center bg-gray-950 md:max-w-lg font-bold pt-8">
         {/* <Header /> */}
-        <ImageArt />
+        <ImageArt city={searchParams.city} />
         <AlbumInformation city="cleveland" />
         <ColumnTitle />
         {leaderboard.songs.map((song, index) => (
-          <PlaylistSong song={song.name} points={song.points} percentage={song.percent} index={index + 1} />
+          <PlaylistSong song={song.name} points={song.points} percentage={song.percent} index={index + 1} key={song.name} />
         ))}
       </div >
     </Suspense>
   );
 }
 
-const ImageArt = () => {
-  return <Image src={TheLowsImage} alt="The Lows Album Art" className="px-12 mt-8" width={350} />
+const ImageArt = ({ city }: { city: Cities }) => {
+  return <TourCityImage city={city} />
 }
 
 const AlbumInformation = ({ city }: { city: string }) => {
