@@ -1,13 +1,7 @@
 // pages/api/create.js
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase, DATABASE_NAME, OTHER_SONGS_COLLECTION } from "@/lib/mongo";
-import { Cities, SongScore, SubmitListRequest } from "@/lib/types";
-
-type SongDbEntry = {
-  id: string,
-  city: Cities,
-  songs: SongScore[]
-}
+import { SongDbEntry, SubmitListRequest } from "@/lib/types";
 
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
@@ -27,7 +21,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       if (!user) {
         await collection.insertOne(document);
       } else {
-        await collection.updateOne({"id": document.id}, {$set: {songs: document.songs}});
+        await collection.updateOne({"id": document.id}, {$set: {songs: document.songs, city: request.city}});
       }
 
       client.close();

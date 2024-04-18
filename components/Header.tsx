@@ -25,16 +25,21 @@ import {
 export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const pathname = usePathname();
+  const router = useRouter()
   const id = useUser()
 
   const submitLowsList = async (city: Cities) => {
     setLoading(true)
-    let songs: TheLows[] = getTopTen(theLows)
+    let songs: string[] = getTopTen([])
+    console.log("submitting lows list", songs)
 
     let availablePoints = songs.length;
-    const songsToSubmit = songs.map((song) => {
-      const ranking: any = {
-        name: song,
+    const songsToSubmit = songs.map(s => {
+      const song: SongScore = JSON.parse(s)
+      const ranking: SongScore = {
+        name: song.name,
+        id: song.id,
+        album: song.album,
         points: availablePoints,
       };
 
@@ -85,7 +90,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
     );
 
     // city
-    // router.push("/playlist?city=" + city);
+    router.push("/playlist?city=" + city);
     setLoading(false)
   };
 

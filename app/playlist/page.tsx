@@ -9,16 +9,24 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ColumnTitle } from "@/components/ColumnTitles";
 import Link from "next/link";
 
-const getLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
+const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
   const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`)
   const leaderboard: LeaderBoardResponse = await response.json()
-  console.log("RES", leaderboard)
-  leaderboard.songs.sort((a, b) => Number(b.percent) - Number(a.percent))
+  leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
+  return leaderboard
+}
+
+const getVibesLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
+  const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`)
+  const leaderboard: LeaderBoardResponse = await response.json()
+  leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
+  console.log(leaderboard)
   return leaderboard
 }
 
 export default async function Leaderboard({ searchParams }: { searchParams: { city: Cities } }) {
-  const leaderboard = await getLeaderboard(searchParams?.city)
+  const vibesLeaderboard = await getVibesLeaderboard(searchParams?.city)
+  const lowsLeaderboard = await getLowsLeaderboard(searchParams?.city)
 
   return (
     <Suspense>
@@ -33,16 +41,16 @@ export default async function Leaderboard({ searchParams }: { searchParams: { ci
             <TourCityImage city={searchParams.city} />
             <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
             <ColumnTitle />
-            {leaderboard.songs.map((song, index) => (
-              <PlaylistSong song={song.name} points={song.points} percentage={song.percent} index={index + 1} key={song.name} />
+            {lowsLeaderboard.songs.map((song, index) => (
+              <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
             ))}
           </TabsContent>
           <TabsContent value="other-songs">
             <TourCityImage city="steve" />
             <AlbumInformation city={searchParams.city} playlistName="ynk" />
             <ColumnTitle />
-            {leaderboard.songs.map((song, index) => (
-              <PlaylistSong song={song.name} points={song.points} percentage={song.percent} index={index + 1} key={song.name} />
+            {vibesLeaderboard.songs.map((song, index) => (
+              <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
             ))}
           </TabsContent>
         </Tabs>
@@ -67,7 +75,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
   )
 }
 
-const PlaylistSong = ({ song, percentage, points, index }: { song: string, percentage: string, points: number, index: number }) => {
+const PlaylistSong = ({ song, album, points, index }: { song: string, album: string, points: number, index: number }) => {
   return (
     <div className="flex flex-row justify-between items-center text-white w-full pr-8 my-1">
       <div className="flex items-center flex-row">

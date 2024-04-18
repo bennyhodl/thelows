@@ -12,11 +12,11 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
       const collection = db.collection(OTHER_SONGS_COLLECTION);
 
-      const songGroup = ynkSongs.reduce((acc, song) => {
-        //@ts-ignore
-        acc[song.id] = { $sum: `$songs.id.${song.id}`};
-        return acc
-      }, {_id: null});
+      // const songGroup = ynkSongs.reduce((acc, song) => {
+      //   //@ts-ignore
+      //   acc[song.id] = { $sum: `$songs.id.${song.id}`};
+      //   return acc
+      // }, {_id: null});
 
       let result: any[]
       if (city === "steve") {

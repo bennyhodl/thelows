@@ -1,5 +1,5 @@
 import { Draggable } from "@hello-pangea/dnd";
-import { TheLows } from "@/lib/types";
+import { SongScore, TheLows } from "@/lib/types";
 import { Menu } from "lucide-react"
 
 export const Song = ({ song, index, id }: { song: TheLows, id: string, index: number }) => {
@@ -23,12 +23,12 @@ export const Song = ({ song, index, id }: { song: TheLows, id: string, index: nu
   );
 }
 
-export const SongList = ({ songs }: { songs: TheLows[] }) => {
+export const SongList = ({ songs }: { songs: any }) => {
   return (
     <div className="flex flex-col items-center">
-      {songs.map((song: TheLows, index: number) => {
-        const id = song.replaceAll(" ", "-")
-        return <Song song={song} id={id} index={index} key={id} />
+      {songs.map((s: string, index: number) => {
+        const song = JSON.parse(s)
+        return <Song song={song.name} id={song.id} index={index} key={song.id} />
       })}
     </div>
   );

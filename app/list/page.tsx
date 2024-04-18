@@ -38,7 +38,10 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
 
   const keepAlive = (song: string): boolean => {
     if (topTen.length < 10) return false
-    return !topTen.includes(song)
+    topTen.forEach(s => {
+      if (s === song) return true
+    })
+    return false
   }
 
   return (
@@ -49,19 +52,20 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
           <p className="text-white pt-16 pb-1 text-center px-4 font-bold">Select 10 songs that you want to hear on tour from the lows. Then rank them.</p>
           <ToggleGroup type="multiple" className="flex flex-col items-center m-auto justify-center w-11/12 mt-4" value={topTen} onValueChange={userSelect}>
             {theLows.map(song => {
-              if (topTen.length < 9 || topTen.length === 10) {
+              if (topTen.length === 9 && topTen.length < 10) {
                 return (
-                  <ToggleGroupItem disabled={keepAlive(song)} value={song} key={song} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-gray-950 border-gray-800 rounded-xl text-xl text-white font-bold my-1 py-7">
-                    <p className="w-full my-2">{song}</p>
-                  </ToggleGroupItem>)
+                  <DrawerTrigger className="w-full">
+                    <ToggleGroupItem disabled={keepAlive(song.name)} value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-gray-950 border-gray-800 rounded-xl text-xl text-white font-bold my-1 py-7">
+                      <p className="my-2">{song.name}</p>
+                    </ToggleGroupItem>
+                  </DrawerTrigger>
+                )
 
               } else {
                 return (
-                  <DrawerTrigger className="w-full">
-                    <ToggleGroupItem disabled={keepAlive(song)} value={song} key={song} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-gray-950 border-gray-800 rounded-xl text-xl text-white font-bold my-1 py-7">
-                      <p className="my-2">{song}</p>
-                    </ToggleGroupItem>
-                  </DrawerTrigger>
+                  <ToggleGroupItem disabled={keepAlive(song.name)} value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-gray-950 border-gray-800 rounded-xl text-xl text-white font-bold my-1 py-7">
+                    <p className="w-full my-2">{song.name}</p>
+                  </ToggleGroupItem>
                 )
               }
             })}

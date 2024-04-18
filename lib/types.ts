@@ -40,44 +40,50 @@ export type ShareImageRequest = {
   songs: TheLows[]
 }
 
+export type SongDbEntry = {
+  id: string,
+  city: Cities,
+  songs: SongScore[]
+}
+
 export type Cities = "boston" | "chicago" | "cleveland" | "denver" | "irving" | "minneapolis" | "nyc" | "pittsburgh" | "tampa" | "toronto" | "steve"
 
-export const theLows: TheLows[] = [
-  "he said she said",
-  "downtown",
-  "up again",
-  "backwoods",
-  "6am",
-  "sunfalls pm",
-  "swollen",
-  "someone make it stop",
-  "good day",
-  "dive bar",
-  "same guy",
-  "strawberry",
-  "same old me",
-  "public",
-  "another life",
-  "p street",
-  "skylight",
-  "i remember everything",
-  "head against the wall",
-  "coastin (night)",
-  "matching tattoo",
-  "woosah",
-  "malibu breeze",
-  "put me in the ground",
-  "everything but sorry",
-  "oasis",
-  "tomorrows not a thing",
-  "when is when",
-  "cuz i love you",
-  "feel better",
-  "how many times",
-  "fire and rain",
-  "old again",
-  "catalogue cabin",
-  "only god knows"
+export const theLows: SongScore[] = [
+  {album: "the lows.", name: "he said she said", id: "he-said-she-said", points: 0 },
+  {album: "the lows.", name: "downtown", id: "downtown", points: 0 },
+  {album: "the lows.", name: "up again", id: "up-again", points: 0 },
+  {album: "the lows.", name: "backwoods", id: "backwoods", points: 0 },
+  {album: "the lows.", name: "6am", id: "6am", points: 0 },
+  {album: "the lows.", name: "sunfalls pm", id: "sunfalls-pm", points: 0 },
+  {album: "the lows.", name: "swollen", id: "swollen", points: 0 },
+  {album: "the lows.", name: "someone make it stop", id: "someone-make-it-stop", points: 0 },
+  {album: "the lows.", name: "good day", id: "good-day", points: 0 },
+  {album: "the lows.", name: "dive bar", id: "dive-bar", points: 0 },
+  {album: "the lows.", name: "same guy", id: "same-guy", points: 0 },
+  {album: "the lows.", name: "strawberry", id: "strawberry", points: 0 },
+  {album: "the lows.", name: "same old me", id: "same-old-me", points: 0 },
+  {album: "the lows.", name: "public", id: "public", points: 0 },
+  {album: "the lows.", name: "another life", id: "another-life", points: 0 },
+  {album: "the lows.", name: "p street", id: "p-street", points: 0 },
+  {album: "the lows.", name: "skylight", id: "skylight", points: 0 },
+  {album: "the lows.", name: "i remember everything", id: "i-remember-everything", points: 0 },
+  {album: "the lows.", name: "head against the wall", id: "head-against-the-wall", points: 0 },
+  {album: "the lows.", name: "coastin (night)", id: "coastin-night", points: 0 },
+  {album: "the lows.", name: "matching tattoo", id: "matching-tattoo", points: 0 },
+  {album: "the lows.", name: "woosah", id: "woosah", points: 0 },
+  {album: "the lows.", name: "malibu breeze", id: "malibu-breeze", points: 0 },
+  {album: "the lows.", name: "put me in the ground", id: "put-me-in-the-ground", points: 0 },
+  {album: "the lows.", name: "everything but sorry", id: "everything-but-sorry", points: 0 },
+  {album: "the lows.", name: "oasis", id: "oasis", points: 0 },
+  {album: "the lows.", name: "tomorrows not a thing", id: "tomorrows-not-a-thing", points: 0 },
+  {album: "the lows.", name: "when is when", id: "when-is-when", points: 0 },
+  {album: "the lows.", name: "cuz i love you", id: "cuz-i-love-you", points: 0 },
+  {album: "the lows.", name: "feel better", id: "feel-better", points: 0 },
+  {album: "the lows.", name: "how many times", id: "how-many-times", points: 0 },
+  {album: "the lows.", name: "fire and rain", id: "fire-and-rain", points: 0 },
+  {album: "the lows.", name: "old again", id: "old-again", points: 0 },
+  {album: "the lows.", name: "catalogue cabin", id: "catalogue-cabin", points: 0 },
+  {album: "the lows.", name: "only god knows", id: "only-god-knows", points: 0}
 ]
 
 export const ynkSongs: SongScore[] = [

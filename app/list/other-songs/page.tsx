@@ -8,28 +8,8 @@ import {
   ToggleGroup,
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
-import { Button } from "@/components/ui/button";
-import { getTopOtherSongs, getTopTen, saveTopOtherSongs, saveTopTen } from "@/lib/localStorage"
-import Image from "next/image";
-import TheLows from "@/public/images/the-lows.jpeg"
-import TheHighs from "@/public/images/album/thehighs.png"
-import Love from "@/public/images/album/love.png"
-import BeenThinking from "@/public/images/album/been-thinking.png"
-import Coastin from "@/public/images/album/coastin.png"
-import Sunfalls from "@/public/images/album/sunfalls.png"
-import Alcohol from "@/public/images/album/alcohol.webp"
-import LongLegs from "@/public/images/album/long-legs.png"
-import WeDieOnce from "@/public/images/album/we-die-once.png"
+import { getTopOtherSongs, saveTopOtherSongs } from "@/lib/localStorage"
+import { AlbumImage } from "@/components/AlbumImage";
 import {
   Accordion,
   AccordionContent,
@@ -48,7 +28,6 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
   // other songs
   useEffect(() => {
     const songs = getTopOtherSongs([])
-
     setTopOtherSongs(songs)
   }, [])
 
@@ -95,8 +74,6 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
     { album: "long legs", songs: ["long legs"] }
   ]
 
-  console.log(searchParams.city)
-
   return (
     <Suspense>
       <div className="bg-custom md:max-w-lg m-auto" >
@@ -136,27 +113,4 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
       </div>
     </Suspense>
   );
-}
-
-const AlbumImage = ({ album }: { album: string }) => {
-  switch (album) {
-    case "love,":
-      return <Image src={Love} alt="The Lows" width={75} />
-    case "the highs.":
-      return <Image src={TheHighs} alt="The Lows" width={75} />
-    case "been thinkin":
-      return <Image src={BeenThinking} alt="The Lows" width={75} />
-    case "coastin":
-      return <Image src={Coastin} alt="The Lows" width={75} />
-    case "sunfalls":
-      return <Image src={Sunfalls} alt="The Lows" width={75} />
-    case "alcohol":
-      return <Image src={Alcohol} alt="The Lows" width={75} />
-    case "we die once":
-      return <Image src={WeDieOnce} alt="The Lows" width={75} />
-    case "long legs":
-      return <Image src={LongLegs} alt="The Lows" width={75} />
-    default:
-      return <Image src={TheLows} alt="The Lows" width={75} />
-  }
 }

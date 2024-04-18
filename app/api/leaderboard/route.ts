@@ -1,7 +1,7 @@
 // pages/api/create.js
 import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase, DATABASE_NAME, COLLECTION_NAME } from "@/lib/mongo";
-import { Cities, LeaderBoardResponse, LeaderboardSong } from "@/lib/types";
+import { Cities, LeaderBoardResponse, LeaderboardSong, SongScore } from "@/lib/types";
 
 const songGroup = {
   _id: null,
@@ -54,12 +54,31 @@ export async function GET(req: NextRequest, res: NextResponse) {
       if (city === "steve") {
         city = "steve"
         result = await collection.aggregate([
-          { $group: songGroup }
+          { $group: songGroup },
+          { $unwind: "$songs" },
+          { $group: 
+            {
+              _id: "$songs.id",
+              id: { $first: "$songs.id" },
+              name: { $first: "$songs.name" },
+              album: { $first: "$songs.album"},
+              points: { $sum: "$songs.points"}
+            }
+          }
         ]).toArray()
       } else {
         result = await collection.aggregate([
+          { $unwind: "$songs" },
           { $match: { city } },
-          { $group: songGroup }
+          { $group: 
+            {
+              _id: "$songs.id",
+              id: { $first: "$songs.id" },
+              name: { $first: "$songs.name" },
+              album: { $first: "$songs.album"},
+              points: { $sum: "$songs.points"}
+            }
+          }
         ]).toArray()
       }
       
@@ -118,7 +137,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
         city,
         success: true,
         total,
-        songs
+        songs: result as SongScore[]
       }
 
       return NextResponse.json(response, { status: 200})
