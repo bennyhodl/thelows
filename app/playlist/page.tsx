@@ -23,11 +23,11 @@ export default async function Leaderboard({ searchParams }: { searchParams: { ci
   return (
     <Suspense>
       <Header center={true} city={searchParams.city} />
-      <div className="flex flex-col text-white items-center justify-center bg-gray-950 md:max-w-lg w-full font-garamond-bold font-bold pt-8">
+      <div className="flex flex-col text-white items-center justify-center bg-custom md:max-w-lg w-full font-garamond-bold font-bold pt-8">
         <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
-          <TabsList className="w-full bg-gray-900">
-            <TabsTrigger className="w-1/2 bg-gray-950" value="the-lows">The Lows</TabsTrigger>
-            <TabsTrigger className="w-1/2 bg-gray-950" value="other-songs">The Vibes</TabsTrigger>
+          <TabsList className="w-full bg-gray-950">
+            <TabsTrigger className="w-1/2 bg-none" value="the-lows">The Lows</TabsTrigger>
+            <TabsTrigger className="w-1/2 bg-none" value="other-songs">The Vibes</TabsTrigger>
           </TabsList>
           <TabsContent value="the-lows">
             <TourCityImage city={searchParams.city} />

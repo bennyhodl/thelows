@@ -33,7 +33,7 @@ const cityList: Cities[] = [
 export default function Home() {
   useUser()
   return (
-    <div className="flex flex-col items-center  md:max-w-lg m-auto">
+    <div className="flex flex-col items-center bg-custom md:max-w-lg m-auto">
       <UpsideDownPlaylistHero />
       <div className="flex flex-col justify-between items-center text-white text-center">
         <div className="px-6">

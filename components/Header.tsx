@@ -127,7 +127,7 @@ export const Header = ({ center, city }: { center: boolean, city: string }) => {
     }
   }
 
-  const classes = !center ? "h-14 bg-black fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-black fixed z-50 flex justify-center w-full md:max-w-lg px-2 py-2"
+  const classes = !center ? "h-14 bg-custom fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-custom fixed z-50 flex justify-center w-full md:max-w-lg px-2 py-2"
   return (
     <Drawer>
       <div className={classes}>

@@ -17,9 +17,9 @@
 
 .bg-custom {
   background-image: url('https://image.nostr.build/e6f1a4ba75093c76116e9e903d70914681b7b295fc0aa6a3222ed0af663f6fb2.jpg');
-  background-size: cover;
+  background-size:cover;
   background-position: center;
-  background-repeat: no-repeat;
+  background-repeat: repeat;
 }
 
 /* styles.css */
