@@ -18,9 +18,13 @@ const config = {
       },
     },
     fontFamily: {
-      sans: ["Archivo", "ui-sans-serif", "system-ui"]
+      "garamond-bold": ["GarmondBold", "ui-sans-serif", "system-ui"],
+      "garamond": ["Garmond", "ui-sans-serif", "system-ui"]
     },
     extend: {
+      backgroundImage: {
+        'fade-to-black': 'linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 1))',
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",

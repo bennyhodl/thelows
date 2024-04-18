@@ -18,12 +18,12 @@ export default async function Leaderboard() {
   return (
     <Suspense fallback={<p className="text-red text-3xl bg-blue-400">heyhowareya</p>}>
       <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg m-auto font-bold">
-        <Header />
+        <Header center={false} city="tampa" />
         <div className="w-full flex justify-center flex-col items-center text-white">
           <h1 className="pt-14 pb-6 text-3xl text-center">Leaderboard</h1>
           {leaderboard.songs.map(song => <SongBar key={song.name} song={song} />)}
         </div>
-        <Footer />
+        <Footer full={false} />
       </div >
     </Suspense>
   );

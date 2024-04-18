@@ -2,15 +2,16 @@
 import { Suspense } from "react";
 import { API_URL } from "@/lib/utils";
 import { Cities, LeaderBoardResponse, LeaderboardSong, theLows } from "@/lib/types";
-import TheLowsImage from "@/public/images/the-lows.jpeg"
-import Image from "next/image"
-import { Tag } from "lucide-react";
+import { Header } from "@/components/Header";
+import { Tag, AudioLines } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { TourCityImage } from "@/components/CityImage";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { ColumnTitle } from "@/components/ColumnTitles";
+import Link from "next/link";
 
 const getLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
-  console.log(city)
-  const response = await fetch(`${API_URL}/api/leaderboard`)
+  const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`)
   const leaderboard: LeaderBoardResponse = await response.json()
   leaderboard.songs.sort((a, b) => Number(b.percent) - Number(a.percent))
   return leaderboard
@@ -21,32 +22,46 @@ export default async function Leaderboard({ searchParams }: { searchParams: { ci
 
   return (
     <Suspense>
-      <div className="flex flex-col text-white items-center bg-gray-950 md:max-w-lg font-bold pt-8">
-        {/* <Header /> */}
-        <ImageArt city={searchParams.city} />
-        <AlbumInformation city="cleveland" />
-        <ColumnTitle />
-        {leaderboard.songs.map((song, index) => (
-          <PlaylistSong song={song.name} points={song.points} percentage={song.percent} index={index + 1} key={song.name} />
-        ))}
+      <Header center={true} city={searchParams.city} />
+      <div className="flex flex-col text-white items-center justify-center bg-gray-950 md:max-w-lg w-full font-garamond-bold font-bold pt-8">
+        <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
+          <TabsList className="w-full bg-gray-900">
+            <TabsTrigger className="w-1/2 bg-gray-950" value="the-lows">The Lows</TabsTrigger>
+            <TabsTrigger className="w-1/2 bg-gray-950" value="other-songs">The Vibes</TabsTrigger>
+          </TabsList>
+          <TabsContent value="the-lows">
+            <TourCityImage city={searchParams.city} />
+            <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
+            <ColumnTitle />
+            {leaderboard.songs.map((song, index) => (
+              <PlaylistSong song={song.name} points={song.points} percentage={song.percent} index={index + 1} key={song.name} />
+            ))}
+          </TabsContent>
+          <TabsContent value="other-songs">
+            <TourCityImage city="steve" />
+            <AlbumInformation city={searchParams.city} playlistName="ynk" />
+            <ColumnTitle />
+            {leaderboard.songs.map((song, index) => (
+              <PlaylistSong song={song.name} points={song.points} percentage={song.percent} index={index + 1} key={song.name} />
+            ))}
+          </TabsContent>
+        </Tabs>
       </div >
     </Suspense>
   );
 }
 
-const ImageArt = ({ city }: { city: Cities }) => {
-  return <TourCityImage city={city} />
-}
-
-const AlbumInformation = ({ city }: { city: string }) => {
+const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: "ynk" | "upside down tour" }) => {
   return (
-    <div className="flex flex-row justify-between items-center w-full px-8 mt-5 mb-5">
+    <div className="flex flex-row justify-between items-center w-full px-6 mt-5 mb-5">
       <div className="flex-col">
-        <p>upside down playlist</p>
-        <p className="text-xs text-gray-400">{city}.</p>
+        <p className="text-xl">{playlistName} setlist</p>
+        <p className="text-lg text-gray-400">{city}.</p>
       </div>
       <div className="bg-[#f25201] p-2 rounded-full">
-        <Tag className=" rounded-full text-white w-6 h-6 m-1" />
+        <Link href="https://ditto.fm/the-lows" target="_blank">
+          <AudioLines className="text-white w-6 h-6 m-1" />
+        </Link>
       </div>
     </div>
   )
@@ -62,26 +77,12 @@ const PlaylistSong = ({ song, percentage, points, index }: { song: string, perce
           <p className="text-xs text-gray-400 font-light">mike.</p>
         </div>
       </div>
-      <p className="ml-1 text-lg text-gray-400 font-normal">{points} votes</p>
+      <p className="ml-1 text-md pb-3 text-gray-400 font-normal">{points} votes</p>
     </div>
   )
 
 }
 
-const ColumnTitle = () => {
-  return (
-    <div className="w-full px-2 flex flex-col text-xs text-gray-400">
-      <div className="flex flex-row justify-between mb-2">
-        <div className="flex flex-row">
-          <p className="ml-2">#</p>
-          <p className="ml-3">Song</p>
-        </div>
-        <p className="mr-5">Votes</p>
-      </div>
-      <Separator className="bg-gray-700" orientation="horizontal" />
-    </div>
-  )
-}
 const SongBar = ({ song }: { song: LeaderboardSong }) => {
   return (
     <div className="w-80 flex flex-col">

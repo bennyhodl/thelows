@@ -4,7 +4,7 @@ import { Suspense, useEffect, useState } from "react";
 import React from "react";
 import { SongList } from "@/components/Song";
 import { Header } from "@/components/Header";
-import { getTopFive, saveTopFive } from "@/lib/localStorage";
+import { getTopTen, saveTopTen } from "@/lib/localStorage";
 import { Footer } from "@/components/Footer";
 import { TheLows, theLows } from "@/lib/types";
 
@@ -16,11 +16,11 @@ const reorder = (list: TheLows[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-export default function Album() {
+export default function OrderList({ searchParams }: { searchParams: { city: string } }) {
   const [songList, setSongs] = useState<TheLows[]>([]);
 
   useEffect(() => {
-    const list = getTopFive(theLows)
+    const list = getTopTen(theLows)
     setSongs(list)
   }, [])
 
@@ -39,27 +39,26 @@ export default function Album() {
       result.destination.index
     );
 
-    saveTopFive(songs)
+    saveTopTen(songs)
     setSongs(songs);
   }
 
   return (
     <Suspense>
-      <div className="bg-gray-950 md:max-w-lg m-auto" >
-        <Header />
-        <p className="text-white pt-16 pb-1 text-center px-4 font-bold">Drag your favorite songs in order and submit to see other steve's favorites.</p>
+      <Header center={false} city={searchParams.city} />
+      <div className="md:max-w-lg m-auto pt-16 bg-custom" >
+        <p className="text-white text-center px-4 font-garamond-bold text-2xl">Drag your favorite songs in order to vote for mike's set list.</p>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {provided => (
-              <div ref={provided.innerRef} {...provided.droppableProps} className="pb-4">
+              <div ref={provided.innerRef} {...provided.droppableProps}>
                 <SongList songs={songList} />
                 {provided.placeholder}
               </div>
             )}
           </Droppable>
         </DragDropContext>
-        {/* </div> */}
-        <Footer />
+        <Footer full={false} />
       </div >
     </Suspense>
   );

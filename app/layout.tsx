@@ -7,8 +7,8 @@ import { Footer } from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "The Lows Ranking",
-  description: "Rank your favorite songs on The Lows album.",
+  title: "Upside Down Tour - mike.",
+  description: "Help mike pick the set list when he comes to your city",
   icons: { icon: "/favicon.ico" }
 };
 
@@ -19,10 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-950`}>
-        <Header />
+      <body className={`${inter.className} bg-custom h-screen`}>
+        {/* <Header /> */}
         {children}
-        <Footer />
+        {/* <Footer /> */}
       </body>
     </html>
   );

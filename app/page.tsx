@@ -2,37 +2,64 @@
 import Image from "next/image";
 import TheLows from "@/public/images/the-lows.jpeg"
 import Link from "next/link";
-import { Footer } from "@/components/Footer";
 import { useUser } from "@/lib/useUser";
+import { Footer } from "@/components/Footer";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import UpsideDownPlaylist from "@/public/images/playlist-logo.png"
+import { useState } from "react";
+import { Cities } from "@/lib/types";
+import { AudioLines, Building2, ChevronDown, ChevronsUpDown } from "lucide-react"
+
+const cityList: Cities[] = [
+  "tampa",
+  "cleveland",
+  "boston",
+  "chicago",
+  "denver",
+  "irving",
+  "minneapolis",
+  "nyc",
+  "pittsburgh",
+  "toronto"
+]
 
 export default function Home() {
   useUser()
   return (
-    <div className="flex flex-col justify-between items-center h-screen bg-gray-950 md:max-w-lg m-auto">
-      <div className="relative w-full h-96 overflow-hidden">
-        <Image src={TheLows} alt="The Lows Album Cover" />
-        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-gray-950 to-transparent"></div>
-      </div>
-      <div className="flex flex-col justify-between items-center pb-6 text-white text-center h-1/2">
-        <div className="flex flex-col px-3">
-          <h1 className="text-3xl pb-2 font-bold">THE LOWS LIST</h1>
-          <p className="">Rank your favorite songs from <i className="font-bold">THE LOWS.</i> as you listen.</p>
-          <br></br>
-          <p className="pb-2">Submit your favorites and see how they rank compared to the rest of mike's listeners.</p>
+    <div className="flex flex-col items-center  md:max-w-lg m-auto">
+      <UpsideDownPlaylistHero />
+      <div className="flex flex-col justify-between items-center text-white text-center">
+        <div className="px-6">
+          <p className="font-garamond text-2xl">Pick the songs you want to hear on the <em className="font-garamond-italic">upside down tour.</em> when <em className="font-garamond-italic">mike.</em> comes to your city.</p>
         </div>
-        <div className="flex flex-col w-3/4 items-center">
-          <Link href="/top5" legacyBehavior>
-            <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-3 px-4 mb-3 font-bold">Pick Top 5</a>
-          </Link>
-          <Link href="/album" legacyBehavior>
-            <a className="btn rounded-3xl w-3/4 bg-[#f25201] py-1 px-4 font-bold">Full Album</a>
-          </Link>
-          <Link href="/leaderboard" legacyBehavior>
-            <a className="btn rounded-3xl w-3/4 underline py-3 px-4 font-bold">Leaderboard</a>
+        <div className="flex flex-col w-3/4 items-center pt-8">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="w-full">
+              <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-gray-950 text-white w-48 my-2">
+              {cityList.map(city => <DropdownMenuItem><Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center w-full my-1">{city}</Link></DropdownMenuItem>)}
+              <DropdownMenuSeparator></DropdownMenuSeparator>
+              <DropdownMenuItem><Link href="/list?city=every" className="cursor-pointer text-md text-center w-full my-1">No City</Link></DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+          <Link href="/playlist" legacyBehavior>
+            <a className="btn w-3/4 underline pt-4 px-4 font-bold">See Playlist</a>
           </Link>
         </div>
       </div>
-      <Footer />
+      <Footer full={true} />
     </div >
   );
+}
+
+const UpsideDownPlaylistHero = () => {
+  return <Image src={UpsideDownPlaylist} alt="Upside Down Playlist" width={350} />
 }

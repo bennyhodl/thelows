@@ -3,10 +3,34 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'Archivo';
-  src: url('../public/font/ArchivoBlack-Regular.ttf') format('ttf');
+  font-family: 'GarmondBold';
+  src: url('../public/font/EBGaramond-Bold.ttf') format("truetype");
   font-weight: normal;
   font-style: normal;
+}
+@font-face {
+  font-family: 'Garmond';
+  src: url('../public/font/EBGaramond-SemiBold.ttf') format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.bg-custom {
+  background-image: url('https://image.nostr.build/e6f1a4ba75093c76116e9e903d70914681b7b295fc0aa6a3222ed0af663f6fb2.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* styles.css */
+.bg-gradient-to-black {
+  background-image: linear-gradient(
+    to bottom, 
+    rgba(0, 0, 0, 0) 0%, 
+    rgba(0, 0, 0, 0) 50%, 
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  background-attachment: fixed;
 }
 
 @layer base {

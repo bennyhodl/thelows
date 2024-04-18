@@ -7,14 +7,14 @@ export const Song = ({ song, index, id }: { song: TheLows, id: string, index: nu
     <Draggable draggableId={id} index={index}>
       {provided => (
         <div
-          className="flex flex-row justify-between m-auto items-center bg-gray-950 border-2 border-gray-800 my-2 pl-2 py-3 pr-3 text-xl w-11/12 rounded-xl text-white"
+          className="flex flex-row justify-between m-auto items-center bg-none border-2 border-gray-800 my-2 pl-2 py-3 pr-3 w-11/12 rounded-lg text-white font-garamond-bold text-2xl"
           ref={provided.innerRef}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
           <div className="flex flex-row">
-            <p className="w-8 text-center font-bold mr-1">{index + 1}.</p>
-            <p className="pl-2 font-bold">{song}</p>
+            <p className="w-8 text-center mr-1">{index + 1}.</p>
+            <p className="pl-2">{song}</p>
           </div>
           <Menu color="#F97316" />
         </div>
