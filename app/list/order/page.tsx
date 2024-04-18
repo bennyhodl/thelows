@@ -6,7 +6,7 @@ import { SongList } from "@/components/Song";
 import { Header } from "@/components/Header";
 import { getTopTen, saveTopTen } from "@/lib/localStorage";
 import { Footer } from "@/components/Footer";
-import { TheLows, theLows } from "@/lib/types";
+import { Cities, TheLows, theLows } from "@/lib/types";
 
 const reorder = (list: TheLows[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
@@ -16,7 +16,7 @@ const reorder = (list: TheLows[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-export default function OrderList({ searchParams }: { searchParams: { city: string } }) {
+export default function OrderList({ searchParams }: { searchParams: { city: Cities } }) {
   const [songList, setSongs] = useState<TheLows[]>([]);
 
   useEffect(() => {

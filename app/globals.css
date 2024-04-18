@@ -16,7 +16,7 @@
 }
 
 .bg-custom {
-  background-image: url('https://image.nostr.build/e6f1a4ba75093c76116e9e903d70914681b7b295fc0aa6a3222ed0af663f6fb2.jpg');
+  background-image: url('https://image.nostr.build/4893dc11864c5ff5971df4059d50043dcb422d75c6d5b62e40efbe60c32d4d4c.jpg');
   background-size:cover;
   background-position: center;
   background-repeat: repeat;
@@ -107,5 +107,5 @@
 }
 
 html {
-  background-color: transparent;
+  background-color: "#000";
 }

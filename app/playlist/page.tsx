@@ -3,8 +3,7 @@ import { Suspense } from "react";
 import { API_URL } from "@/lib/utils";
 import { Cities, LeaderBoardResponse, LeaderboardSong, theLows } from "@/lib/types";
 import { Header } from "@/components/Header";
-import { Tag, AudioLines } from "lucide-react";
-import { Separator } from "@/components/ui/separator";
+import { AudioLines } from "lucide-react";
 import { TourCityImage } from "@/components/CityImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ColumnTitle } from "@/components/ColumnTitles";
@@ -13,6 +12,7 @@ import Link from "next/link";
 const getLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
   const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`)
   const leaderboard: LeaderBoardResponse = await response.json()
+  console.log("RES", leaderboard)
   leaderboard.songs.sort((a, b) => Number(b.percent) - Number(a.percent))
   return leaderboard
 }
@@ -56,7 +56,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
     <div className="flex flex-row justify-between items-center w-full px-6 mt-5 mb-5">
       <div className="flex-col">
         <p className="text-xl">{playlistName} setlist</p>
-        <p className="text-lg text-gray-400">{city}.</p>
+        <p className="text-lg text-gray-400">{city || "upside down tour"}.</p>
       </div>
       <div className="bg-[#f25201] p-2 rounded-full">
         <Link href="https://ditto.fm/the-lows" target="_blank">

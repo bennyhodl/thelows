@@ -3,7 +3,7 @@ import { Suspense, useEffect, useState } from "react";
 import React from "react";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { theLows } from "@/lib/types";
+import { Cities, theLows } from "@/lib/types";
 import {
   ToggleGroup,
   ToggleGroupItem,
@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { getTopTen, saveTopTen } from "@/lib/localStorage"
 import Link from "next/link";
 
-export default function List({ searchParams }: { searchParams: { city: string } }) {
+export default function List({ searchParams }: { searchParams: { city: Cities } }) {
   const [topTen, setTopTen] = useState<string[]>([])
 
   // top 5

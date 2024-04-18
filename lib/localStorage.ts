@@ -1,4 +1,4 @@
-import { TheLows } from "./types";
+import { SongScore, TheLows } from "./types";
 
 export const getSongList = (songs: TheLows[]): TheLows[] => {
   const list = global?.localStorage?.getItem("songs2");
@@ -26,16 +26,16 @@ export const saveTopFive = (songs: TheLows[]) => {
   return window.localStorage.setItem("top5", JSON.stringify(songs))
 }
 
-export const getTopOtherSongs = (songs: TheLows[]): TheLows[] => {
+export const getTopOtherSongs = (songs: string[]): string[] => {
   const list = window.localStorage.getItem("other-songs");
   if (!list) {
-    saveTopFive(songs)
+    saveTopOtherSongs(songs)
     return songs
   }
   return JSON.parse(list)
 }
 
-export const saveTopOtherSongs = (songs: TheLows[]) => {
+export const saveTopOtherSongs = (songs: string[]) => {
   return window.localStorage.setItem("other-songs", JSON.stringify(songs))
 }
 

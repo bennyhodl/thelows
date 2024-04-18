@@ -3,7 +3,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectToDatabase, DATABASE_NAME, COLLECTION_NAME } from "@/lib/mongo";
 import { SubmitListRequest } from "@/lib/types";
 
-
 export async function POST(req: NextRequest, res: NextResponse) {
     try {
       const json: SubmitListRequest = await req.json()
@@ -18,6 +17,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       })
 
       let document = {
+        city: json.city,
         id: json.id,
         songs: doc 
       }

@@ -11,10 +11,9 @@ import { Cities, SongScore, SubmitListRequest, TheLows, theLows } from "@/lib/ty
 import Link from "next/link";
 import { Button } from "./ui/button"
 import { ReloadIcon } from "@radix-ui/react-icons"
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -23,19 +22,18 @@ import {
   DrawerTrigger,
 } from "@/components/ui/drawer"
 
-export const Header = ({ center, city }: { center: boolean, city: string }) => {
+export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
   const [loading, setLoading] = useState<boolean>(false)
-  const router = useRouter();
   const pathname = usePathname();
   const id = useUser()
 
-  const submitLowsList = async (city: string) => {
+  const submitLowsList = async (city: Cities) => {
     setLoading(true)
     let songs: TheLows[] = getTopTen(theLows)
 
     let availablePoints = songs.length;
     const songsToSubmit = songs.map((song) => {
-      const ranking: SongScore = {
+      const ranking: any = {
         name: song,
         points: availablePoints,
       };
@@ -45,6 +43,7 @@ export const Header = ({ center, city }: { center: boolean, city: string }) => {
     });
 
     const postList: SubmitListRequest = {
+      city,
       id,
       songs: songsToSubmit
     }
@@ -59,13 +58,15 @@ export const Header = ({ center, city }: { center: boolean, city: string }) => {
 
   const submitOtherSongsList = async (city: Cities) => {
     setLoading(true)
-    let songs: TheLows[] = getTopOtherSongs(theLows)
-
+    let songs: string[] = getTopOtherSongs([])
     let availablePoints = songs.length;
     const songsToSubmit = songs.map((song) => {
+      const listPick = JSON.parse(song)
       const ranking: SongScore = {
-        name: song,
-        points: availablePoints,
+        album: listPick.album,
+        name: listPick.name,
+        id: listPick.id,
+        points: listPick.points,
       };
 
       availablePoints -= 1;
@@ -73,17 +74,18 @@ export const Header = ({ center, city }: { center: boolean, city: string }) => {
     });
 
     const postList: SubmitListRequest = {
+      city,
       id,
       songs: songsToSubmit
     }
 
     await axios.post(
-      `${API_URL}/api/submit-list/vibes?song=${city}`,
+      `${API_URL}/api/submit-list/other?city=${city}`,
       postList
     );
 
     // city
-    router.push("/playlist?city=" + city);
+    // router.push("/playlist?city=" + city);
     setLoading(false)
   };
 
@@ -93,7 +95,7 @@ export const Header = ({ center, city }: { center: boolean, city: string }) => {
         return (
           <Button
             className="btn bg-[#f25201] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
-            onClick={async () => await submitLowsList("album")} // City
+            onClick={async () => await submitLowsList(city)} // City
           >
             {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
             Submit
@@ -103,7 +105,7 @@ export const Header = ({ center, city }: { center: boolean, city: string }) => {
         return (
           <Button
             className="btn bg-[#f25201] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
-            onClick={async () => await submitOtherSongsList("tampa")} // City
+            onClick={async () => await submitOtherSongsList(city)} // City
           >
             {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
             Submit
@@ -113,7 +115,7 @@ export const Header = ({ center, city }: { center: boolean, city: string }) => {
         return (
           <Button
             className="btn bg-[#f25201] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
-            onClick={async () => await submitLowsList("top10")}
+            onClick={async () => await submitLowsList(city)}
           >
             {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
             <DrawerTrigger className="w-full">

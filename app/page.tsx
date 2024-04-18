@@ -42,16 +42,16 @@ export default function Home() {
         <div className="flex flex-col w-3/4 items-center pt-8">
           <DropdownMenu>
             <DropdownMenuTrigger className="w-full">
-              <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
+              <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2 font-garamond text-xl"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-gray-950 text-white w-48 my-2">
-              {cityList.map(city => <DropdownMenuItem><Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center w-full my-1">{city}</Link></DropdownMenuItem>)}
+              {cityList.map(city => <DropdownMenuItem><Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center w-full my-1 font-garamond text-md">{city}</Link></DropdownMenuItem>)}
               <DropdownMenuSeparator></DropdownMenuSeparator>
-              <DropdownMenuItem><Link href="/list?city=every" className="cursor-pointer text-md text-center w-full my-1">No City</Link></DropdownMenuItem>
+              <DropdownMenuItem><Link href="/list?city=every" className="cursor-pointer text-md text-center w-full my-1 font-garamond text-md">No City</Link></DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
           <Link href="/playlist" legacyBehavior>
-            <a className="btn w-3/4 underline pt-4 px-4 font-bold">See Playlist</a>
+            <a className="btn w-3/4 underline pt-4 px-4 font-garamond text-xl">Go To Playlist</a>
           </Link>
         </div>
       </div>
