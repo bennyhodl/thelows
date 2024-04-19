@@ -10,14 +10,14 @@ import { ColumnTitle } from "@/components/ColumnTitles";
 import Link from "next/link";
 
 const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
-  const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`)
+  const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`, { cache: "no-cache" })
   const leaderboard: LeaderBoardResponse = await response.json()
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
   return leaderboard
 }
 
 const getVibesLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
-  const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`)
+  const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`, { cache: "no-cache" })
   const leaderboard: LeaderBoardResponse = await response.json()
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
   console.log(leaderboard)
@@ -31,11 +31,11 @@ export default async function Leaderboard({ searchParams }: { searchParams: { ci
   return (
     <Suspense>
       <Header center={true} city={searchParams.city} />
-      <div className="flex flex-col text-white items-center justify-center bg-custom md:max-w-lg w-full font-garamond-bold font-bold pt-8">
+      <div className="flex flex-col text-white items-center justify-center  md:max-w-lg w-full font-garamond-bold font-bold pt-8">
         <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
           <TabsList className="w-full bg-gray-950">
-            <TabsTrigger className="w-1/2 bg-none" value="the-lows">The Lows</TabsTrigger>
-            <TabsTrigger className="w-1/2 bg-none" value="other-songs">The Vibes</TabsTrigger>
+            <TabsTrigger className="w-1/2 ne" value="the-lows">The Lows</TabsTrigger>
+            <TabsTrigger className="w-1/2 ne" value="other-songs">The Vibes</TabsTrigger>
           </TabsList>
           <TabsContent value="the-lows">
             <TourCityImage city={searchParams.city} />
@@ -66,7 +66,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
         <p className="text-xl">{playlistName} setlist</p>
         <p className="text-lg text-gray-400">{city || "upside down tour"}.</p>
       </div>
-      <div className="bg-[#f25201] p-2 rounded-full">
+      <div className="bg-[#02c7d4] p-2 rounded-full">
         <Link href="https://ditto.fm/the-lows" target="_blank">
           <AudioLines className="text-white w-6 h-6 m-1" />
         </Link>
@@ -96,7 +96,7 @@ const SongBar = ({ song }: { song: LeaderboardSong }) => {
     <div className="w-80 flex flex-col">
       <p className="text-start">{song.name}</p>
       <div className="bg-gray-950 h-6 my-1 flex flex-row justify-between">
-        <div className="bg-[#f25201] h-6 rounded-md" style={{ width: song.percent + "%" }}></div>
+        <div className="bg-[#02c7d4] h-6 rounded-md" style={{ width: song.percent + "%" }}></div>
         <p>{song.percent}%</p>
       </div>
     </div>

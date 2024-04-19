@@ -99,7 +99,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       case "/album":
         return (
           <Button
-            className="btn bg-[#f25201] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
+            className="btn bg-[#02c7d4] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
             onClick={async () => await submitLowsList(city)} // City
           >
             {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
@@ -109,7 +109,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       case "/list/other-songs":
         return (
           <Button
-            className="btn bg-[#f25201] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
+            className="btn bg-[#02c7d4] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
             onClick={async () => await submitOtherSongsList(city)} // City
           >
             {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
@@ -119,7 +119,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       case "/list/order":
         return (
           <Button
-            className="btn bg-[#f25201] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
+            className="btn bg-[#02c7d4] text-white font-garamond py-0 px-4 rounded-lg cursor-pointer font-bold"
             onClick={async () => await submitLowsList(city)}
           >
             {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
@@ -134,7 +134,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
     }
   }
 
-  const classes = !center ? "h-14 bg-custom fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-custom fixed z-50 flex justify-center w-full md:max-w-lg px-2 py-2"
+  const classes = !center ? "h-14  fixed z-50 flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14  fixed z-50 flex justify-center w-full md:max-w-lg px-2 py-2"
   return (
     <Drawer>
       <div className={classes}>
@@ -145,14 +145,14 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         <DrawerContent className="bg-gray-950 border-gray-800">
           <DrawerHeader>
             <DrawerTitle className="text-white"><p className="font-garamond-bold text-2xl">Would you like to pick songs from previous albums?</p></DrawerTitle>
-            <DrawerDescription><p className="font-garamond-bold text-xl">To see the playlist, click "Continue".</p></DrawerDescription>
+            {/* <DrawerDescription><p className="font-garamond-bold text-xl">To see the playlist, c</p></DrawerDescription> */}
           </DrawerHeader>
           <DrawerFooter>
             <Link href={`/list/other-songs?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-white bg-[#f25201] py-3 px-4 mb-1 font-garamond-bold font-3xl"><p>Yes</p></a>
+              <a className="btn rounded-lg w-full text-center text-gray-950 bg-[#02c7d4] py-3 px-4 mb-1 font-garamond-bold font-3xl"><p>Pick From All Songs</p></a>
             </Link>
             <Link href={`/playlist?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-black bg-white py-3 px-4 mb-3 font-garamond">Continue</a>
+              <a className="btn rounded-lg w-full text-center text-black bg-white py-3 px-4 mb-3 font-garamond">Go To the Upside Down Playlist</a>
             </Link>
           </DrawerFooter>
         </DrawerContent>
@@ -160,31 +160,3 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
     </Drawer>
   );
 };
-
-// case "/leaderboard":
-// const leaderboard = { name: "The Lows", path: "/" }
-// return (
-//   <Button
-//     className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer font-bold"
-//     onClick={() => { setLoading(true); router.push(leaderboard.path) }}
-//   >
-//     {leaderboard.name}
-//   </Button>
-// )
-//       case "/top5":
-// const topFive = { name: "Next", path: "/top5/order" }
-// return (
-//   <Button
-//     className="btn bg-[#f25201] text-white py-0 px-4 rounded-xl cursor-pointer font-bold"
-//     onClick={() => {
-//       let topFiveSongs = getTopFive([])
-//       if (topFiveSongs.length !== 5) {
-//         return // modal
-//       }
-//       setLoading(true);
-//       router.push(topFive.path)
-//     }}
-//   >
-//     {topFive.name}
-//   </Button>
-// )

@@ -15,11 +15,17 @@
   font-style: normal;
 }
 
-.bg-custom {
+/* .bg-custom {
   background-image: url('https://image.nostr.build/4893dc11864c5ff5971df4059d50043dcb422d75c6d5b62e40efbe60c32d4d4c.jpg');
   background-size:cover;
   background-position: center;
   background-repeat: repeat;
+} */
+.bg-custom {
+  /* background-image: linear-gradient(to bottom, #02c7d4 15%, #df0134 25%, #37393d 40%);
+  background-size:cover;
+  background-repeat: no-repeat; */
+  background-color: black;
 }
 
 /* styles.css */

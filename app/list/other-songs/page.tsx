@@ -76,7 +76,7 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
 
   return (
     <Suspense>
-      <div className="bg-custom md:max-w-lg m-auto" >
+      <div className=" md:max-w-lg m-auto" >
         <Header center={false} city={searchParams.city} />
         <p className="text-white pt-16 pb-1 text-center px-4 font-garamond-bold text-xl">Pick as many songs as you want to hear at the concert.</p>
         <ToggleGroup type="multiple" className="flex mt-4" value={topOtherSongs} onValueChange={userSelect}>
@@ -99,7 +99,7 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
                     }
                     return (
                       <AccordionContent className="text-white" key={song}>
-                        <ToggleGroupItem value={JSON.stringify(valueItem)} key={song} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom border-gray-800 rounded-lg text-xl text-white font-bold py-7">
+                        <ToggleGroupItem value={JSON.stringify(valueItem)} key={song} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover: border-gray-800 rounded-lg text-xl text-white font-bold py-7">
                           <p className="w-full">{song}</p>
                         </ToggleGroupItem>
                       </AccordionContent>

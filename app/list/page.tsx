@@ -47,7 +47,7 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
   return (
     <Suspense>
       <Drawer>
-        <div className="bg-custom md:max-w-lg m-auto font-garamond-bold text-xl">
+        <div className="  md:max-w-lg m-auto font-garamond-bold text-xl">
           <Header center={true} city={searchParams.city} />
           <p className="text-white pt-16 pb-1 text-center px-4 font-bold">Select 10 songs that you want to hear on tour from the lows. Then rank them.</p>
           <ToggleGroup type="multiple" className="flex flex-col items-center m-auto justify-center w-11/12 mt-4" value={topTen} onValueChange={userSelect}>
@@ -76,14 +76,14 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
           <DrawerHeader>
             <DrawerTitle className="text-white text-2xl">Is this the set list you want to hear?
             </DrawerTitle>
-            <DrawerDescription className="text-lg">Click "Next" to rank the songs in order that you want performed.</DrawerDescription>
+            <DrawerDescription className="text-lg">Click "Continue" to rank the songs in order that you want performed.</DrawerDescription>
           </DrawerHeader>
           <DrawerFooter>
             <Link href={`/list/order?city=${searchParams.city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-white bg-[#f25201] py-3 px-4 mb-2">Next</a>
+              <a className="btn rounded-lg w-full text-center text-gray-950 bg-[#02c7d4] py-3 px-4 mb-2">Continue</a>
             </Link>
             <DrawerClose>
-              <Button variant="outline" className="w-full">Go Back</Button>
+              <Button variant="outline" className="w-full">Pick Again</Button>
             </DrawerClose>
           </DrawerFooter>
         </DrawerContent>

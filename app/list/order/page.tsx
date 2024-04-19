@@ -46,7 +46,7 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
   return (
     <Suspense>
       <Header center={false} city={searchParams.city} />
-      <div className="md:max-w-lg m-auto pt-16 bg-custom" >
+      <div className="md:max-w-lg m-auto pt-16 " >
         <p className="text-white text-center px-4 font-garamond-bold text-2xl">Drag your favorite songs in order to vote for mike's set list.</p>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">

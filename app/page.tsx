@@ -12,7 +12,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import UpsideDownPlaylist from "@/public/images/playlist-logo.png"
+import UpsideDownPlaylist from "@/public/images/playlist-logo-slim.png"
 import { useState } from "react";
 import { Cities } from "@/lib/types";
 import { AudioLines, Building2, ChevronDown, ChevronsUpDown } from "lucide-react"
@@ -33,7 +33,7 @@ const cityList: Cities[] = [
 export default function Home() {
   useUser()
   return (
-    <div className="flex flex-col items-center bg-custom md:max-w-lg m-auto">
+    <div className="flex flex-col items-center justify-around h-5/6 md:max-w-lg m-auto">
       <UpsideDownPlaylistHero />
       <div className="flex flex-col justify-between items-center text-white text-center">
         <div className="px-6">
