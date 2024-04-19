@@ -1,14 +1,13 @@
 "use server"
 import { Suspense } from "react";
 import { API_URL } from "@/lib/utils";
-import { Cities, LeaderBoardResponse, LeaderboardSong, theLows } from "@/lib/types";
+import { Cities, LeaderBoardResponse } from "@/lib/types";
 import { Header } from "@/components/Header";
 import { AudioLines } from "lucide-react";
 import { TourCityImage } from "@/components/CityImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ColumnTitle } from "@/components/ColumnTitles";
 import Link from "next/link";
-import { AlbumImage } from "@/components/AlbumImage";
 import { Footer } from "@/components/Footer";
 
 const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
@@ -65,7 +64,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
   return (
     <div className="flex flex-row justify-between items-center w-full px-4 mt-5 mb-5">
       <div className="flex-col">
-        <p className="text-xl">{playlistName} setlist</p>
+        <p className="text-xl">{playlistName} playlist</p>
         <p className="text-lg text-gray-400">{city || "upside down tour"}.</p>
       </div>
       <div className="bg-[#02c7d4] p-2 rounded-full">

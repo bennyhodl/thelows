@@ -2,11 +2,10 @@
 import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { Suspense, useEffect, useState } from "react";
 import React from "react";
-import { SongList } from "@/components/Song";
 import { Header } from "@/components/Header";
 import { getTopTen, saveTopTen } from "@/lib/localStorage";
 import { Footer } from "@/components/Footer";
-import { Cities, SongScore, TheLows, theLows } from "@/lib/types";
+import { Cities } from "@/lib/types";
 import { RankSong } from "@/components/RankSong";
 
 const reorder = (list: string[], startIndex: number, endIndex: number) => {
@@ -77,8 +76,7 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
             )}
           </Droppable>
         </DragDropContext>
-        {/* <Footer full={false} /> */}
-        {songList.length < 10 ? <Footer full={true} /> : <Footer full={false} />}
+        {songList.length < 6 ? <Footer full={true} /> : <Footer full={false} />}
       </div >
     </Suspense>
   );

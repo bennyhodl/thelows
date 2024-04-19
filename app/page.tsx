@@ -1,6 +1,5 @@
 "use client"
 import Image from "next/image";
-import TheLows from "@/public/images/the-lows.jpeg"
 import Link from "next/link";
 import { useUser } from "@/lib/useUser";
 import { Footer } from "@/components/Footer";
@@ -8,14 +7,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import UpsideDownPlaylist from "@/public/images/playlist-logo-slim.png"
-import { useState } from "react";
 import { Cities } from "@/lib/types";
-import { AudioLines, Building2, ChevronDown, ChevronsUpDown } from "lucide-react"
+import { ChevronsUpDown } from "lucide-react"
+import { saveTopOtherSongs, saveTopTen } from "@/lib/localStorage";
 
 const cityList: Cities[] = [
   "tampa",
@@ -33,7 +30,7 @@ const cityList: Cities[] = [
 export default function Home() {
   useUser()
   return (
-    <div className="flex flex-col items-center justify-between h-full pt-40 md:max-w-lg m-auto">
+    <div className="flex flex-col items-center justify-around h-full md:max-w-lg m-auto">
       <UpsideDownPlaylistHero />
       <div className="flex flex-col justify-between items-center text-white text-center">
         <div className="px-6">
@@ -54,12 +51,11 @@ export default function Home() {
                 </DropdownMenuItem>
               )
               )}
-              {/* <DropdownMenuSeparator></DropdownMenuSeparator>
-              <DropdownMenuItem><Link href="/list?city=every" className="cursor-pointer text-md text-center w-full my-1 font-serif text-md">No City</Link></DropdownMenuItem> */}
             </DropdownMenuContent>
           </DropdownMenu>
+          <a className="btn w-3/4 underline pt-4 px-4 font-serif text-xl" onClick={() => { saveTopTen([]); saveTopOtherSongs([]); }}>Clear</a>
           <Link href="/playlist?city=steve" legacyBehavior>
-            <a className="btn w-3/4 underline pt-4 px-4 font-serif text-xl pb-32">Go To Playlist</a>
+            <a className="btn w-3/4 underline pt-4 px-4 font-serif text-xl pb-16">Go To Playlist</a>
           </Link>
           <Footer full={false} />
         </div>

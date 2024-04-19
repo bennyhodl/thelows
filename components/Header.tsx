@@ -3,11 +3,11 @@ import Image from "next/image";
 import TheLowsImage from "@/public/images/playlist-logo-slim.png";
 import { getTopOtherSongs, getTopTen } from "@/lib/localStorage";
 import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { API_URL } from "@/lib/utils";
 import { useUser } from "@/lib/useUser";
-import { Cities, SongScore, SubmitListRequest, TheLows, theLows } from "@/lib/types";
+import { Cities, SongScore, SubmitListRequest } from "@/lib/types";
 import Link from "next/link";
 import { Button } from "./ui/button"
 import { ReloadIcon } from "@radix-ui/react-icons"
@@ -15,7 +15,6 @@ import { useState } from "react";
 import {
   Drawer,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle,
@@ -136,7 +135,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
     <Drawer>
       <div className={classes}>
         <Link href="/" legacyBehavior>
-          <Image src={TheLowsImage} alt="The Lows Cover Art" className="cursor-pointer" width={90} height={35} />
+          <Image src={TheLowsImage} alt="The Lows Cover Art" className="cursor-pointer" width={85} height={35} />
         </Link>
         <HeaderButton />
         <DrawerContent className="bg-gray-950 border-gray-800">

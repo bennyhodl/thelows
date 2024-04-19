@@ -7,9 +7,42 @@ import { Footer } from "@/components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Upside Down Tour - mike.",
-  description: "Help mike pick the set list when he comes to your city",
-  icons: { icon: "/favicon.ico" }
+  title: "Upside Down Tour Playlist - mike.",
+  description: "Pick the Upside Down Tour setlist when mike comes to your city",
+  icons: { icon: "/favicon.ico" },
+  authors: { url: "https://rollerhodl.me", name: "benny blader" },
+  keywords: ["mike", "the lows", "upside down tour", "playlist", "vibes"],
+  openGraph: {
+    title: "Upside Down Tour Playlist - mike.",
+    description: "Pick the Upside Down Tour setlist when mike comes to your city",
+    url: "https://thelows.top",
+    siteName: "Upside Down Tour Playlist",
+    images: [
+      {
+        url: "https://image.nostr.build/0a2851cba84c2de0a30dae92bf12a3d03fe7364b6ddb649d16fad861d9ae1238.jpg",
+        width: 1080,
+        height: 1080,
+        alt: "Upside Down Tour Playlist"
+      }
+    ],
+    locale: "en_US",
+    type: "website"
+  },
+  twitter: {
+    site: "https://thelows.top",
+    creator: "benny blader",
+    description: "Pick the Upside Down Tour setlist when mike comes to your city",
+    title: "Upside Down Tour Playlist - mike.",
+    images: [
+      {
+        url: "https://image.nostr.build/0a2851cba84c2de0a30dae92bf12a3d03fe7364b6ddb649d16fad861d9ae1238.jpg",
+        alt: "Upside Down Tour Playlist",
+        width: 1080,
+        height: 1080
+      }
+    ]
+  }
+
 };
 
 export default function RootLayout({
