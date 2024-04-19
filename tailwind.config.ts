@@ -19,7 +19,8 @@ const config = {
     },
     fontFamily: {
       "garamond-bold": ["GarmondBold", "ui-sans-serif", "system-ui"],
-      "garamond": ["Garmond", "ui-sans-serif", "system-ui"]
+      "garamond": ["Garmond", "ui-sans-serif", "system-ui"],
+      "serif": ["ui-sans-serif", "system-ui"]
     },
     extend: {
       backgroundImage: {

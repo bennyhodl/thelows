@@ -54,7 +54,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       if (city === "steve") {
         city = "steve"
         result = await collection.aggregate([
-          { $group: songGroup },
           { $unwind: "$songs" },
           { $group: 
             {
@@ -81,7 +80,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
           }
         ]).toArray()
       }
-      
+ 
       if (result.length === 0) {
         let response: LeaderBoardResponse & {success: boolean} = {
           city,

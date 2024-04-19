@@ -8,6 +8,8 @@ import { TourCityImage } from "@/components/CityImage";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ColumnTitle } from "@/components/ColumnTitles";
 import Link from "next/link";
+import { AlbumImage } from "@/components/AlbumImage";
+import { Footer } from "@/components/Footer";
 
 const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
   const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`, { cache: "no-cache" })
@@ -20,7 +22,6 @@ const getVibesLeaderboard = async (city: string): Promise<LeaderBoardResponse> =
   const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`, { cache: "no-cache" })
   const leaderboard: LeaderBoardResponse = await response.json()
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
-  console.log(leaderboard)
   return leaderboard
 }
 
@@ -31,7 +32,7 @@ export default async function Leaderboard({ searchParams }: { searchParams: { ci
   return (
     <Suspense>
       <Header center={true} city={searchParams.city} />
-      <div className="flex flex-col text-white items-center justify-center  md:max-w-lg w-full font-garamond-bold font-bold pt-8">
+      <div className="flex flex-col text-white items-center justify-center  md:max-w-lg w-full font-serif font-bold pt-8">
         <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
           <TabsList className="w-full bg-gray-950">
             <TabsTrigger className="w-1/2 ne" value="the-lows">The Lows</TabsTrigger>
@@ -55,13 +56,14 @@ export default async function Leaderboard({ searchParams }: { searchParams: { ci
           </TabsContent>
         </Tabs>
       </div >
+      <Footer full={false} />
     </Suspense>
   );
 }
 
 const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: "ynk" | "upside down tour" }) => {
   return (
-    <div className="flex flex-row justify-between items-center w-full px-6 mt-5 mb-5">
+    <div className="flex flex-row justify-between items-center w-full px-4 mt-5 mb-5">
       <div className="flex-col">
         <p className="text-xl">{playlistName} setlist</p>
         <p className="text-lg text-gray-400">{city || "upside down tour"}.</p>
@@ -82,23 +84,15 @@ const PlaylistSong = ({ song, album, points, index }: { song: string, album: str
         <p className="px-4 text-gray-400">{index}</p>
         <div className="flex flex-col justify-center">
           <p>{song}</p>
-          <p className="text-xs text-gray-400 font-light">mike.</p>
+          <div className="flex flex-row text-xs text-gray-400 font-light">
+            <p>{album}</p>
+            <p className="px-1">•</p>
+            <p className="text-xs text-gray-400 font-light">mike.</p>
+          </div>
         </div>
       </div>
-      <p className="ml-1 text-md pb-3 text-gray-400 font-normal">{points} votes</p>
+      <p className="ml-1 text-md pb-3 text-gray-400 font-normal">{points}</p>
     </div>
   )
 
-}
-
-const SongBar = ({ song }: { song: LeaderboardSong }) => {
-  return (
-    <div className="w-80 flex flex-col">
-      <p className="text-start">{song.name}</p>
-      <div className="bg-gray-950 h-6 my-1 flex flex-row justify-between">
-        <div className="bg-[#02c7d4] h-6 rounded-md" style={{ width: song.percent + "%" }}></div>
-        <p>{song.percent}%</p>
-      </div>
-    </div>
-  )
 }

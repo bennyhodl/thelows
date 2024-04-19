@@ -1,5 +1,5 @@
 "use client"
-import { DragDropContext, Droppable } from "@hello-pangea/dnd";
+import { DragDropContext, Draggable, Droppable } from "@hello-pangea/dnd";
 import { Suspense, useEffect, useState } from "react";
 import React from "react";
 import { SongList } from "@/components/Song";
@@ -7,8 +7,9 @@ import { Header } from "@/components/Header";
 import { getTopTen, saveTopTen } from "@/lib/localStorage";
 import { Footer } from "@/components/Footer";
 import { Cities, SongScore, TheLows, theLows } from "@/lib/types";
+import { RankSong } from "@/components/RankSong";
 
-const reorder = (list: TheLows[], startIndex: number, endIndex: number) => {
+const reorder = (list: string[], startIndex: number, endIndex: number) => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
@@ -17,7 +18,7 @@ const reorder = (list: TheLows[], startIndex: number, endIndex: number) => {
 };
 
 export default function OrderList({ searchParams }: { searchParams: { city: Cities } }) {
-  const [songList, setSongs] = useState<any>([]);
+  const [songList, setSongs] = useState<string[]>([]);
 
   useEffect(() => {
     const list = getTopTen([])
@@ -46,19 +47,38 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
   return (
     <Suspense>
       <Header center={false} city={searchParams.city} />
-      <div className="md:max-w-lg m-auto pt-16 " >
-        <p className="text-white text-center px-4 font-garamond-bold text-2xl">Drag your favorite songs in order to vote for mike's set list.</p>
+      <div className="flex flex-col justify-center items-center md:max-w-lg m-auto w-full pt-20" >
+        <p className="text-white text-center px-4 pb-6 font-serif font-bold text-xl">Drag your favorite songs in order to vote for mike's set list.</p>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {provided => (
-              <div ref={provided.innerRef} {...provided.droppableProps}>
-                <SongList songs={songList} />
+              <>
+                <div {...provided.droppableProps} ref={provided.innerRef} className="flex flex-col justify-center items-center w-11/12">
+                  {songList?.map((song, index) => {
+                    const s = JSON.parse(song)
+                    return (<Draggable key={s.id} draggableId={s.id} index={index}>
+                      {provided => (
+                        <div
+                          ref={provided.innerRef}
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          className="w-full"
+                          key={s.id}
+                        >
+                          <RankSong song={s} index={index} />
+                        </div>
+                      )}
+                    </Draggable>
+                    )
+                  })})
+                </div>
                 {provided.placeholder}
-              </div>
+              </>
             )}
           </Droppable>
         </DragDropContext>
-        <Footer full={false} />
+        {/* <Footer full={false} /> */}
+        {songList.length < 10 ? <Footer full={true} /> : <Footer full={false} />}
       </div >
     </Suspense>
   );

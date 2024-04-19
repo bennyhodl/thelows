@@ -13,7 +13,6 @@ export async function GET(req: NextRequest, res: NextResponse) {
       const collection = db.collection(OTHER_SONGS_COLLECTION);
 
       let result: any[]
-      console.log("request for sons")
       if (city === "steve") {
         city = "steve"
         result = await collection.aggregate([
@@ -43,9 +42,7 @@ export async function GET(req: NextRequest, res: NextResponse) {
           }
         ]).toArray()
       }
-
-      console.log("Cleveland", result)
-      
+ 
       if (result.length === 0) {
         let response: LeaderBoardResponse & {success: boolean} = {
           city,

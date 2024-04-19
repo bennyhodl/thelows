@@ -16,6 +16,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import { ToggleSong } from "@/components/ToggleSong";
 
 type OtherSong = {
   album: string,
@@ -78,7 +79,7 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
     <Suspense>
       <div className=" md:max-w-lg m-auto" >
         <Header center={false} city={searchParams.city} />
-        <p className="text-white pt-16 pb-1 text-center px-4 font-garamond-bold text-xl">Pick as many songs as you want to hear at the concert.</p>
+        <p className="text-white pt-16 pb-1 text-center px-4 font-serif text-xl">Pick as many songs as you want to hear at the concert.</p>
         <ToggleGroup type="multiple" className="flex mt-4" value={topOtherSongs} onValueChange={userSelect}>
           <Accordion type="multiple" className="w-full px-8">
             {vibes.map(album => {
@@ -87,7 +88,7 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
                   <AccordionTrigger className="text-white w-full">
                     <div className="flex flex-row items-center">
                       <AlbumImage album={album.album} />
-                      <h4 className="pl-4 text-xl font-garamond-bold">{album.album}</h4>
+                      <h4 className="pl-4 text-xl font-serif">{album.album}</h4>
                     </div>
                   </AccordionTrigger>
                   {album.songs.map(song => {
@@ -99,8 +100,9 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
                     }
                     return (
                       <AccordionContent className="text-white" key={song}>
-                        <ToggleGroupItem value={JSON.stringify(valueItem)} key={song} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover: border-gray-800 rounded-lg text-xl text-white font-bold py-7">
-                          <p className="w-full">{song}</p>
+                        <ToggleGroupItem value={JSON.stringify(valueItem)} key={song} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom hover: border-gray-800 rounded-lg text-xl text-white font-bold py-7">
+                          {/* <p className="w-full">{song}</p> */}
+                          <ToggleSong song={valueItem} />
                         </ToggleGroupItem>
                       </AccordionContent>
                     )
