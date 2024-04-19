@@ -8,8 +8,9 @@ import Sunfalls from "@/public/images/album/sunfalls.png"
 import Alcohol from "@/public/images/album/alcohol.webp"
 import LongLegs from "@/public/images/album/long-legs.png"
 import WeDieOnce from "@/public/images/album/we-die-once.png"
+import Smiley from "@/public/images/smileys-big.png"
 
-export const AlbumImage = ({ album, width, height }: { album: string, width?: number, height?: number }) => {
+export const AlbumImage = ({ album, width, height, paddingRight }: { album: string, width?: number, height?: number, paddingRight?: number }) => {
   switch (album) {
     case "love,":
       return <Image src={Love} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} />
@@ -27,6 +28,8 @@ export const AlbumImage = ({ album, width, height }: { album: string, width?: nu
       return <Image src={WeDieOnce} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} />
     case "long legs":
       return <Image src={LongLegs} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} />
+    case "smiley":
+      return <Image src={Smiley} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} className={`pr-${paddingRight}`}/> 
     default:
       return <Image src={TheLows} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} />
   }

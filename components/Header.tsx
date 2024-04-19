@@ -141,14 +141,13 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         <DrawerContent className="bg-gray-950 border-gray-800">
           <DrawerHeader>
             <DrawerTitle className="text-white"><p className="font-serif text-2xl">Would you like to pick songs from previous albums?</p></DrawerTitle>
-            {/* <DrawerDescription><p className="font-serif text-xl">To see the playlist, c</p></DrawerDescription> */}
           </DrawerHeader>
           <DrawerFooter>
             <Link href={`/list/other-songs?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-gray-950 bg-[#02c7d4] py-3 px-4 mb-1 font-serif font-3xl"><p>Pick From All Songs</p></a>
+              <a className="btn rounded-lg w-full text-center text-gray-950 bg-[#02c7d4] text-white py-3 px-4 mb-1 font-serif font-3xl"><p>Pick From All Songs</p></a>
             </Link>
             <Link href={`/playlist?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-black bg-white py-3 px-4 mb-3 font-serif">Go To the Upside Down Playlist</a>
+              <a className="btn rounded-lg w-full text-center text-black bg-white py-3 px-4 mb-3 bg-[#9CA3AF] font-serif">Go To the Upside Down Playlist</a>
             </Link>
           </DrawerFooter>
         </DrawerContent>

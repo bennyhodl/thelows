@@ -12,7 +12,6 @@ import {
 import UpsideDownPlaylist from "@/public/images/playlist-logo-slim.png"
 import { Cities } from "@/lib/types";
 import { ChevronsUpDown } from "lucide-react"
-import { saveTopOtherSongs, saveTopTen } from "@/lib/localStorage";
 
 const cityList: Cities[] = [
   "tampa",

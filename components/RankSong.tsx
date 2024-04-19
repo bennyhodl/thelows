@@ -15,6 +15,6 @@ export const RankSong = ({ song, index }: { song: SongScore, index: number }) =>
           </div>
         </div>
       </div>
-      <Menu color="#cc0536" />
+      <Menu color="#9CA3AF" />
     </div>)
 }

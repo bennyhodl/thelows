@@ -9,6 +9,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ColumnTitle } from "@/components/ColumnTitles";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
+import { AlbumImage } from "@/components/AlbumImage";
+import Image from "next/image"
+import Smileys from "@/public/images/smileys-big.png"
 
 const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
   const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`, { cache: "no-cache" })
@@ -78,7 +81,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
 
 const PlaylistSong = ({ song, album, points, index }: { song: string, album: string, points: number, index: number }) => {
   return (
-    <div className="flex flex-row justify-between items-center text-white w-full pr-8 my-1">
+    <div className="flex flex-row justify-between items-center text-white w-full pr-8 my-3 h-12">
       <div className="flex items-center flex-row">
         <p className="px-4 text-gray-400">{index}</p>
         <div className="flex flex-col justify-center">
@@ -86,11 +89,11 @@ const PlaylistSong = ({ song, album, points, index }: { song: string, album: str
           <div className="flex flex-row text-xs text-gray-400 font-light">
             <p>{album}</p>
             <p className="px-1">•</p>
-            <p className="text-xs text-gray-400 font-light">mike.</p>
+            <p className="text-xs text-gray-400 font-light">{points} votes</p>
           </div>
         </div>
       </div>
-      <p className="ml-1 text-md pb-3 text-gray-400 font-normal">{points}</p>
+      {album === "the lows." ? <Image src={Smileys} height={40} width={40} alt="keep going." /> : <AlbumImage album={album} width={50} height={50} />}
     </div>
   )
 

@@ -57,11 +57,22 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
       const total: number = Object.values(result).reduce((acc, curr) => acc+curr.points, 0)
 
+      const songs = result.map(song => {
+        const randomNumber = Math.floor(Math.random() * 100);
+        const randomScore = {
+          id: song.id,
+          name: song.name,
+          album: song.album,
+          points: song.points + randomNumber
+        }
+        return randomScore
+      })
+
       let response: LeaderBoardResponse & {success: boolean} = {
         city,
         success: true,
         total,
-        songs: result as SongScore[]
+        songs: songs as SongScore[]
       }
 
       return NextResponse.json(response, { status: 200})
