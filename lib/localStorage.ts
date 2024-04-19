@@ -50,3 +50,9 @@ export const getId = () => {
     return stored
   }
 }
+
+export const clearStorage = () => {
+  saveTopOtherSongs([])
+  saveTopTen([])
+  window.localStorage.removeItem("id")
+}

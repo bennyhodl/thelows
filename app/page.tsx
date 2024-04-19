@@ -44,7 +44,7 @@ export default function Home() {
             <DropdownMenuContent className="bg-gray-800 text-white w-48 border-gray-800">
               {cityList.map(city =>
               (
-                <DropdownMenuItem>
+                <DropdownMenuItem key={city}>
                   <Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center w-full my-1 font-serif text-md">
                     <PickCity city={city} />
                   </Link>
@@ -53,7 +53,6 @@ export default function Home() {
               )}
             </DropdownMenuContent>
           </DropdownMenu>
-          <a className="btn w-3/4 underline pt-4 px-4 font-serif text-xl" onClick={() => { saveTopTen([]); saveTopOtherSongs([]); }}>Clear</a>
           <Link href="/playlist?city=steve" legacyBehavior>
             <a className="btn w-3/4 underline pt-4 px-4 font-serif text-xl pb-16">Go To Playlist</a>
           </Link>

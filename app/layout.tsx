@@ -8,13 +8,13 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Upside Down Tour Playlist - mike.",
-  description: "Pick the Upside Down Tour setlist when mike comes to your city",
+  description: "Pick the Upside Down Tour setlist when mike comes to your city.",
   icons: { icon: "/favicon.ico" },
   authors: { url: "https://rollerhodl.me", name: "benny blader" },
   keywords: ["mike", "the lows", "upside down tour", "playlist", "vibes"],
   openGraph: {
     title: "Upside Down Tour Playlist - mike.",
-    description: "Pick the Upside Down Tour setlist when mike comes to your city",
+    description: "Pick the Upside Down Tour setlist when mike comes to your city.",
     url: "https://thelows.top",
     siteName: "Upside Down Tour Playlist",
     images: [
@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   twitter: {
     site: "https://thelows.top",
     creator: "benny blader",
-    description: "Pick the Upside Down Tour setlist when mike comes to your city",
+    description: "Pick the Upside Down Tour setlist when mike comes to your city.",
     title: "Upside Down Tour Playlist - mike.",
     images: [
       {
