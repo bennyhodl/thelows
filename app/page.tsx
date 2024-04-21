@@ -22,8 +22,10 @@ const cityList: Cities[] = [
   "irving",
   "minneapolis",
   "nyc",
+  "nyc (night 2)",
   "pittsburgh",
-  "toronto"
+  "toronto",
+  "toronto (night 2)"
 ]
 
 export default function Home() {

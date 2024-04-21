@@ -27,13 +27,13 @@ export const TourCityImage = ({ city }: { city: Cities }) => {
       return <Image src={Irving} alt="Irving" className="px-12 mt-4" width={350} />
     case "minneapolis":
       return <Image src={Minny} alt="Minneapolis" className="px-12 mt-4" width={350} />
-    case "nyc":
+    case "nyc" || "nyc (night 2)":
       return <Image src={Nyc} alt="New York City" className="px-12 mt-4" width={350} />
     case "pittsburgh":
       return <Image src={Pitt} alt="Pittsburgh" className="px-12 mt-4" width={350} />
     case "tampa":
       return <Image src={Tampa} alt="Tampa" className="px-12 mt-4" width={350} />
-    case "toronto":
+    case "toronto" || "toronto (night 2)":
       return <Image src={Toronto} alt="Toronto" className="px-12 mt-4" width={350} />
     case "steve":
       return <Image src={TheLows} alt="Steve" className="px-12 mt-4" width={350} />

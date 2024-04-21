@@ -1,5 +1,16 @@
 import { SongScore, TheLows } from "./types";
 
+export const getSubmittedAlready = () => {
+  // const item = window.localStorage.getItem("submitted")
+  // console.log("got item", item)
+  const item = window?.localStorage?.getItem("submitted") ?? "false"
+  console.log("fwerg", item)
+  return item
+}
+
+export const saveSubmittedAlready = (guy:boolean) => {
+  window.localStorage.setItem("submitted", String(guy))
+}
 // export const getSongList = (songs: TheLows[]): TheLows[] => {
 //   const list = global?.localStorage?.getItem("songs2");
 //   if (!list) {
@@ -55,4 +66,5 @@ export const clearStorage = () => {
   saveTopOtherSongs([])
   saveTopTen([])
   window.localStorage.removeItem("id")
+  window.localStorage.removeItem("submitted")
 }

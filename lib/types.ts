@@ -46,7 +46,7 @@ export type SongDbEntry = {
   songs: SongScore[]
 }
 
-export type Cities = "boston" | "chicago" | "cleveland" | "denver" | "irving" | "minneapolis" | "nyc" | "pittsburgh" | "tampa" | "toronto" | "steve"
+export type Cities = "boston" | "chicago" | "cleveland" | "denver" | "irving" | "minneapolis" | "nyc" | "pittsburgh" | "tampa" | "toronto" | "steve" | "toronto (night 2)" | "nyc (night 2)"
 
 export const theLows: SongScore[] = [
   {album: "the lows.", name: "he said she said", id: "he-said-she-said", points: 0 },
