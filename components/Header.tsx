@@ -20,6 +20,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
+import { ErrorBoundary } from "react-error-boundary";
 
 export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -62,7 +63,9 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
   const submitOtherSongsList = async (city: Cities) => {
     setLoading(true)
     let list: string[] = getTopOtherSongs([])
-    let songs = list.map(s => JSON.parse(s))
+    let parseSongs = list.map(s => JSON.parse(s))
+
+    let songs: SongScore[] = parseSongs.map(s => { s["points"] = 100; return s })
 
     const postList: SubmitListRequest = {
       city,
@@ -132,26 +135,28 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
 
   const classes = !center ? "h-14 bg-custom fixed flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-custom fixed flex justify-center w-full md:max-w-lg px-2 py-2"
   return (
-    <Drawer>
-      <div className={classes}>
-        <Link href="/" legacyBehavior>
-          <Image src={TheLowsImage} alt="The Lows Cover Art" className="cursor-pointer" width={85} height={35} />
-        </Link>
-        <HeaderButton />
-        <DrawerContent className="bg-gray-950 border-gray-800">
-          <DrawerHeader>
-            <DrawerTitle className="text-white"><p className="font-serif text-2xl">Would you like to pick songs from previous albums?</p></DrawerTitle>
-          </DrawerHeader>
-          <DrawerFooter>
-            <Link href={`/list/other-songs?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-gray-950 bg-[#02c7d4] text-white py-3 px-4 mb-1 font-serif font-3xl"><p>Pick From All Songs</p></a>
-            </Link>
-            <Link href={`/playlist?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-black bg-white py-3 px-4 mb-3 bg-[#9CA3AF] font-serif">Go To the Upside Down Playlist</a>
-            </Link>
-          </DrawerFooter>
-        </DrawerContent>
-      </div>
-    </Drawer>
+    <ErrorBoundary fallback={<div className="bg-blue-500 h-full w-full"></div>}>
+      <Drawer>
+        <div className={classes}>
+          <Link href="/" legacyBehavior>
+            <Image src={TheLowsImage} alt="The Lows Cover Art" className="cursor-pointer" width={85} height={35} />
+          </Link>
+          <HeaderButton />
+          <DrawerContent className="bg-gray-950 border-gray-800">
+            <DrawerHeader>
+              <DrawerTitle className="text-white"><p className="font-serif text-2xl">Would you like to pick songs from previous albums?</p></DrawerTitle>
+            </DrawerHeader>
+            <DrawerFooter>
+              <Link href={`/list/other-songs?city=${city}`} legacyBehavior>
+                <a className="btn rounded-lg w-full text-center text-gray-950 bg-[#02c7d4] text-white py-3 px-4 mb-1 font-serif font-3xl"><p>Pick From All Songs</p></a>
+              </Link>
+              <Link href={`/playlist?city=${city}`} legacyBehavior>
+                <a className="btn rounded-lg w-full text-center text-black bg-white py-3 px-4 mb-3 bg-[#9CA3AF] font-serif">Go To the Upside Down Playlist</a>
+              </Link>
+            </DrawerFooter>
+          </DrawerContent>
+        </div>
+      </Drawer>
+    </ErrorBoundary >
   );
 };

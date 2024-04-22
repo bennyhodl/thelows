@@ -2,7 +2,7 @@ import { SongScore } from "@/lib/types"
 import { AlbumImage } from "./AlbumImage"
 
 export const ToggleSong = ({ song }: { song: SongScore }) => {
-  return (<div className="flex flex-row justify-between items-center h-8 w-full pl-4 pr-2">
+  return (<div className="flex flex-row justify-between items-center h-8 w-full pl-2 pr-1">
     <div className="fled flex-col">
       <p className="w-full mt-2 text-sm text-left">{song.name}</p>
       <div className="flex flex-row text-xs text-gray-400">

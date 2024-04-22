@@ -25,6 +25,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import TheLows from "@/public/images/the-lows.jpeg"
 
 
 export default function Leaderboard({ searchParams }: { searchParams: { city: Cities } }) {
@@ -52,9 +53,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
 
   useEffect(() => {
     const submitted = getSubmittedAlready()
-    console.log("use effect", submitted)
     setSub(submitted)
-    console.log(sub)
 
     getLowsLeaderboard(searchParams.city)
     getVibesLeaderboard(searchParams.city)
@@ -131,9 +130,9 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
 
 const PlaylistSong = ({ song, album, points, index }: { song: string, album: string, points: number, index: number }) => {
   return (
-    <div className="flex flex-row justify-between items-center text-white w-full pr-8 my-3 h-12">
+    <div className="flex flex-row justify-between items-center text-white w-full pr-2 my-3 h-12">
       <div className="flex items-center flex-row">
-        <p className="px-4 text-gray-400">{index}</p>
+        <p className="pl-2 pr-4 text-gray-400">{index}</p>
         <div className="flex flex-col justify-center">
           <p>{song}</p>
           <div className="flex flex-row text-xs text-gray-400 font-light">
@@ -143,7 +142,7 @@ const PlaylistSong = ({ song, album, points, index }: { song: string, album: str
           </div>
         </div>
       </div>
-      {album === "the lows." ? <Image src={Smileys} height={40} width={40} alt="keep going." /> : <AlbumImage album={album} width={50} height={50} />}
+      {album === "the lows." ? <Image src={TheLows} height={45} width={45} alt="keep going." /> : <AlbumImage album={album} width={45} height={45} />}
     </div>
   )
 

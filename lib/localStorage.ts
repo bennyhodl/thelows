@@ -1,28 +1,13 @@
 import { SongScore, TheLows } from "./types";
 
 export const getSubmittedAlready = () => {
-  // const item = window.localStorage.getItem("submitted")
-  // console.log("got item", item)
   const item = window?.localStorage?.getItem("submitted") ?? "false"
-  console.log("fwerg", item)
   return item
 }
 
 export const saveSubmittedAlready = (guy:boolean) => {
   window.localStorage.setItem("submitted", String(guy))
 }
-// export const getSongList = (songs: TheLows[]): TheLows[] => {
-//   const list = global?.localStorage?.getItem("songs2");
-//   if (!list) {
-//     saveList(songs)
-//     return songs
-//   }
-//   return JSON.parse(list)
-// }
-
-// export const saveList = (songs: TheLows[]) => {
-//   return global?.localStorage?.setItem("songs2", JSON.stringify(songs))
-// }
 
 export const getTopOtherSongs = (songs: string[]): string[] => {
   const list = window.localStorage.getItem("other-songs");
