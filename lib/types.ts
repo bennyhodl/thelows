@@ -37,6 +37,11 @@ export type SubmitListRequest = {
   songs: SongScore[];
 };
 
+export type SubmitEmail = {
+  id: string;
+  email: string
+}
+
 export type ShareImageRequest = {
   songs: TheLows[];
 };

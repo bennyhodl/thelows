@@ -127,6 +127,15 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
             Submit
           </Button>
         )
+      case "/playlist":
+        return (
+          <Button
+            className="btn bg-[#02c7d4] text-white font-serif py-0 px-4 rounded-lg cursor-pointer font-bold"
+            onClick={async () => router.push(`/playlist?city=steve`)}
+          >
+            All Cities
+          </Button>
+        )
 
       default:
         return <></>

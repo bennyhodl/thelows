@@ -12,7 +12,7 @@ import { Footer } from "@/components/Footer";
 import { AlbumImage } from "@/components/AlbumImage";
 import Image from "next/image"
 import Smileys from "@/public/images/smileys-big.png"
-import { getSubmittedAlready, saveSubmittedAlready } from "@/lib/localStorage";
+import { getId, getSubmittedAlready, saveSubmittedAlready } from "@/lib/localStorage";
 import Confetti from "react-confetti"
 import {
   AlertDialog,
@@ -26,12 +26,17 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import TheLows from "@/public/images/the-lows.jpeg"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import axios from "axios";
+import validator from "email-validator"
 
 
 export default function Leaderboard({ searchParams }: { searchParams: { city: Cities } }) {
   const [sub, setSub] = useState("true")
   const [vibesLeaderboard, setVibesLeaderboard] = useState<LeaderBoardResponse | null>(null)
   const [lowsLeaderboard, setLowsLeaderboard] = useState<LeaderBoardResponse | null>(null)
+  const [email, setEmail] = useState("")
 
   // const vibesLeaderboard = await getVibesLeaderboard(searchParams?.city)
   // const lowsLeaderboard = await getLowsLeaderboard(searchParams?.city)
@@ -51,6 +56,15 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
     return leaderboard
   }
 
+  const submitEmail = async () => {
+    const id = getId()
+    try {
+      await axios.post(`${API_URL}/api/email`, { id, email })
+    } catch (e) {
+      console.log("No email to send", e)
+    }
+  }
+
   useEffect(() => {
     const submitted = getSubmittedAlready()
     setSub(submitted)
@@ -58,25 +72,31 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
     getLowsLeaderboard(searchParams.city)
     getVibesLeaderboard(searchParams.city)
   }, [])
+  console.log(email)
   return (
     <>
-      <Header center={true} city={searchParams.city} />
+      <Header center={false} city={searchParams.city} />
       <div className="flex flex-col text-white items-center justify-center  md:max-w-lg w-full font-serif font-bold pt-8">
         {sub === "false" && (
           <>
             <Confetti />
             <AlertDialog open={sub === "false"}>
-              <AlertDialogContent className="w-5/6 bg-custom border-1 boorder-gray-400 text-white">
+              <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-400 text-white">
                 <AlertDialogHeader>
                   <AlertDialogTitle>i'll see you in {searchParams.city === "steve" ? "concert" : searchParams.city}!</AlertDialogTitle>
                   <AlertDialogDescription>
                     Your vote has been submitted for the <em>upside down playlist</em>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
+                <div className="grid w-full max-w-sm items-center gap-1.5 text-black">
+                  <Label htmlFor="email" className="text-gray-400">Email</Label>
+                  <Input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
+                </div>
                 <AlertDialogFooter>
-                  <AlertDialogAction onClick={() => {
+                  <AlertDialogAction disabled={!validator.validate(email)} onClick={async () => {
                     setSub("true")
                     saveSubmittedAlready(true)
+                    await submitEmail()
                   }}>Ok</AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>
