@@ -13,8 +13,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const collection = db.collection(OTHER_SONGS_COLLECTION);
       const lows = db.collection(COLLECTION_NAME);
       
-      await collection.updateOne({"id":request.id}, {$set: {email: request.email}});
-      await lows.updateOne({"id":request.id}, {$set: {email: request.email}});
+      
+      const user = await collection.findOne({"id": request.id})
+      if (!user) {
+        await collection.insertOne({id: request.id, email: request.email});
+      } else {
+        await collection.updateOne({"id":request.id}, {$set: {email: request.email}});
+        await lows.updateOne({"id":request.id}, {$set: {email: request.email}});
+      }
 
       client.close();
 
