@@ -23,6 +23,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@radix-ui/react-toggle": "^1.0.3",
     "@radix-ui/react-toggle-group": "^1.0.4",
+    "@vercel/analytics": "^1.2.2",
     "axios": "^1.6.8",
     "canvas": "^2.11.2",
     "class-variance-authority": "^0.7.0",
