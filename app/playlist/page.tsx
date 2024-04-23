@@ -35,15 +35,19 @@ import { useUser } from "@/lib/useUser";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/navigation";
 
-const getLowsLeaderboard = async (): Promise<LeaderBoardResponse> => {
-  const city = getCity()
+const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
+  if (city === undefined) {
+    city = getCity()
+  }
   const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`, { cache: "no-cache" })
   const leaderboard: LeaderBoardResponse = await response.json()
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
   return leaderboard
 }
-const getVibesLeaderboard = async (): Promise<LeaderBoardResponse> => {
-  const city = getCity()
+const getVibesLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
+  if (city === undefined) {
+    city = getCity()
+  }
   const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`, { cache: "no-cache" })
   const leaderboard: LeaderBoardResponse = await response.json()
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
@@ -54,15 +58,15 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
   const [sub, setSub] = useState("true")
   const [id, city] = useUser()
   const [email, setEmail] = useState("")
-  const { data: lowsLeaderboard, isLoading, error: lowsError } = useSwr(`lows-leaderboard-${id}`, () => getLowsLeaderboard())
-  const { data: vibesLeaderboard, error: vibesError } = useSwr(`vibes-leaderboard-${id}`, () => getVibesLeaderboard())
+  const { data: lowsLeaderboard, isLoading, error: lowsError } = useSwr(`lows-leaderboard-${id}`, () => getLowsLeaderboard(searchParams.city))
+  const { data: vibesLeaderboard, error: vibesError } = useSwr(`vibes-leaderboard-${id}`, () => getVibesLeaderboard(searchParams.city))
   const router = useRouter()
   const { toast } = useToast()
 
   useEffect(() => {
     mutate(`lows-leaderboard-${id}`)
     mutate(`vibes-leaderboard-${id}`)
-  }, [searchParams])
+  }, [searchParams.city])
 
   const submitEmail = async () => {
     try {
@@ -99,22 +103,22 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
     })
   }, [vibesError])
 
-  if (isLoading) {
-    // loading component
-    return <Loading />
-  }
+  // if (isLoading) {
+  //   // loading component
+  //   return <Loading />
+  // }
 
   return (
     <>
-      <Header center={false} city={city as Cities} />
-      <div className="flex flex-col text-white items-center justify-center  md:max-w-lg w-full font-serif font-bold pt-8">
+      <Header center={false} city={searchParams.city} />
+      <div className="flex flex-col text-white items-center justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
         {sub === "false" && (
           <>
             <Confetti />
             <AlertDialog open={sub === "false"}>
               <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-400 text-white">
                 <AlertDialogHeader>
-                  <AlertDialogTitle>i'll see you in {city === "steve" ? "concert" : city}!</AlertDialogTitle>
+                  <AlertDialogTitle>i'll see you in {searchParams.city === "steve" ? "concert" : city}!</AlertDialogTitle>
                   <AlertDialogDescription>
                     Your vote has been submitted for the <em>upside down playlist</em>
                   </AlertDialogDescription>
@@ -124,7 +128,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
                   <Input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <AlertDialogFooter>
-                  <AlertDialogAction disabled={!validator.validate(email)} onClick={async () => {
+                  <AlertDialogAction className="bg-[#02c7d4] text-white" disabled={!validator.validate(email)} onClick={async () => {
                     setSub("true")
                     saveSubmittedAlready(true)
                     await submitEmail()
@@ -135,7 +139,13 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
 
           </>
         )}
-        <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
+        <TourCityImage city={searchParams.city} />
+        <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
+        <ColumnTitle />
+        {lowsLeaderboard?.songs.map((song, index) => (
+          <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
+        ))}
+        {/* <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
           <TabsList className="w-full bg-gray-950">
             <TabsTrigger className="w-1/2 ne" value="the-lows">The Lows</TabsTrigger>
             <TabsTrigger className="w-1/2 ne" value="other-songs">The Vibes</TabsTrigger>
@@ -156,8 +166,8 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
               <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
             ))}
           </TabsContent>
-        </Tabs>
-      </div >
+        </Tabs> */}
+      </div>
       <Footer full={false} />
     </>
   );
@@ -181,7 +191,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
 
 const PlaylistSong = ({ song, album, points, index }: { song: string, album: string, points: number, index: number }) => {
   return (
-    <div className="flex flex-row justify-between items-center text-white w-full pr-2 my-3 h-12">
+    <div className="flex flex-row justify-between items-center text-white w-full pr-2 my-2 h-12">
       <div className="flex items-center flex-row">
         <p className="pl-2 pr-4 text-gray-400">{index}</p>
         <div className="flex flex-col justify-center">

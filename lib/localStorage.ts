@@ -52,8 +52,9 @@ export const clearStorage = () => {
   saveTopTen([])
   window.localStorage.removeItem("id")
   window.localStorage.removeItem("submitted")
+  window.localStorage.removeItem("city")
 }
 
 export const getCity = () => {
-  return window.localStorage.getItem("city") ?? "steve"
+  return window?.localStorage?.getItem("city") ?? "steve"
 }
