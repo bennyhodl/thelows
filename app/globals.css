@@ -28,6 +28,16 @@
   background-color: black;
 }
 
+.bg-smile {
+  background-color: "#02c7d4";
+}
+
+.bg-steve {
+  background-image: linear-gradient(to bottom, rgba(156, 163, 175, 0.33) 10%, #0000 40%, #0000 50%);
+  background-size:cover;
+  background-repeat: no-repeat;
+}
+
 /* styles.css */
 .bg-gradient-to-black {
   background-image: linear-gradient(

@@ -149,16 +149,17 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
           </Button>
         )
       case "/playlist":
-        const storedCity = getCity()
-        const query = city === "steve" ? `city=${storedCity}` : "city=steve"
-        return (
-          <Button
-            className="btn bg-[#02c7d4] hover:bg-[#02c7d4] text-white font-serif py-0 px-4 rounded-lg cursor-pointer font-bold"
-            onClick={async () => router.push(`/playlist?${query}`)}
-          >
-            {city === "steve" ? storedCity + " playlist" : "all cities"}
-          </Button>
-        )
+        // const storedCity = getCity()
+        // const query = city === "steve" ? `city=${storedCity}` : "city=steve"
+        // return (
+        //   <Button
+        //     className="btn bg-[#02c7d4] hover:bg-[#02c7d4] text-white font-serif py-0 px-4 rounded-lg cursor-pointer font-bold"
+        //     onClick={async () => router.push(`/playlist?${query}`)}
+        //   >
+        //     {city === "steve" ? storedCity + " playlist" : "all cities"}
+        //   </Button>
+        // )
+        return <></>
 
       default:
         return <></>

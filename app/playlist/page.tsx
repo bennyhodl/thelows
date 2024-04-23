@@ -34,6 +34,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { useUser } from "@/lib/useUser";
 import { ToastAction } from "@radix-ui/react-toast";
 import { useRouter } from "next/navigation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
   if (city === undefined) {
@@ -59,7 +60,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
   const [id, city] = useUser()
   const [email, setEmail] = useState("")
   const { data: lowsLeaderboard, isLoading, error: lowsError } = useSwr(`lows-leaderboard-${id}`, () => getLowsLeaderboard(searchParams.city))
-  const { data: vibesLeaderboard, error: vibesError } = useSwr(`vibes-leaderboard-${id}`, () => getVibesLeaderboard(searchParams.city))
+  const { data: vibesLeaderboard, error: vibesError } = useSwr(`vibes-leaderboard-${id}`, () => getLowsLeaderboard("steve"))
   const router = useRouter()
   const { toast } = useToast()
 
@@ -103,14 +104,9 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
     })
   }, [vibesError])
 
-  // if (isLoading) {
-  //   // loading component
-  //   return <Loading />
-  // }
-
   return (
     <>
-      <Header center={false} city={searchParams.city} />
+      <Header center={true} city={searchParams.city} />
       <div className="flex flex-col text-white items-center justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
         {sub === "false" && (
           <>
@@ -139,34 +135,37 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
 
           </>
         )}
-        <TourCityImage city={searchParams.city} />
+        {/* <TourCityImage city={searchParams.city} />
         <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
-        <ColumnTitle />
-        {lowsLeaderboard?.songs.map((song, index) => (
+        <ColumnTitle /> */}
+        {/* {lowsLeaderboard?.songs.map((song, index) => (
           <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
-        ))}
-        {/* <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
+        ))} */}
+        <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
           <TabsList className="w-full bg-gray-950">
-            <TabsTrigger className="w-1/2 ne" value="the-lows">The Lows</TabsTrigger>
-            <TabsTrigger className="w-1/2 ne" value="other-songs">The Vibes</TabsTrigger>
+            <TabsTrigger className="w-1/2 ne" value="the-lows">{searchParams.city} list</TabsTrigger>
+            <TabsTrigger className="w-1/2 ne" value="other-songs">all cities</TabsTrigger>
           </TabsList>
           <TabsContent value="the-lows">
             <TourCityImage city={city as Cities} />
             <AlbumInformation city={city} playlistName="upside down tour" />
             <ColumnTitle />
+            {isLoading && [0, 1, 2, 3, 4].map(i => <Skeleton key={i} className="h-12 my-2" />)}
             {lowsLeaderboard?.songs.map((song, index) => (
               <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
+              // <Skeleton className="h-12 my-2" />
             ))}
           </TabsContent>
           <TabsContent value="other-songs">
             <TourCityImage city="steve" />
             <AlbumInformation city={city} playlistName="ynk" />
             <ColumnTitle />
+            {isLoading && <Skeleton className="h-12 my-2" />}
             {vibesLeaderboard?.songs.map((song, index) => (
               <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
             ))}
           </TabsContent>
-        </Tabs> */}
+        </Tabs>
       </div>
       <Footer full={false} />
     </>

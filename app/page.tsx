@@ -31,39 +31,37 @@ const cityList: Cities[] = [
 export default function Home() {
   useUser()
   return (
-    <ErrorBoundary fallback={<div className="bg-red-500 w-full h-full"></div>}>
-      <div className="flex flex-col items-center justify-around h-full md:max-w-lg m-auto">
-        <UpsideDownPlaylistHero />
-        <div className="flex flex-col justify-between items-center text-white text-center">
-          <div className="px-6">
-            <p className="font-serif text-2xl mb-10">Pick the songs you want to hear on the <em className="font-serif-italic">upside down tour.</em> when <em className="font-serif-italic">mike.</em> comes to your city.</p>
-          </div>
-          <div className="flex flex-col w-3/4 items-center pt-8">
-            <DropdownMenu>
-              <DropdownMenuTrigger className="w-full">
-                <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2 font-serif text-xl"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="flex flex-wrap bg-gray-800 text-white border-gray-800 w-64 text-center">
-                {cityList.map((city, i) =>
-                (
-                  <DropdownMenuItem key={city} className="text-center w-1/2 items-center justify-center">
-                    <Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center my-1 font-serif text-md" onClick={() => window.localStorage.setItem("city", city)}>
-                      <PickCity city={city} />
-                    </Link>
-                  </DropdownMenuItem>
-                )
-                )}
+    <div className="flex flex-col items-center bg-steve justify-start h-full md:max-w-lg m-auto pt-24">
+      <UpsideDownPlaylistHero />
+      <div className="flex flex-col justify-between items-center text-white text-center">
+        {/* <div className="px-6"> */}
+        {/* <p className="font-serif text-2xl mb-10">Pick the songs you want to hear on the <em className="font-serif-italic">upside down tour.</em> when <em className="font-serif-italic">mike.</em> comes to your city.</p> */}
+        {/* </div> */}
+        {/* <div className="flex flex-col w-3/4 items-center pt-8"> */}
+        <DropdownMenu>
+          <DropdownMenuTrigger className="w-full">
+            <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2 font-serif text-xl mt-16"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="flex flex-wrap bg-gray-800 text-white border-gray-800 w-64 text-center">
+            {cityList.map((city, i) =>
+            (
+              <DropdownMenuItem key={city} className="text-center w-1/2 items-center justify-center">
+                <Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center my-1 font-serif text-md" onClick={() => window.localStorage.setItem("city", city)}>
+                  <PickCity city={city} />
+                </Link>
+              </DropdownMenuItem>
+            )
+            )}
 
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <Link href="/playlist?city=steve" legacyBehavior>
-              <a className="btn w-3/4 underline pt-4 px-4 font-serif text-xl pb-16">Go To Playlist</a>
-            </Link>
-            <Footer full={false} />
-          </div>
-        </div>
-      </div >
-    </ErrorBoundary>
+          </DropdownMenuContent>
+        </DropdownMenu>
+        <Link href="/playlist?city=steve" legacyBehavior>
+          <a className="btn w-full p-2 font-serif text-xl bg-[#02c7d4] mt-12 mb-6 rounded-lg">Go To Playlist</a>
+        </Link>
+        <Footer full={false} />
+        {/* </div> */}
+      </div>
+    </div >
   );
 }
 
