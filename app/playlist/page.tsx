@@ -107,7 +107,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
   return (
     <>
       <Header center={true} city={searchParams.city} />
-      <div className="flex flex-col text-white items-center justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
+      <div className="flex flex-col text-white items-center justify-center px-2 md:max-w-lg w-full font-serif font-bold mt-10">
         {sub === "false" && (
           <>
             <Confetti />
@@ -148,7 +148,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
           </TabsList>
           <TabsContent value="the-lows">
             <TourCityImage city={city as Cities} />
-            <AlbumInformation city={city} playlistName="upside down tour" />
+            <AlbumInformation city="all cities" playlistName="upside down tour" />
             <ColumnTitle />
             {isLoading && [0, 1, 2, 3, 4].map(i => <Skeleton key={i} className="h-12 my-2" />)}
             {lowsLeaderboard?.songs.map((song, index) => (
@@ -158,7 +158,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
           </TabsContent>
           <TabsContent value="other-songs">
             <TourCityImage city="steve" />
-            <AlbumInformation city={city} playlistName="ynk" />
+            <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
             <ColumnTitle />
             {isLoading && <Skeleton className="h-12 my-2" />}
             {vibesLeaderboard?.songs.map((song, index) => (

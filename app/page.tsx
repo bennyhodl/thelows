@@ -33,14 +33,14 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center bg-steve justify-start h-full md:max-w-lg m-auto pt-24">
       <UpsideDownPlaylistHero />
-      <div className="flex flex-col justify-between items-center text-white text-center">
+      <div className="flex flex-col justify-between items-center text-white text-center mt-16">
         {/* <div className="px-6"> */}
         {/* <p className="font-serif text-2xl mb-10">Pick the songs you want to hear on the <em className="font-serif-italic">upside down tour.</em> when <em className="font-serif-italic">mike.</em> comes to your city.</p> */}
         {/* </div> */}
         {/* <div className="flex flex-col w-3/4 items-center pt-8"> */}
         <DropdownMenu>
           <DropdownMenuTrigger className="w-full">
-            <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2 font-serif text-xl mt-16"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
+            <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2 font-serif text-xl"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="flex flex-wrap bg-gray-800 text-white border-gray-800 w-64 text-center">
             {cityList.map((city, i) =>
