@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react"
-import { getId } from "./localStorage"
+import { getCity, getId } from "./localStorage"
 
-export const useUser = (): string => {
+export const useUser = (): [string, string] => {
   const [id, setId] = useState<string>("")
+  const [city, setCity] = useState<string>("steve")
 
   useEffect(() => {
     const user = getId()
+    const city = getCity()
     setId(user)
+    setCity(city)
   }, [])
 
-  return id
+  return [id, city]
 }

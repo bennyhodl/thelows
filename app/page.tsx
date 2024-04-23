@@ -43,16 +43,17 @@ export default function Home() {
               <DropdownMenuTrigger className="w-full">
                 <div className="flex flex-row justify-between items-center rounded-lg bg-gray-950 border-4 border-gray-800 px-4 py-2 font-serif text-xl"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-white w-6 h-6 m-1" /></div>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-gray-800 text-white w-48 border-gray-800">
-                {cityList.map(city =>
+              <DropdownMenuContent className="flex flex-wrap bg-gray-800 text-white border-gray-800 w-64 text-center">
+                {cityList.map((city, i) =>
                 (
-                  <DropdownMenuItem key={city}>
-                    <Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center w-full my-1 font-serif text-md">
+                  <DropdownMenuItem key={city} className="text-center w-1/2 items-center justify-center">
+                    <Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center my-1 font-serif text-md" onClick={() => window.localStorage.setItem("city", city)}>
                       <PickCity city={city} />
                     </Link>
                   </DropdownMenuItem>
                 )
                 )}
+
               </DropdownMenuContent>
             </DropdownMenu>
             <Link href="/playlist?city=steve" legacyBehavior>

@@ -30,7 +30,7 @@ import Mary from "@/public/images/album/mary.png"
 
 export const AlbumImage = ({ album, width, height, paddingRight }: { album: string, width?: number, height?: number, paddingRight?: number }) => {
   switch (album) {
-    case "fly you to the moon":
+    case "Fly You To The Moon":
       return <Image src={Fly} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} />
     case "commas":
       return <Image src={Commas} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} />

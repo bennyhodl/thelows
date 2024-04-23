@@ -53,3 +53,7 @@ export const clearStorage = () => {
   window.localStorage.removeItem("id")
   window.localStorage.removeItem("submitted")
 }
+
+export const getCity = () => {
+  return window.localStorage.getItem("city") ?? "steve"
+}
