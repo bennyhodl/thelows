@@ -44,10 +44,10 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
   }
 
   return (
-    <Suspense>
+    <div className="md:max-w-lg m-auto w-full" >
       <Header center={false} city={searchParams.city} />
-      <div className="flex flex-col justify-center items-center md:max-w-lg m-auto w-full pt-20" >
-        <p className="text-white text-center px-4 pb-6 font-serif font-bold text-xl">Drag your favorite songs in order to vote for mike's set list.</p>
+      <div className="flex flex-col justify-center items-center">
+        <p className="text-white text-center px-4 pb-6 font-serif font-bold text-xl pt-20">Drag your favorite songs in order to vote for mike's set list.</p>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {provided => (
@@ -77,7 +77,7 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
           </Droppable>
         </DragDropContext>
         {songList.length < 6 ? <Footer full={true} /> : <Footer full={false} />}
-      </div >
-    </Suspense>
+      </div>
+    </div >
   );
 }

@@ -27,7 +27,7 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
 
   return (
     <Suspense>
-      <div className="  md:max-w-lg m-auto font-serif text-xl">
+      <div className=" md:max-w-lg m-auto font-serif text-xl">
         <Header center={false} city={searchParams.city} />
         <p className="text-white pt-20 pb-1 text-center px-4 font-bold">Select the songs that you want to hear on tour from the lows.</p>
         <ToggleGroup type="multiple" className="flex flex-col items-center m-auto justify-center w-11/12 mt-4" value={topTen} onValueChange={userSelect}>
