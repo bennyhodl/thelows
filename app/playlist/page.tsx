@@ -1,5 +1,5 @@
 "use client"
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 import { API_URL } from "@/lib/utils";
 import { Cities, LeaderBoardResponse } from "@/lib/types";
 import { Header } from "@/components/Header";
@@ -11,8 +11,7 @@ import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { AlbumImage } from "@/components/AlbumImage";
 import Image from "next/image"
-import Smileys from "@/public/images/smileys-big.png"
-import { getId, getSubmittedAlready, saveSubmittedAlready } from "@/lib/localStorage";
+import { getCity, getId, getSubmittedAlready, saveSubmittedAlready } from "@/lib/localStorage";
 import Confetti from "react-confetti"
 import {
   AlertDialog,
@@ -30,52 +29,84 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import axios from "axios";
 import validator from "email-validator"
+import useSwr, { useSWRConfig } from "swr"
+import { useToast } from "@/components/ui/use-toast";
+import { useUser } from "@/lib/useUser";
+import { ToastAction } from "@radix-ui/react-toast";
+import { useRouter } from "next/navigation";
 
-
+const getLowsLeaderboard = async (): Promise<LeaderBoardResponse> => {
+  const city = getCity()
+  const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`, { cache: "no-cache" })
+  const leaderboard: LeaderBoardResponse = await response.json()
+  leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
+  return leaderboard
+}
+const getVibesLeaderboard = async (): Promise<LeaderBoardResponse> => {
+  const city = getCity()
+  const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`, { cache: "no-cache" })
+  const leaderboard: LeaderBoardResponse = await response.json()
+  leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
+  return leaderboard
+}
 export default function Leaderboard({ searchParams }: { searchParams: { city: Cities } }) {
+  const { mutate } = useSWRConfig()
   const [sub, setSub] = useState("true")
-  const [vibesLeaderboard, setVibesLeaderboard] = useState<LeaderBoardResponse | null>(null)
-  const [lowsLeaderboard, setLowsLeaderboard] = useState<LeaderBoardResponse | null>(null)
+  const [id, city] = useUser()
   const [email, setEmail] = useState("")
+  const { data: lowsLeaderboard, isLoading, error: lowsError } = useSwr(`lows-leaderboard-${id}`, () => getLowsLeaderboard())
+  const { data: vibesLeaderboard, error: vibesError } = useSwr(`vibes-leaderboard-${id}`, () => getVibesLeaderboard())
+  const router = useRouter()
+  const { toast } = useToast()
 
-  // const vibesLeaderboard = await getVibesLeaderboard(searchParams?.city)
-  // const lowsLeaderboard = await getLowsLeaderboard(searchParams?.city)
-  const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
-    const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`, { cache: "no-cache" })
-    const leaderboard: LeaderBoardResponse = await response.json()
-    leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
-    setLowsLeaderboard(leaderboard)
-    return leaderboard
-  }
-
-  const getVibesLeaderboard = async (city: string): Promise<LeaderBoardResponse> => {
-    const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`, { cache: "no-cache" })
-    const leaderboard: LeaderBoardResponse = await response.json()
-    leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
-    setVibesLeaderboard(leaderboard)
-    return leaderboard
-  }
+  useEffect(() => {
+    mutate(`lows-leaderboard-${id}`)
+    mutate(`vibes-leaderboard-${id}`)
+  }, [searchParams])
 
   const submitEmail = async () => {
-    const id = getId()
     try {
       await axios.post(`${API_URL}/api/email`, { id, email })
     } catch (e) {
-      console.log("No email to send", e)
+      toast({
+        description: "Error sending email",
+        variant: "destructive"
+      })
     }
   }
 
   useEffect(() => {
     const submitted = getSubmittedAlready()
     setSub(submitted)
-
-    getLowsLeaderboard(searchParams.city)
-    getVibesLeaderboard(searchParams.city)
   }, [])
-  console.log(email)
+
+  useEffect(() => {
+    if (!lowsError) return
+    toast({
+      description: "Error getting playlist. Refresh the page to try again.",
+      variant: "destructive",
+      duration: 1000
+    })
+  }, [lowsError])
+
+  useEffect(() => {
+    if (!vibesError) return
+    toast({
+      description: "Error getting playlist. Refresh the page to try again.",
+      action: <ToastAction altText="Reload page" onClick={() => router.refresh()}>Reload</ToastAction>,
+      variant: "destructive",
+      duration: 1000
+    })
+  }, [vibesError])
+
+  if (isLoading) {
+    // loading component
+    return <Loading />
+  }
+
   return (
     <>
-      <Header center={false} city={searchParams.city} />
+      <Header center={false} city={city as Cities} />
       <div className="flex flex-col text-white items-center justify-center  md:max-w-lg w-full font-serif font-bold pt-8">
         {sub === "false" && (
           <>
@@ -83,13 +114,13 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
             <AlertDialog open={sub === "false"}>
               <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-400 text-white">
                 <AlertDialogHeader>
-                  <AlertDialogTitle>i'll see you in {searchParams.city === "steve" ? "concert" : searchParams.city}!</AlertDialogTitle>
+                  <AlertDialogTitle>i'll see you in {city === "steve" ? "concert" : city}!</AlertDialogTitle>
                   <AlertDialogDescription>
                     Your vote has been submitted for the <em>upside down playlist</em>
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 <div className="grid w-full max-w-sm items-center gap-1.5 text-black">
-                  <Label htmlFor="email" className="text-gray-400">Email</Label>
+                  <Label htmlFor="email" className="text-gray-400">Enter email to see song rankings</Label>
                   <Input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <AlertDialogFooter>
@@ -110,8 +141,8 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
             <TabsTrigger className="w-1/2 ne" value="other-songs">The Vibes</TabsTrigger>
           </TabsList>
           <TabsContent value="the-lows">
-            <TourCityImage city={searchParams.city} />
-            <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
+            <TourCityImage city={city as Cities} />
+            <AlbumInformation city={city} playlistName="upside down tour" />
             <ColumnTitle />
             {lowsLeaderboard?.songs.map((song, index) => (
               <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
@@ -119,7 +150,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
           </TabsContent>
           <TabsContent value="other-songs">
             <TourCityImage city="steve" />
-            <AlbumInformation city={searchParams.city} playlistName="ynk" />
+            <AlbumInformation city={city} playlistName="ynk" />
             <ColumnTitle />
             {vibesLeaderboard?.songs.map((song, index) => (
               <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
@@ -166,4 +197,8 @@ const PlaylistSong = ({ song, album, points, index }: { song: string, album: str
     </div>
   )
 
+}
+
+const Loading = () => {
+  return (<div className="bg-custom h-full w-full mx-auto flex justify-center items-center"><AlbumImage album="smiley" width={150} height={150} /></div>)
 }
