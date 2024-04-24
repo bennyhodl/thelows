@@ -107,7 +107,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
   return (
     <>
       <Header center={true} city={searchParams.city} />
-      <div className="flex flex-col text-white items-center justify-center px-2 md:max-w-lg w-full font-serif font-bold mt-10">
+      <div className="flex flex-col text-white items-center justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
         {sub === "false" && (
           <>
             <Confetti />
