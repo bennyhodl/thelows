@@ -47,7 +47,7 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
     <div className="md:max-w-lg m-auto w-full" >
       <Header center={false} city={searchParams.city} />
       <div className="flex flex-col justify-center items-center">
-        <p className="text-white text-center px-4 pb-6 font-serif font-bold text-xl pt-20">Drag your favorite songs in order to vote for mike's set list.</p>
+        <p className="text-black text-center px-4 pb-6 font-serif font-bold text-xl pt-20">Drag your favorite songs in order to vote for mike's set list.</p>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="list">
             {provided => (
@@ -69,7 +69,7 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
                       )}
                     </Draggable>
                     )
-                  })})
+                  })}
                 </div>
                 {provided.placeholder}
               </>

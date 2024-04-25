@@ -112,7 +112,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
           <>
             <Confetti />
             <AlertDialog open={sub === "false"}>
-              <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-400 text-white">
+              <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-800 text-gray-800 rounded-lg">
                 <AlertDialogHeader>
                   <AlertDialogTitle>i'll see you in {searchParams.city === "steve" ? "concert" : city}!</AlertDialogTitle>
                   <AlertDialogDescription>
@@ -141,16 +141,16 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
         {/* {lowsLeaderboard?.songs.map((song, index) => (
           <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
         ))} */}
-        <Tabs defaultValue="the-lows" className="text-white pt-8 w-full px-2 flex flex-col items-center">
-          <TabsList className="w-full bg-gray-950">
+        <Tabs defaultValue="the-lows" className="text-gray-800 pt-8 w-full px-2 flex flex-col items-center">
+          <TabsList className="w-full bg-gray-200">
             <TabsTrigger className="w-1/2 ne" value="the-lows">{searchParams.city} list</TabsTrigger>
             <TabsTrigger className="w-1/2 ne" value="other-songs">all cities</TabsTrigger>
           </TabsList>
           <TabsContent value="the-lows">
             <TourCityImage city={city as Cities} />
-            <AlbumInformation city="all cities" playlistName="upside down tour" />
+            <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
             <ColumnTitle />
-            {isLoading && [0, 1, 2, 3, 4].map(i => <Skeleton key={i} className="h-12 my-2" />)}
+            {isLoading && [0, 1, 2, 3, 4].map(i => <Skeleton key={i} className="h-12 my-2 bg-gray-200" />)}
             {lowsLeaderboard?.songs.map((song, index) => (
               <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
               // <Skeleton className="h-12 my-2" />
@@ -158,9 +158,9 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
           </TabsContent>
           <TabsContent value="other-songs">
             <TourCityImage city="steve" />
-            <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
+            <AlbumInformation city="all cities" playlistName="upside down tour" />
             <ColumnTitle />
-            {isLoading && <Skeleton className="h-12 my-2" />}
+            {isLoading && <Skeleton className="h-12 my-2 bg-gray-200" />}
             {vibesLeaderboard?.songs.map((song, index) => (
               <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
             ))}
@@ -190,7 +190,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
 
 const PlaylistSong = ({ song, album, points, index }: { song: string, album: string, points: number, index: number }) => {
   return (
-    <div className="flex flex-row justify-between items-center text-white w-full pr-2 my-2 h-12">
+    <div className="flex flex-row justify-between items-center text-gray-800 w-full pr-2 my-2 h-12">
       <div className="flex items-center flex-row">
         <p className="pl-2 pr-4 text-gray-400">{index}</p>
         <div className="flex flex-col justify-center">

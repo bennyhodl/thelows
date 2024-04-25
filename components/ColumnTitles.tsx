@@ -9,7 +9,7 @@ export const ColumnTitle = () => {
         </div>
         <p className="mr-3">Album</p>
       </div>
-      <Separator className="bg-gray-700" orientation="horizontal" />
+      <Separator className="bg-gray-200" orientation="horizontal" />
     </div>
   )
 }
