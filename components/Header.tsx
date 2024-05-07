@@ -94,7 +94,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       })
     }
     // city
-    router.push("/playlist?city=" + city);
+    router.push("/playlist/all?city=" + city);
     setLoading(false)
   };
 

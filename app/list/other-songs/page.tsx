@@ -31,6 +31,7 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
   // other songs
   useEffect(() => {
     const songs = getTopOtherSongs([])
+    console.log(songs)
     setTopOtherSongs(songs)
   }, [])
 
@@ -43,13 +44,13 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
     <Suspense>
       <div className=" md:max-w-lg m-auto" >
         <Header center={false} city={searchParams.city} />
-        <p className="text-white pt-16 pb-1 text-center px-8 font-serif text-xl font-bold">Pick from all songs you want to hear in {searchParams.city ?? "concert"}.</p>
+        <p className="text-black pt-16 pb-1 text-center px-8 font-serif text-xl font-bold">Pick from all songs you want to hear in {searchParams.city ?? "concert"}.</p>
         <ToggleGroup type="multiple" className="flex mt-4" value={topOtherSongs} onValueChange={userSelect}>
           <Accordion type="multiple" className="w-full px-4">
             {orderSongs.map(a => {
               return (
                 <AccordionItem value={a[0].id} key={a[0].id} className="border-none">
-                  <AccordionTrigger className="text-white w-full py-0 my-2 hover:no-underline">
+                  <AccordionTrigger className="text-black w-full py-0 my-2 hover:no-underline">
                     <div className="flex flex-row items-center">
                       <AlbumImage album={a[0].album} />
                       <div className="flex flex-col pl-4 text-left">
@@ -66,9 +67,9 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
                   {a.map((song, i) => {
                     return (
                       <>
-                        <AccordionContent className="text-white" key={song.id}>
+                        <AccordionContent className="text-black" key={song.id}>
                           {i === 0 && <Separator className="text-gray-400 bg-gray-500 mt-2 mb-3" />}
-                          <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom hover: border-gray-800 rounded-none text-xl text-white font-bold py-7">
+                          <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=off]:text-black data-[state=on]:border-gray-500 rounded-none text-xl font-bold py-7">
                             <ToggleSong song={song} />
                           </ToggleGroupItem>
                         </AccordionContent>
@@ -77,7 +78,7 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
                   })}
                 </AccordionItem>)
             })
-            })
+            }
           </Accordion>
         </ToggleGroup>
         <Footer full={false} />

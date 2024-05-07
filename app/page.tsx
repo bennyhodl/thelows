@@ -56,7 +56,10 @@ export default function Home() {
           </DropdownMenuContent>
         </DropdownMenu>
         <Link href="/playlist?city=steve" legacyBehavior>
-          <a className="btn w-full p-2 font-serif text-xl bg-black text-white mt-12 mb-6">Go To Playlist</a>
+          <a className="btn w-full p-2 font-serif text-xl bg-black text-white mt-16 mb-6">Go To Playlist</a>
+        </Link>
+        <Link href="/list/other-songs?city=steve" legacyBehavior>
+          <a className="btn w-full p-2 font-serif text-xl bg-white text-black border-2 border-black mb-6">All Songs</a>
         </Link>
         <Footer full={false} />
         {/* </div> */}
