@@ -3,7 +3,7 @@ import { Menu } from "lucide-react"
 
 export const RankSong = ({ song, index }: { song: SongScore, index: number }) => {
   return (
-    <div className="flex flex-row justify-between items-center h-16 w-full pr-2 py-2 px-2 my-1 text-white active:bg-custom border-2 rounded-lg border-gray-400 bg-custom">
+    <div className="flex flex-row justify-between items-center h-16 w-full pr-2 py-2 px-2 my-1 rounded-none text-white active:bg-custom border-2 border-gray-400 bg-custom">
       <div className="flex flex-row items-center justify-center">
         <p className="pr-4 pl-2 text-gray-400 text-sm font-bold">{index + 1}</p>
         <div className="fled flex-col">

@@ -105,14 +105,14 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
   }, [vibesError])
 
   return (
-    <>
+    <div className="m-auto md:max-w-lg w-full">
       <Header center={true} city={searchParams.city} />
-      <div className="flex flex-col text-white items-center justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
+      <div className="flex flex-col text-white items-center m-auto justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
         {sub === "false" && (
           <>
             <Confetti />
             <AlertDialog open={sub === "false"}>
-              <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-800 text-gray-800 rounded-lg">
+              <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-800 text-gray-800 rounded-none">
                 <AlertDialogHeader>
                   <AlertDialogTitle>i'll see you in {searchParams.city === "steve" ? "concert" : city}!</AlertDialogTitle>
                   <AlertDialogDescription>
@@ -124,7 +124,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
                   <Input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
                 </div>
                 <AlertDialogFooter>
-                  <AlertDialogAction className="bg-[#02c7d4] text-white" disabled={!validator.validate(email)} onClick={async () => {
+                  <AlertDialogAction className="bg-black text-white rounded-none" disabled={!validator.validate(email)} onClick={async () => {
                     setSub("true")
                     saveSubmittedAlready(true)
                     await submitEmail()
@@ -168,7 +168,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
         </Tabs>
       </div>
       <Footer full={false} />
-    </>
+    </div>
   );
 }
 

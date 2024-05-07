@@ -40,9 +40,9 @@ export default function Home() {
         {/* <div className="flex flex-col w-3/4 items-center pt-8"> */}
         <DropdownMenu>
           <DropdownMenuTrigger className="w-full">
-            <div className="flex flex-row justify-between items-center rounded-lg bg-white border-4 border-gray-400 px-4 py-2 font-serif text-xl"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-black w-6 h-6 m-1" /></div>
+            <div className="flex flex-row justify-between items-center bg-white border-4 border-gray-400 px-4 py-2 font-serif text-xl"><p className="pr-2">Pick your city</p><ChevronsUpDown className="text-black w-6 h-6 m-1" /></div>
           </DropdownMenuTrigger>
-          <DropdownMenuContent className="flex flex-wrap bg-white text-black border-gray-400 w-64 text-center">
+          <DropdownMenuContent className="flex flex-wrap bg-white text-black border-gray-400 w-64 text-center rounded-none">
             {cityList.map((city, i) =>
             (
               <DropdownMenuItem key={city} className="text-center w-1/2 items-center justify-center">
@@ -56,7 +56,7 @@ export default function Home() {
           </DropdownMenuContent>
         </DropdownMenu>
         <Link href="/playlist?city=steve" legacyBehavior>
-          <a className="btn w-full p-2 font-serif text-xl bg-[#02c7d4] text-white mt-12 mb-6 rounded-lg">Go To Playlist</a>
+          <a className="btn w-full p-2 font-serif text-xl bg-black text-white mt-12 mb-6">Go To Playlist</a>
         </Link>
         <Footer full={false} />
         {/* </div> */}

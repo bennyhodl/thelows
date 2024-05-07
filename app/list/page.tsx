@@ -41,7 +41,7 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
 
             // } else {
             return (
-              <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=on]:border-gray-500 rounded-xl text-xl font-bold h-16 my-1">
+              <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=on]:border-gray-500 rounded-none text-xl font-bold h-16 my-1">
                 <ToggleSong song={song} />
               </ToggleGroupItem>
             )

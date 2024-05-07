@@ -68,7 +68,7 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
                       <>
                         <AccordionContent className="text-white" key={song.id}>
                           {i === 0 && <Separator className="text-gray-400 bg-gray-500 mt-2 mb-3" />}
-                          <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom hover: border-gray-800 rounded-lg text-xl text-white font-bold py-7">
+                          <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom hover: border-gray-800 rounded-none text-xl text-white font-bold py-7">
                             <ToggleSong song={song} />
                           </ToggleGroupItem>
                         </AccordionContent>

@@ -8,7 +8,7 @@ export const Song = ({ song, index, id }: { song: SongScore, id: string, index: 
     <Draggable draggableId={id} index={index}>
       {provided => (
         <div
-          // className="flex flex-row justify-between m-auto items-center ne border-2 border-gray-800 my-2 pl-2 py-3 pr-3 w-11/12 rounded-lg text-white font-serif text-2xl"
+          // className="flex flex-row justify-between m-auto items-center ne border-2 border-gray-800 my-2 pl-2 py-3 pr-3 w-11/12 rounded-none text-white font-serif text-2xl"
           className="w-full"
           ref={provided.innerRef}
           {...provided.draggableProps}

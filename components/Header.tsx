@@ -103,7 +103,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       case "/album":
         return (
           <Button
-            className="btn bg-[#02c7d4] text-white font-serif py-0 px-4 rounded-lg cursor-pointer font-bold"
+            className="btn bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer font-bold"
             onClick={async () => await submitLowsList(city)} // City
           >
             Submit
@@ -112,7 +112,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       case "/list/other-songs":
         return (
           <Button
-            className="btn bg-[#02c7d4] text-white font-serif py-0 px-4 rounded-lg cursor-pointer font-bold"
+            className="btn bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer font-bold"
             onClick={async () => await submitOtherSongsList(city)} // City
           >
             Submit
@@ -121,7 +121,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       case "/list/order":
         return (
           <div
-            className="bg-[#02c7d4] text-white font-serif py-2 px-4 rounded-lg cursor-pointer font-bold"
+            className="bg-black text-white font-serif py-2 px-4 rounded-none cursor-pointer font-bold"
             onClick={async () => await submitLowsList(city)}
           >
             {/* <DrawerTrigger className="w-full"> */}
@@ -132,7 +132,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       case "/list":
         return (
           <Button
-            className="btn bg-[#02c7d4] text-white font-serif py-0 px-4 rounded-lg cursor-pointer font-bold"
+            className="btn bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer font-bold"
             onClick={async () => {
               const songs = getTopTen([])
               if (songs.length === 0) {
@@ -153,7 +153,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         // const query = city === "steve" ? `city=${storedCity}` : "city=steve"
         // return (
         //   <Button
-        //     className="btn bg-[#02c7d4] hover:bg-[#02c7d4] text-white font-serif py-0 px-4 rounded-lg cursor-pointer font-bold"
+        //     className="btn bg-black hover:bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer font-bold"
         //     onClick={async () => router.push(`/playlist?${query}`)}
         //   >
         //     {city === "steve" ? storedCity + " playlist" : "all cities"}
@@ -175,7 +175,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         </Link>
         {loading ? (
           <Button
-            className="btn bg-[#02c7d4] text-white text-center font-serif py-0 px-1 rounded-lg cursor-pointer font-bold w-28"
+            className="btn bg-black text-white text-center font-serif py-0 px-1 rounded-none cursor-pointer font-bold w-28"
             onClick={async () => await submitLowsList(city)}
           >
             <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Loading
@@ -190,10 +190,10 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
           </DrawerHeader>
           <DrawerFooter>
             <Link href={`/list/other-songs?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center bg-[#02c7d4] text-white py-3 px-4 mb-1 font-serif font-3xl"><p>Pick From All Songs</p></a>
+              <a className="btn rounded-none w-full text-center bg-black text-white py-3 px-4 mb-1 font-serif font-3xl"><p>Pick From All Songs</p></a>
             </Link>
             <Link href={`/playlist?city=${city}`} legacyBehavior>
-              <a className="btn rounded-lg w-full text-center text-white py-3 px-4 mb-3 bg-[#9CA3AF] font-serif">See Results for {city.slice(0, 1)[0].toUpperCase() + city.slice(1)}</a>
+              <a className="btn rounded-none w-full text-center text-white py-3 px-4 mb-3 bg-[#9CA3AF] font-serif">See Results for {city.slice(0, 1)[0].toUpperCase() + city.slice(1)}</a>
             </Link>
           </DrawerFooter>
         </DrawerContent> */}
