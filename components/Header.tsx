@@ -11,7 +11,7 @@ import { Cities, SongScore, SubmitListRequest } from "@/lib/types";
 import Link from "next/link";
 import { Button } from "./ui/button"
 import { ReloadIcon } from "@radix-ui/react-icons"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Drawer,
   DrawerContent,
@@ -148,22 +148,43 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
             Submit
           </Button>
         )
-      case "/playlist":
-        // const storedCity = getCity()
-        // const query = city === "steve" ? `city=${storedCity}` : "city=steve"
-        // return (
-        //   <Button
-        //     className="btn bg-black hover:bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer font-bold"
-        //     onClick={async () => router.push(`/playlist?${query}`)}
-        //   >
-        //     {city === "steve" ? storedCity + " playlist" : "all cities"}
-        //   </Button>
-        // )
-        return <></>
+      case "/playlist" || "/playlist/all":
+        return <ReferButton />
 
       default:
         return <></>
     }
+  }
+
+  const shareStuff = {
+    title: "upside down playlist",
+    text: `pick the setlist for the upside down tour${!city || city === undefined ? "" : ` in ${city}.`}.\n\n\t- mike.`,
+    url: "https://thelows.top"
+  }
+
+  const ReferButton = () => {
+    useEffect(() => {
+      // This code runs only on the client side
+      if (!navigator.share) {
+        console.log('Web Share API not supported');
+      }
+    }, []);
+
+    async function showShareMenu() {
+      try {
+        await navigator.share(shareStuff)
+      } catch (e) {
+        console.log("erorr sharing: ", e)
+      }
+    }
+    return (          
+      <Button
+        className="btn bg-black hover:bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer"
+        onClick={async () => showShareMenu()}
+      >
+        Refer a friend
+      </Button>
+    )
   }
 
   const classes = !center ? "h-14 bg-custom m-auto fixed flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-custom m-auto fixed flex justify-center w-full md:max-w-lg px-2 py-2"

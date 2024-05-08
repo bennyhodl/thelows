@@ -106,7 +106,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
 
   return (
     <div className="m-auto md:max-w-lg w-full">
-      <Header center={true} city={searchParams.city} />
+      <Header center={false} city={searchParams.city} />
       <div className="flex flex-col text-white items-center m-auto justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
         {sub === "false" && (
           <>
