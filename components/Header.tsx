@@ -164,6 +164,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
   }
 
   const ReferButton = () => {
+    const {toast} = useToast()
     useEffect(() => {
       // This code runs only on the client side
       if (!navigator.share) {
@@ -176,6 +177,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         await navigator.share(shareStuff)
       } catch (e) {
         console.log("erorr sharing: ", e)
+        return toast({description: "Your browser does not support sharable links."})
       }
     }
     return (          
