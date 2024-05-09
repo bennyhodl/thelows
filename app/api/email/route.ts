@@ -10,8 +10,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       const client = await connectToDatabase();
       const db = client.db(DATABASE_NAME);
 
-      const collection = db.collection(OTHER_SONGS_COLLECTION);
-      const lows = db.collection(COLLECTION_NAME);
+      // const collection = db.collection(OTHER_SONGS_COLLECTION);
+      const collection = db.collection(COLLECTION_NAME);
       
       
       const user = await collection.findOne({"id": request.id})
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         await collection.insertOne({id: request.id, email: request.email});
       } else {
         await collection.updateOne({"id":request.id}, {$set: {email: request.email}});
-        await lows.updateOne({"id":request.id}, {$set: {email: request.email}});
+        // await lows.updateOne({"id":request.id}, {$set: {email: request.email}});
       }
 
       client.close();

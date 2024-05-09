@@ -31,7 +31,6 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
   // other songs
   useEffect(() => {
     const songs = getTopOtherSongs([])
-    console.log(songs)
     setTopOtherSongs(songs)
   }, [])
 
@@ -64,18 +63,16 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
                       </div>
                     </div>
                   </AccordionTrigger>
-                  {a.map((song, i) => {
-                    return (
-                      <>
-                        <AccordionContent className="text-black" key={song.id}>
-                          {i === 0 && <Separator className="text-gray-400 bg-gray-500 mt-2 mb-3" />}
-                          <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=off]:text-black data-[state=on]:border-gray-500 rounded-none text-xl font-bold py-7">
-                            <ToggleSong song={song} />
-                          </ToggleGroupItem>
-                        </AccordionContent>
-                      </>
-                    )
-                  })}
+                  <AccordionContent className="text-black" key={crypto.randomUUID()}>
+                    <Separator className="text-gray-400 bg-gray-500 mt-2 mb-3" />
+                    {a.map(song => {
+                      return (
+                        <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=off]:text-black data-[state=on]:border-gray-500 rounded-none text-xl font-bold py-7 my-1">
+                          <ToggleSong song={song} />
+                        </ToggleGroupItem>
+                      )
+                    })}
+                  </AccordionContent>
                 </AccordionItem>)
             })
             }

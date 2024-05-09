@@ -142,12 +142,12 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
           <PlaylistSong song={song.name} album={song.album} points={song.points} index={index + 1} key={song.name} />
         ))} */}
         <Tabs defaultValue="the-lows" className="text-gray-800 pt-8 w-full px-2 flex flex-col items-center">
-          <TabsList className="w-full bg-gray-200">
+          {searchParams.city !== "steve" && <TabsList className="w-full bg-gray-200">
             <TabsTrigger className="w-1/2 ne" value="the-lows">{searchParams.city} list</TabsTrigger>
             <TabsTrigger className="w-1/2 ne" value="other-songs">all cities</TabsTrigger>
-          </TabsList>
+          </TabsList>}
           <TabsContent value="the-lows">
-            <TourCityImage city={city as Cities} />
+            <TourCityImage city={searchParams.city} />
             <AlbumInformation city={searchParams.city} playlistName="upside down tour" />
             <ColumnTitle />
             {isLoading && [0, 1, 2, 3, 4].map(i => <Skeleton key={i} className="h-12 my-2 bg-gray-200" />)}
