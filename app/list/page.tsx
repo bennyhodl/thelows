@@ -18,10 +18,12 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 
 export default function List({ searchParams }: { searchParams: { city: Cities } }) {
   const [topTen, setTopTen] = useState<string[]>([])
-
+  const [stop, setStop] = useState<boolean>(false)
+  const { toast } = useToast()
   // other songs
   useEffect(() => {
     const songs = getTopTen([])
@@ -29,8 +31,17 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
   }, [])
 
   const userSelect = (list: string[]) => {
+    console.log("length", list.length)
+    if (list.length > 15) {
+      setStop(true)
+      return
+    }
     setTopTen(list)
     saveTopTen(list)
+  }
+
+  const disableToggle = (song: string) => {
+    return !topTen.includes(song) || topTen.length === 15
   }
 
   return (
@@ -57,11 +68,26 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
                 <div className="w-full">
                   {
                     a.map(song => {
-                      return (
-                        <ToggleGroupItem value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=off]:text-black data-[state=on]:border-gray-500 rounded-none text-xl font-bold py-7 my-1">
-                          <ToggleSong song={song} />
-                        </ToggleGroupItem>
-                      )
+                      if (topTen.length === 15) {
+                        return (
+                          <div onClick={() => {
+                            if (!topTen.includes(JSON.stringify(song))) {
+                              toast({ description: "Super fan! You can only pick 15 songs." })
+                            }
+                          }}>
+                            <ToggleGroupItem disabled={!topTen.includes(JSON.stringify(song))} value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=off]:text-black data-[state=on]:border-gray-500 rounded-none text-xl font-bold py-7 my-1">
+                              <ToggleSong song={song} />
+                            </ToggleGroupItem>
+                          </div>
+                        )
+
+                      } else {
+                        return (
+                          <ToggleGroupItem disabled={false} value={JSON.stringify(song)} key={song.id} aria-label={`Toggle ${song}`} className="select-top w-full border-2 hover:text-white hover:bg-custom border-gray-400 data-[state=on]:bg-gray-800 data-[state=on]:text-white data-[state=off]:text-black data-[state=on]:border-gray-500 rounded-none text-xl font-bold py-7 my-1">
+                            <ToggleSong song={song} />
+                          </ToggleGroupItem>
+                        )
+                      }
                     })
                   }
                 </div>
@@ -69,7 +95,6 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
             )
           })}
         </ToggleGroup>
-        {/* <Footer full={false} /> */}
       </div >
     </Suspense>
   );
