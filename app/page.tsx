@@ -16,6 +16,7 @@ import { useState } from "react";
 const cityList: Cities[] = [
   "tampa",
   "cleveland",
+  "boston (night 1)",
   "boston",
   "chicago",
   "denver",

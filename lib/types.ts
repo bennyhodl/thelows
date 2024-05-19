@@ -53,6 +53,7 @@ export type SongDbEntry = {
 };
 
 export type Cities =
+  | "boston (night 1)"
   | "boston"
   | "chicago"
   | "cleveland"
@@ -332,7 +333,7 @@ export const theHighs: SongScore[] = [
   {
     album: "the highs.",
     year: 2021,
-    name: "still-works",
+    name: "still works",
     id: "still-works",
     points: 0,
   },
