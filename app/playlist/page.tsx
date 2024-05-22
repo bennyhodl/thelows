@@ -198,7 +198,7 @@ const PlaylistSong = ({ song, album, points, index }: { song: string, album: str
           <div className="flex flex-row text-xs text-gray-400 font-light">
             <p>{album}</p>
             <p className="px-1">•</p>
-            <p className="text-xs text-gray-400 font-light">{points} votes</p>
+            <p className="text-xs text-gray-400 font-light">{points.toLocaleString()} votes</p>
           </div>
         </div>
       </div>

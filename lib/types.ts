@@ -25,6 +25,7 @@ export type OtherLeaderboardResponse = {
 
 export type SongScore = {
   album: string;
+  city?: string;
   name: string;
   year?: number;
   id: string;
@@ -67,6 +68,22 @@ export type Cities =
   | "steve"
   | "toronto (night 2)"
   | "nyc (night 2)";
+
+export const cities: string[] = [
+  "boston (night 1)",
+  "boston",
+  "chicago",
+  "cleveland",
+  "denver",
+  "irving",
+  "minneapolis",
+  "nyc",
+  "pittsburgh",
+  "tampa",
+  "toronto",
+  "toronto (night 2)",
+  "nyc (night 2)"
+]
 
 export const theLows: SongScore[] = [
   {
