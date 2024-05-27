@@ -45,11 +45,12 @@ const getVotes = async (): Promise<any> => {
 
 export default function Home() {
   const {
-    data: count,
+    data: adminData,
     isLoading,
     error,
-  } = useSwr<{ totalEntries: number; emails: number }>(`admin`, () =>
-    getAdminPage()
+  } = useSwr<{ totalEntries: number; emails: number; votesPerCity: { _id: string, count: number }[] }>(
+    `admin`,
+    () => getAdminPage()
   );
   const { data: votes } = useSwr<
     { _id: Cities; songs: { name: string; totalPoints: number }[] }[]
@@ -57,23 +58,40 @@ export default function Home() {
   return (
     <div className="flex flex-col items-center justify-start h-full md:max-w-lg m-auto mt-16">
       <h1 className="text-2xl mb-6">Upside Down Playlist Admin</h1>
-      <a href={`${API_URL}/api/admin/email`} download="upside.csv" className="py-2 px-4 bg-black text-white mb-4">Download Emails</a>
-      {count && (
+      <a
+        href={`${API_URL}/api/admin/email`}
+        download="upside.csv"
+        className="py-2 px-4 bg-black text-white mb-4"
+      >
+        Download Emails
+      </a>
+      {adminData && (
         <h1>
-          <strong>Total entries:</strong> {count.totalEntries.toLocaleString()}
+          <strong>Total entries:</strong>{" "}
+          {adminData.totalEntries.toLocaleString()}
         </h1>
       )}
-      {count && (
+      {adminData && (
         <h1>
-          <strong>Total emails:</strong> {count.emails.toLocaleString()}
+          <strong>Total emails:</strong> {adminData.emails.toLocaleString()}
         </h1>
       )}
-      {count && (
-        <h1>
+      {adminData && (
+        <h1 className="mb-4">
           <strong>Email conversion (submitted & provided email): </strong>{" "}
-          {Math.ceil((count.emails / count.totalEntries) * 100)}%
+          {Math.ceil((adminData.emails / adminData.totalEntries) * 100)}%
         </h1>
       )}
+      <h2>Total entries per city</h2>
+      {adminData &&
+        adminData.votesPerCity.map((city) => {
+          return (
+            <h1>
+              <strong>{city._id ?? "Total"}:</strong>{" "}
+              {city.count.toLocaleString()}
+            </h1>
+          );
+        })}
       {votes &&
         votes.map((city) => {
           return (
@@ -115,5 +133,3 @@ const SongsPerCity = ({
   };
   return <Pie options={options} data={adminData} />;
 };
-
-
