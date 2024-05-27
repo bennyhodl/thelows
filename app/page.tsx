@@ -10,24 +10,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import UpsideDownPlaylist from "@/public/images/playlist-logo-slim.png"
-import { Cities } from "@/lib/types";
+import { Cities, cities } from "@/lib/types";
 import { ChevronsUpDown } from "lucide-react"
 import { useState } from "react";
-const cityList: Cities[] = [
-  "tampa",
-  "cleveland",
-  "boston (night 1)",
-  "boston",
-  "chicago",
-  "denver",
-  "irving",
-  "minneapolis",
-  "nyc",
-  "nyc (night 2)",
-  "pittsburgh",
-  "toronto",
-  "toronto (night 2)"
-]
 
 export default function Home() {
   useUser()
@@ -41,7 +26,7 @@ export default function Home() {
             <div className="flex flex-row justify-between items-center bg-white border-4 border-gray-400 px-4 py-2 font-serif text-xl"><p className="pr-2">{city ? city : "Pick your city"}</p><ChevronsUpDown className="text-black w-6 h-6 m-1" /></div>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="flex flex-wrap bg-white text-black border-gray-400 w-64 text-center rounded-none">
-            {cityList.map((city, _) =>
+            {cities.map((city, _) =>
             (
               <DropdownMenuItem key={city} className="text-center w-1/2 items-center justify-center">
                 <Link href={`/list?city=${city}`} className="cursor-pointer text-md text-center my-1 font-serif text-md" onClick={() => window.localStorage.setItem("city", city)}>

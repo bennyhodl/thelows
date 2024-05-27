@@ -72,17 +72,17 @@ export type Cities =
 export const cities: string[] = [
   "boston (night 1)",
   "boston",
-  "chicago",
-  "cleveland",
   "denver",
-  "irving",
   "minneapolis",
-  "nyc",
-  "pittsburgh",
-  "tampa",
+  "cleveland",
+  "irving",
   "toronto",
   "toronto (night 2)",
-  "nyc (night 2)"
+  "nyc",
+  "nyc (night 2)",
+  "pittsburgh",
+  "tampa",
+  "chicago",
 ]
 
 export const theLows: SongScore[] = [
