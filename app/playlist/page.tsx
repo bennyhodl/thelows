@@ -101,7 +101,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
           <>
             <Confetti />
             <AlertDialog open={sub === "false"}>
-              <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-800 text-gray-800 rounded-none">
+              <AlertDialogContent className="w-5/6 bg-white border-1 border-gray-800 text-gray-800 rounded-none flex flex-col items-center">
                 <AlertDialogHeader>
                   <AlertDialogTitle>i'll see you in concert!</AlertDialogTitle>
                   <AlertDialogDescription>

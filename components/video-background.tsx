@@ -47,6 +47,7 @@ export function VideoBackground() {
         loop
         playsInline
         preload="auto"
+        crossOrigin="anonymous"
         className="h-full w-full object-cover"
       >
         <source
