@@ -3,14 +3,14 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: 'GarmondBold';
-  src: url('../public/font/EBGaramond-Bold.ttf') format("truetype");
+  font-family: "GarmondBold";
+  src: url("../public/font/EBGaramond-Bold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 @font-face {
-  font-family: 'Garmond';
-  src: url('../public/font/EBGaramond-SemiBold.ttf') format("truetype");
+  font-family: "Garmond";
+  src: url("../public/font/EBGaramond-SemiBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -25,7 +25,7 @@
   /* background-image: linear-gradient(to bottom, #02c7d4 15%, #df0134 25%, #37393d 40%);
   background-size:cover;
   background-repeat: no-repeat; */
-  background-color: white;
+  /* background-color: white; */
 }
 
 .bg-smile {
@@ -33,17 +33,22 @@
 }
 
 .bg-steve {
-  background-image: linear-gradient(to bottom, rgba(156, 163, 175, 0.33) 10%, #0000 40%, #0000 50%);
-  background-size:cover;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(156, 163, 175, 0.33) 10%,
+    #0000 40%,
+    #0000 50%
+  );
+  background-size: cover;
   background-repeat: no-repeat;
 }
 
 /* styles.css */
 .bg-gradient-to-black {
   background-image: linear-gradient(
-    to bottom, 
-    rgba(0, 0, 0, 0) 0%, 
-    rgba(0, 0, 0, 0) 50%, 
+    to bottom,
+    rgba(0, 0, 0, 0) 0%,
+    rgba(0, 0, 0, 0) 50%,
     rgba(0, 0, 0, 0.8) 100%
   );
   background-attachment: fixed;

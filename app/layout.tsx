@@ -54,7 +54,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-custom">
-      <body className={`${inter.className} bg-custom h-screen`}>
+      <body className={`${inter.className} h-screen`}>
         {/* <Header /> */}
         {children}
         <Toaster />
