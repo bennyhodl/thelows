@@ -1,34 +1,39 @@
 // pages/api/create.js
-import { NextRequest, NextResponse } from "next/server";
-import { connectToDatabase, DATABASE_NAME, OTHER_SONGS_COLLECTION } from "@/lib/mongo";
+import {
+  connectToDatabase,
+  DATABASE_NAME,
+  OTHER_SONGS_COLLECTION,
+} from "@/lib/mongo";
 import { SongDbEntry, SubmitListRequest } from "@/lib/types";
 
-export async function POST(req: NextRequest, res: NextResponse) {
-    try {
-      const request: SubmitListRequest = await req.json()
+export async function POST(req: Request) {
+  try {
+    const request: SubmitListRequest = await req.json();
 
-      let document: SongDbEntry = {
-        city: request.city,
-        id: request.id,
-        songs: request.songs 
-      }
-      
-      const client = await connectToDatabase();
-      const db = client.db(DATABASE_NAME);
+    let document: SongDbEntry = {
+      id: request.id,
+      songs: request.songs,
+    };
 
-      const collection = db.collection(OTHER_SONGS_COLLECTION);
-      const user = await collection.findOne({"id": document.id})
-      if (!user) {
-        await collection.insertOne(document);
-      } else {
-        await collection.updateOne({"id": document.id}, {$set: {songs: document.songs, city: request.city}});
-      }
+    const client = await connectToDatabase();
+    const db = client.db(DATABASE_NAME);
 
-      client.close();
-
-      // res.status(201).json({ message: "Document created", result });
-      return NextResponse.json({success: true, other: true}, { status: 202})
-    } catch (error) {
-      return NextResponse.json({success: false}, {status: 500})
+    const collection = db.collection(OTHER_SONGS_COLLECTION);
+    const user = await collection.findOne({ id: document.id });
+    if (!user) {
+      await collection.insertOne(document);
+    } else {
+      await collection.updateOne(
+        { id: document.id },
+        { $set: { songs: document.songs } }
+      );
     }
-};
+
+    client.close();
+
+    // res.status(201).json({ message: "Document created", result });
+    return Response.json({ success: true, other: true }, { status: 202 });
+  } catch (error) {
+    return Response.json({ success: false }, { status: 500 });
+  }
+}

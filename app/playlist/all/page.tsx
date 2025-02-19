@@ -1,32 +1,18 @@
 "use client"
-import { useEffect, useId, useState } from "react";
-import { API_URL } from "@/lib/utils";
-import { Cities, LeaderBoardResponse } from "@/lib/types";
+import { useEffect } from "react";
+import { LeaderBoardResponse } from "@/lib/types";
 import { Header } from "@/components/Header";
 import { AudioLines } from "lucide-react";
 import { TourCityImage } from "@/components/CityImage";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ColumnTitle } from "@/components/ColumnTitles";
 import Link from "next/link";
 import { Footer } from "@/components/Footer";
 import { AlbumImage } from "@/components/AlbumImage";
 import Image from "next/image"
-import { getCity, getId, getSubmittedAlready, saveSubmittedAlready } from "@/lib/localStorage";
-import Confetti from "react-confetti"
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog"
+import { getCity } from "@/lib/localStorage";
 import TheLows from "@/public/images/the-lows.jpeg"
 import axios from "axios";
-import useSwr, { useSWRConfig } from "swr"
+import useSwr from "swr"
 import { useToast } from "@/components/ui/use-toast";
 import { useUser } from "@/lib/useUser";
 import { ToastAction } from "@radix-ui/react-toast";
@@ -37,21 +23,16 @@ const getVibesLeaderboard = async (city: string): Promise<LeaderBoardResponse> =
   if (city === undefined) {
     city = getCity()
   }
-  const response = await fetch(`${API_URL}/api/leaderboard/other?city=${city}`, { cache: "no-cache" })
-  const leaderboard: LeaderBoardResponse = await response.json()
+  const response = await axios.get("/api/leaderboard/other")
+  const leaderboard: LeaderBoardResponse = response.data
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
   return leaderboard
 }
-export default function Leaderboard({ searchParams }: { searchParams: { city: Cities } }) {
-  const { mutate } = useSWRConfig()
-  const [id, city] = useUser()
+export default function Leaderboard() {
+  const id = useUser()
   const { data: vibesLeaderboard, isLoading, error: vibesError } = useSwr(`vibes-leaderboard-${id}`, () => getVibesLeaderboard("steve"))
   const router = useRouter()
   const { toast } = useToast()
-
-  useEffect(() => {
-    mutate(`vibes-leaderboard-${id}`)
-  }, [searchParams.city])
 
   useEffect(() => {
     if (!vibesError) return
@@ -65,34 +46,8 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
 
   return (
     <div className="m-auto md:max-w-lg w-full">
-      <Header center={false} city={searchParams.city} />
+      <Header center={false} />
       <div className="flex flex-col text-white items-center m-auto justify-center px-2 md:max-w-lg w-full font-serif font-bold pt-10">
-        {/* {sub === "false" && (
-          <>
-            <Confetti />
-            <AlertDialog open={sub === "false"}>
-              <AlertDialogContent className="w-5/6 bg-custom border-1 border-gray-800 text-gray-800 rounded-none">
-                <AlertDialogHeader>
-                  <AlertDialogTitle>i'll see you in {searchParams.city === "steve" ? "concert" : city}!</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Your vote has been submitted for the <em>upside down playlist</em>
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <div className="grid w-full max-w-sm items-center gap-1.5 text-black">
-                  <Label htmlFor="email" className="text-gray-400">Enter email to see song rankings</Label>
-                  <Input type="email" id="email" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </div>
-                <AlertDialogFooter>
-                  <AlertDialogAction className="bg-black text-white rounded-none" disabled={!validator.validate(email)} onClick={async () => {
-                    setSub("true")
-                    saveSubmittedAlready(true)
-                    await submitEmail()
-                  }}>Ok</AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-          </>
-        )} */}
         <TourCityImage city="steve" />
         <AlbumInformation city="mike." playlistName="upside down tour" />
         <ColumnTitle />

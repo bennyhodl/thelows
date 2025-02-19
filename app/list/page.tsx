@@ -14,7 +14,7 @@ import { AlbumImage } from "@/components/AlbumImage";
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 
-export default function List({ searchParams }: { searchParams: { city: Cities } }) {
+export default function List() {
   const [topTen, setTopTen] = useState<string[]>([])
   const [stop, setStop] = useState<boolean>(false)
   const { toast } = useToast()
@@ -40,7 +40,7 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
   return (
     <Suspense>
       <div className="md:max-w-lg m-auto font-serif text-xl">
-        <Header center={false} city={searchParams.city} />
+        <Header center={false} />
         <p className="text-black pt-20 pb-1 text-center px-4 font-bold">Select the songs that you want to hear on tour from the lows & the highs.</p>
         <ToggleGroup type="multiple" className="flex flex-col w-full px-4" value={topTen} onValueChange={userSelect}>
           <Separator className="text-gray-400 bg-gray-500 mt-2" />

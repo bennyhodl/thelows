@@ -25,7 +25,7 @@ type OtherSong = {
   songs: string[]
 }
 
-export default function OtherSongs({ searchParams }: { searchParams: { city: Cities } }) {
+export default function OtherSongs() {
   const [topOtherSongs, setTopOtherSongs] = useState<string[]>([])
 
   // other songs
@@ -42,8 +42,8 @@ export default function OtherSongs({ searchParams }: { searchParams: { city: Cit
   return (
     <Suspense>
       <div className=" md:max-w-lg m-auto" >
-        <Header center={false} city={searchParams.city} />
-        <p className="text-black pt-16 pb-1 text-center px-8 font-serif text-xl font-bold">Pick from all songs you want to hear in {searchParams.city ?? "concert"}.</p>
+        <Header center={false} />
+        <p className="text-black pt-16 pb-1 text-center px-8 font-serif text-xl font-bold">Pick from all songs you want to hear in concert.</p>
         <ToggleGroup type="multiple" className="flex mt-4" value={topOtherSongs} onValueChange={userSelect}>
           <Accordion type="multiple" className="w-full px-4">
             {orderSongs.map(a => {

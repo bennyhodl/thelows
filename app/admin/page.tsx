@@ -18,6 +18,7 @@ import { Bar, Pie } from "react-chartjs-2";
 import useSwr from "swr";
 import { API_URL, colors } from "@/lib/utils";
 import { Cities, SongDbEntry, SongScore, cities, theLows } from "@/lib/types";
+import axios from "axios";
 // import { mockAdmin } from "@/lib/mocks";
 
 ChartJS.register(
@@ -31,15 +32,15 @@ ChartJS.register(
 );
 
 const getAdminPage = async (): Promise<any> => {
-  const response = await fetch(`${API_URL}/api/admin`);
-  const leaderboard: any = await response.json();
+  const response = await axios.get("/api/admin");
+  const leaderboard: any = await response.data;
 
   return leaderboard;
 };
 
 const getVotes = async (): Promise<any> => {
-  const response = await fetch(`${API_URL}/api/admin/per-city`);
-  const leaderboard: any = await response.json();
+  const response = await axios.get("/api/admin/per-city");
+  const leaderboard: any = await response.data;
   return leaderboard;
 };
 

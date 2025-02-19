@@ -12,7 +12,6 @@ export type LeaderboardSong = {
 };
 
 export type LeaderBoardResponse = {
-  city: Cities;
   total: number;
   songs: SongScore[];
 };
@@ -33,7 +32,6 @@ export type SongScore = {
 };
 
 export type SubmitListRequest = {
-  city: Cities;
   id: string;
   songs: SongScore[];
 };
@@ -49,7 +47,6 @@ export type ShareImageRequest = {
 
 export type SongDbEntry = {
   id: string;
-  city: Cities;
   songs: SongScore[];
 };
 
@@ -83,7 +80,7 @@ export const cities: string[] = [
   "pittsburgh",
   "tampa",
   "chicago",
-]
+];
 
 export const theLows: SongScore[] = [
   {
@@ -682,7 +679,7 @@ const swish: SongScore[] = [
   { album: "Swish", year: 2016, name: "swish", id: "swish", points: 0 },
 ];
 
-export const songList = [theLows, theHighs]
+export const songList = [theLows, theHighs];
 
 export const ynkSongs = [
   ...soSick,

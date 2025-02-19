@@ -16,14 +16,14 @@ import { useState, useEffect } from "react";
 import { Drawer } from "@/components/ui/drawer"
 import { useToast } from "./ui/use-toast";
 
-export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
+export const Header = ({ center }: { center: boolean }) => {
   const [loading, setLoading] = useState<boolean>(false)
   const pathname = usePathname();
   const router = useRouter()
-  const [id, _] = useUser()
+  const id = useUser()
   const { toast } = useToast()
 
-  const submitLowsList = async (city: Cities) => {
+  const submitLowsList = async () => {
     setLoading(true)
     let songs: string[] = getTopTen([])
 
@@ -42,14 +42,13 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
     });
 
     const postList: SubmitListRequest = {
-      city,
       id,
       songs: songsToSubmit
     }
 
     try {
       await axios.post(
-        `/api/submit-list?city=${city}`,
+        `/api/submit-list`,
         postList
       );
     } catch (_) {
@@ -59,11 +58,11 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       })
     }
 
-    router.push("/playlist?city=" + city);
+    router.push("/playlist");
     setLoading(false)
   };
 
-  const submitOtherSongsList = async (city: Cities) => {
+  const submitOtherSongsList = async () => {
     setLoading(true)
     let list: string[] = getTopOtherSongs([])
     let parseSongs = list.map(s => JSON.parse(s))
@@ -71,14 +70,13 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
     let songs: SongScore[] = parseSongs.map(s => { s["points"] = 100; return s })
 
     const postList: SubmitListRequest = {
-      city,
       id,
       songs
     }
 
     try {
       await axios.post(
-        `/api/submit-list/other?city=${city}`,
+        `/api/submit-list/other`,
         postList
       );
     } catch (_) {
@@ -88,7 +86,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
       })
     }
     // city
-    router.push("/playlist/all?city=" + city);
+    router.push("/playlist/all");
     setLoading(false)
   };
 
@@ -98,7 +96,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         return (
           <Button
             className="btn bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer font-bold"
-            onClick={async () => await submitLowsList(city)} // City
+            onClick={async () => await submitLowsList()} // City
           >
             Submit
           </Button>
@@ -107,7 +105,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         return (
           <Button
             className="btn bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer font-bold"
-            onClick={async () => await submitOtherSongsList(city)} // City
+            onClick={async () => await submitOtherSongsList()} // City
           >
             Submit
           </Button>
@@ -116,7 +114,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         return (
           <div
             className="bg-black text-white font-serif py-2 px-4 rounded-none cursor-pointer font-bold"
-            onClick={async () => await submitLowsList(city)}
+            onClick={async () => await submitLowsList()}
           >
             {/* <DrawerTrigger className="w-full"> */}
             Submit
@@ -135,11 +133,11 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
                   duration: 1000
                 })
               }
-              router.push(`/list/order?city=${city}`)
+              router.push("/list/order")
             }}
           >
             {loading && <ReloadIcon className="mr-2 h-4 w-4 animate-spin" />}
-            Submit
+            Next
           </Button>
         )
       case "/playlist":
@@ -153,7 +151,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
 
   const shareStuff = {
     title: "upside down playlist",
-    text: `pick the setlist for the upside down tour${!city || city === undefined ? "" : ` in ${city}.`}.\n\n\t- mike.`,
+    text: `pick the setlist for my tour.\n\n\t- mike.`,
     url: "https://thelows.top"
   }
 
@@ -197,7 +195,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         {loading ? (
           <Button
             className="btn bg-black text-white text-center font-serif py-0 px-1 rounded-none cursor-pointer font-bold w-28"
-            onClick={async () => await submitLowsList(city)}
+            onClick={async () => await submitLowsList()}
           >
             <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> Loading
           </Button>

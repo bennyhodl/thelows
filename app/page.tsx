@@ -18,7 +18,7 @@ export default function Home() {
   useUser()
   return (
     <>
-      <Header center={false} city={"steve"} />
+      <Header center={false} />
       <div className="flex flex-col items-center justify-between h-screen md:max-w-lg m-auto pt-24">
 
         <div id="buttons" className="flex flex-col gap-4 text-center justify-center items-center">

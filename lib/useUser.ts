@@ -1,16 +1,13 @@
-import { useEffect, useState } from "react"
-import { getCity, getId } from "./localStorage"
+import { useEffect, useState } from "react";
+import { getId } from "./localStorage";
 
-export const useUser = (): [string, string] => {
-  const [id, setId] = useState<string>("")
-  const [city, setCity] = useState<string>("steve")
+export const useUser = (): string => {
+  const [id, setId] = useState<string>("");
 
   useEffect(() => {
-    const user = getId()
-    const city = getCity()
-    setId(user)
-    setCity(city)
-  }, [])
+    const user = getId();
+    setId(user);
+  }, []);
 
-  return [id, city]
-}
+  return id;
+};

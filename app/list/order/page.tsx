@@ -16,7 +16,7 @@ const reorder = (list: string[], startIndex: number, endIndex: number) => {
   return result;
 };
 
-export default function OrderList({ searchParams }: { searchParams: { city: Cities } }) {
+export default function OrderList() {
   const [songList, setSongs] = useState<string[]>([]);
 
   useEffect(() => {
@@ -45,7 +45,7 @@ export default function OrderList({ searchParams }: { searchParams: { city: Citi
 
   return (
     <div className="md:max-w-lg m-auto w-full" >
-      <Header center={false} city={searchParams.city} />
+      <Header center={false} />
       <div className="flex flex-col justify-center items-center">
         <p className="text-black text-center px-4 pb-6 font-serif font-bold text-xl pt-20">Drag your favorite songs in order to vote for mike's set list.</p>
         <DragDropContext onDragEnd={onDragEnd}>

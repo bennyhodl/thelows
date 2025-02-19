@@ -21,7 +21,6 @@ export async function POST(req: Request) {
     });
 
     let document: SongDbEntry = {
-      city: json.city,
       id: json.id,
       songs,
     };
@@ -36,7 +35,7 @@ export async function POST(req: Request) {
     } else {
       await collection.updateOne(
         { id: json.id },
-        { $set: { songs: document.songs, city: document.city } }
+        { $set: { songs: document.songs } }
       );
     }
 
