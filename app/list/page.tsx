@@ -11,12 +11,6 @@ import {
   ToggleGroupItem,
 } from "@/components/ui/toggle-group"
 import { AlbumImage } from "@/components/AlbumImage";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -31,7 +25,6 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
   }, [])
 
   const userSelect = (list: string[]) => {
-    console.log("length", list.length)
     if (list.length > 15) {
       setStop(true)
       return
@@ -95,6 +88,7 @@ export default function List({ searchParams }: { searchParams: { city: Cities } 
             )
           })}
         </ToggleGroup>
+        <Footer full={false} />
       </div >
     </Suspense>
   );

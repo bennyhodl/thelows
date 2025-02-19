@@ -1,6 +1,7 @@
 "use client";
 import Image from "next/image";
-import TheLowsImage from "@/public/images/playlist-logo-slim.png";
+import UpsideDownPlaylist from "@/public/images/playlist-logo-slim.png";
+import TheLowsImage from "@/public/images/lows-playlist-logo.jpeg";
 import { getCity, getTopOtherSongs, getTopTen } from "@/lib/localStorage";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -12,14 +13,7 @@ import Link from "next/link";
 import { Button } from "./ui/button"
 import { ReloadIcon } from "@radix-ui/react-icons"
 import { useState, useEffect } from "react";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer"
+import { Drawer } from "@/components/ui/drawer"
 import { useToast } from "./ui/use-toast";
 
 export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
@@ -55,7 +49,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
 
     try {
       await axios.post(
-        `${API_URL}/api/submit-list?city=${city}`,
+        `/api/submit-list?city=${city}`,
         postList
       );
     } catch (_) {
@@ -84,7 +78,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
 
     try {
       await axios.post(
-        `${API_URL}/api/submit-list/other?city=${city}`,
+        `/api/submit-list/other?city=${city}`,
         postList
       );
     } catch (_) {
@@ -164,7 +158,7 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
   }
 
   const ReferButton = () => {
-    const {toast} = useToast()
+    const { toast } = useToast()
     useEffect(() => {
       // This code runs only on the client side
       if (!navigator.share) {
@@ -177,10 +171,10 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
         await navigator.share(shareStuff)
       } catch (e) {
         console.log("erorr sharing: ", e)
-        return toast({description: "Your browser does not support sharable links."})
+        return toast({ description: "Your browser does not support sharable links." })
       }
     }
-    return (          
+    return (
       <Button
         className="btn bg-black hover:bg-black text-white font-serif py-0 px-4 rounded-none cursor-pointer"
         onClick={async () => showShareMenu()}
@@ -191,11 +185,14 @@ export const Header = ({ center, city }: { center: boolean, city: Cities }) => {
   }
 
   const classes = !center ? "h-14 bg-custom m-auto fixed flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-custom m-auto fixed flex justify-center w-full md:max-w-lg px-2 py-2"
+  const image = pathname === "/" ? TheLowsImage : UpsideDownPlaylist
+  const width = pathname === "/" ? 40 : 85
+  const height = pathname === "/" ? 40 : 85
   return (
     <Drawer>
       <div className={classes}>
         <Link href="/" legacyBehavior>
-          <Image src={TheLowsImage} alt="The Lows Cover Art" className="cursor-pointer" width={85} height={35} />
+          <Image src={image} alt="The Lows Cover Art" className="cursor-pointer" width={width} height={height} />
         </Link>
         {loading ? (
           <Button

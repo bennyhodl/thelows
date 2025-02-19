@@ -40,8 +40,8 @@ const getLowsLeaderboard = async (city: string): Promise<LeaderBoardResponse> =>
   if (city === undefined) {
     city = getCity()
   }
-  const response = await fetch(`${API_URL}/api/leaderboard?city=${city}`, { cache: "no-cache" })
-  const leaderboard: LeaderBoardResponse = await response.json()
+  const response = await axios.get(`/api/leaderboard?city=${city}`)
+  const leaderboard: LeaderBoardResponse = response.data
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
   return leaderboard
 }
@@ -54,6 +54,7 @@ const getVibesLeaderboard = async (city: string): Promise<LeaderBoardResponse> =
   leaderboard.songs.sort((a, b) => Number(b.points) - Number(a.points))
   return leaderboard
 }
+
 export default function Leaderboard({ searchParams }: { searchParams: { city: Cities } }) {
   const { mutate } = useSWRConfig()
   const [sub, setSub] = useState("true")
@@ -71,7 +72,7 @@ export default function Leaderboard({ searchParams }: { searchParams: { city: Ci
 
   const submitEmail = async () => {
     try {
-      await axios.post(`${API_URL}/api/email`, { id, email })
+      await axios.post("/api/email", { id, email })
     } catch (e) {
       toast({
         description: "Error sending email",
