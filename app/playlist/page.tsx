@@ -147,7 +147,7 @@ const AlbumInformation = ({ city, playlistName }: { city: string, playlistName: 
         <p className="text-lg text-gray-400">{city || "upside down tour"}</p>
       </div>
       <div className="bg-[#02c7d4] p-2 rounded-full">
-        <Link href="https://ditto.fm/the-lows" target="_blank">
+        <Link href="https://mike.set.bio/" target="_blank">
           <AudioLines className="text-white w-6 h-6 m-1" />
         </Link>
       </div>
