@@ -679,7 +679,38 @@ const swish: SongScore[] = [
   { album: "Swish", year: 2016, name: "swish", id: "swish", points: 0 },
 ];
 
-export const songList = [theLows, theHighs];
+const otherSongs: SongScore[] = [
+  {
+    album: "other",
+    year: 2024,
+    name: "i'm alright",
+    id: "im-alright",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2025,
+    name: "good as you look",
+    id: "good-as-you-look",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2021,
+    name: "i don't wanna party",
+    id: "i-dont-wanna-party",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2023,
+    name: "white dress",
+    id: "white-dress",
+    points: 0,
+  },
+];
+
+export const songList = [theLows, otherSongs, theHighs];
 
 export const ynkSongs = [
   ...soSick,

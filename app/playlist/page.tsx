@@ -169,7 +169,8 @@ const PlaylistSong = ({ song, album, points, index }: { song: string, album: str
           </div>
         </div>
       </div>
-      {album === "the lows." ? <Image src={TheLows} height={45} width={45} alt="keep going." /> : <AlbumImage album={album} width={45} height={45} />}
+      {/* {album === "the lows." ? <Image src={TheLows} height={45} width={45} alt="keep going." /> : <AlbumImage album={album} width={45} height={45} />} */}
+      <AlbumImage album={album} width={45} height={45} />
     </div>
   )
 

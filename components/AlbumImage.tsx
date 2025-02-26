@@ -27,6 +27,7 @@ import Time from "@/public/images/album/time.png"
 import Sick from "@/public/images/album/sick.png"
 import Boat from "@/public/images/album/boat.png"
 import Mary from "@/public/images/album/mary.png"
+import OtherSongs from "@/public/images/album/other-songs.png"
 
 export const AlbumImage = ({ album, width, height, paddingRight }: { album: string, width?: number, height?: number, paddingRight?: number }) => {
   switch (album) {
@@ -82,6 +83,8 @@ export const AlbumImage = ({ album, width, height, paddingRight }: { album: stri
       return <Image src={Smiley} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} className={`pr-${paddingRight}`} />
     case "Swish":
       return <Image src={Swish} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} className={`pr-${paddingRight}`} />
+    case "other":
+      return <Image src={OtherSongs} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} className={`pr-${paddingRight}`} />
     default:
       return <Image src={TheLows} alt="The Lows" width={width ?? 75} height={height ?? width ?? 75} />
   }

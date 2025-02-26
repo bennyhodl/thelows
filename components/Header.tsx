@@ -182,7 +182,7 @@ export const Header = ({ center }: { center: boolean }) => {
     )
   }
 
-  const classes = !center ? "h-14 bg-custom m-auto fixed flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-custom m-auto fixed flex justify-center w-full md:max-w-lg px-2 py-2"
+  const classes = !center ? "h-14 bg-white m-auto fixed flex flex-row justify-between items-center w-full md:max-w-lg px-2 py-2" : "h-14 bg-white m-auto fixed flex justify-center w-full md:max-w-lg px-2 py-2"
   const image = pathname === "/" ? TheLowsImage : UpsideDownPlaylist
   const width = pathname === "/" ? 40 : 85
   const height = pathname === "/" ? 40 : 85
