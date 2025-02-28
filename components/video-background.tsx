@@ -51,7 +51,7 @@ export function VideoBackground() {
         className="h-full w-full object-cover"
       >
         <source
-          src="https://lyric-generator-bucket.s3.us-east-2.amazonaws.com/concert-2.mp4"
+          src="https://d2nbuqgwljd9yg.cloudfront.net/concert-2.mp4"
           type="video/mp4"
         />
       </video>
