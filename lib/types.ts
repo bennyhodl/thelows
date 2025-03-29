@@ -682,6 +682,20 @@ const swish: SongScore[] = [
 const otherSongs: SongScore[] = [
   {
     album: "other",
+    year: 2025,
+    name: "who's countin",
+    id: "whos-countin",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2025,
+    name: "Central Park",
+    id: "central-park",
+    points: 0,
+  },
+  {
+    album: "other",
     year: 2024,
     name: "i'm alright",
     id: "im-alright",
