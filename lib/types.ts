@@ -682,6 +682,48 @@ const swish: SongScore[] = [
 const otherSongs: SongScore[] = [
   {
     album: "other",
+    year: 2024,
+    name: "everything but sorry (steve mix)",
+    id: "everything-but-sorry-steve-mix",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2020,
+    name: "little more time",
+    id: "little-more-time",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2023,
+    name: "white dress",
+    id: "white-dress",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2019,
+    name: "white flag",
+    id: "white-flag",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2021,
+    name: "in & out",
+    id: "in-and-out",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2025,
+    name: "life's like that",
+    id: "lifes-like-that",
+    points: 0,
+  },
+  {
+    album: "other",
     year: 2025,
     name: "who's countin",
     id: "whos-countin",
