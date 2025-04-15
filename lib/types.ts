@@ -757,13 +757,6 @@ const otherSongs: SongScore[] = [
     id: "i-dont-wanna-party",
     points: 0,
   },
-  {
-    album: "other",
-    year: 2023,
-    name: "white dress",
-    id: "white-dress",
-    points: 0,
-  },
 ];
 
 export const songList = [theLows, otherSongs, theHighs];
