@@ -682,6 +682,20 @@ const swish: SongScore[] = [
 const otherSongs: SongScore[] = [
   {
     album: "other",
+    year: 2022,
+    name: "commas",
+    id: "commas",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2019,
+    name: "frio",
+    id: "frio",
+    points: 0,
+  },
+  {
+    album: "other",
     year: 2024,
     name: "everything but sorry (steve mix)",
     id: "everything-but-sorry-steve-mix",
