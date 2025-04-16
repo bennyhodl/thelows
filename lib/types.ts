@@ -682,6 +682,20 @@ const swish: SongScore[] = [
 const otherSongs: SongScore[] = [
   {
     album: "other",
+    year: 2023,
+    name: "around you",
+    id: "around-you",
+    points: 0,
+  },
+  {
+    album: "other",
+    year: 2024,
+    name: "gretzky (adam yokum)",
+    id: "gretzky",
+    points: 0,
+  },
+  {
+    album: "other",
     year: 2022,
     name: "commas",
     id: "commas",
